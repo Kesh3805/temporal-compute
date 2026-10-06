@@ -24,6 +24,8 @@ Classify substantive findings as valid must-fix, worthwhile improvement, out of 
 
 Fix all justified in-scope findings as one coherent batch, validate, commit with a behavior-focused message, push once, then wait for CI and incremental review again. Prior approval does not cover new commits. Maximum **three substantive automated remediation rounds**; waiting/status refreshes/replies are not rounds. If findings persist, stop automated patching and report remaining issues, suspected root cause and required human decision. Avoid review-driven scope creep.
 
+After the limit, further code changes require explicit maintainer authorization naming the permitted scope. A scoped continuation does not reset the automatic round counter or authorize unrelated cleanup.
+
 Poll at 30–60 seconds with bounded retries. Investigate unavailable review before one appropriate manual `@coderabbitai review`; do not spam. Request `@coderabbitai full review` only when incremental coverage is fragmented or no longer represents the final diff. Pause/resume only for a justified large fix batch, never to evade review. Never report readiness while paused.
 
 CI and review are independent gates. Report MERGE READY only with local validation, final CI success, completed current-head CodeRabbit review, all valid findings/human requested changes handled, no correctness blockers, preserved research provenance, inspected final diff and a clean tree. Otherwise report the exact blocker. Never automatically merge; only explicit user authorization permits merging. Keep the PR description and validation/research impact accurate after fixes.

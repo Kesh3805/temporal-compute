@@ -83,6 +83,38 @@ class StatusTests(unittest.TestCase):
         data['reviews'][0]['state']='CHANGES_REQUESTED'
         self.assertFalse(self.result(data)['merge_ready'])
 
+    def test_review_state_must_be_eligible_before_evidence_counts(self):
+        for state in ('DISMISSED', 'PENDING', 'NEW_STATE', None):
+            for evidence in ('body', 'inline'):
+                with self.subTest(state=state,evidence=evidence):
+                    data=fixture()
+                    review=data['reviews'][0]
+                    if state is None:
+                        review.pop('state')
+                    else:
+                        review['state']=state
+                    review['body']='Review summary' if evidence=='body' else ''
+                    if evidence=='inline':
+                        data['inline_comments']=[{'pull_request_review_id':review['id']}]
+                    result=self.result(data)
+                    self.assertEqual(result['coderabbit'],'unverified')
+                    self.assertFalse(result['merge_ready'])
+
+    def test_eligible_review_states_with_required_evidence(self):
+        for state, body, comments, substantive, blocked in (
+                ('COMMENTED','Summary',[],True,False),
+                ('COMMENTED','',[{'pull_request_review_id':1}],True,False),
+                ('COMMENTED','',[{'pull_request_review_id':1,'in_reply_to_id':2}],False,False),
+                ('APPROVED','',[],True,False),
+                ('CHANGES_REQUESTED','',[],True,True)):
+            with self.subTest(state=state,body=body,comments=comments):
+                data=fixture()
+                data['reviews'][0].update(state=state,body=body)
+                data['inline_comments']=comments
+                result=self.result(data)
+                self.assertEqual(result['coderabbit'],'complete' if substantive else 'unverified')
+                self.assertEqual(result['merge_ready'],substantive and not blocked)
+
     def test_legacy_context_must_be_discovered(self):
         data=fixture()
         data['checks'].pop()

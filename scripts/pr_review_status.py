@@ -97,6 +97,8 @@ def author_login(item):
 
 def substantive_review(review, inline_comments):
     """Thread replies can create empty COMMENTED reviews without reviewing code."""
+    if review.get('state') not in ('COMMENTED', 'APPROVED', 'CHANGES_REQUESTED'):
+        return False
     return (review['state'] in ('APPROVED', 'CHANGES_REQUESTED')
             or bool((review.get('body') or '').strip())
             or any(c.get('pull_request_review_id') == review['id']
@@ -123,7 +125,7 @@ def summarize(data, config, local_sha=None, addressed_sha=None):
         ci_state = 'missing'
     rabbit_state = gate(rabbit)
     current_reviews = [r for r in data['reviews'] if author_login(r) == BOT
-                       and r.get('commit_id') == head and r['state'] != 'PENDING'
+                       and r.get('commit_id') == head
                        and substantive_review(r, data['inline_comments'])]
     if rabbit_state == 'success':
         rabbit_state = 'complete' if current_reviews else 'unverified'
@@ -137,7 +139,7 @@ def summarize(data, config, local_sha=None, addressed_sha=None):
             rabbit_state = 'skipped'
     latest_human = {}
     for r in sorted(data['reviews'], key=lambda r:r['id']):
-        if author_login(r) != BOT and r['state'] in ('APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'):
+        if author_login(r) != BOT and r.get('state') in ('APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'):
             # Deleted accounts cannot be linked reliably; retain their requests.
             latest_human[author_login(r) or f'deleted-review-{r["id"]}'] = r
     requested = [r for r in latest_human.values() if r['state'] == 'CHANGES_REQUESTED']
