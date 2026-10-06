@@ -34,6 +34,12 @@ Report complete comparisons for every declared policy. Changes to event schema o
 
 The PR template asks for a problem/change, validation and research impact. Use only the detail the change needs; “documentation only; no result or methodology changes” is enough when accurate.
 
+## Agentic PR review lifecycle
+
+Branch first, implement, validate locally and self-review, then open a PR using the template. Wait for CI and CodeRabbit, read all automated and human feedback, independently verify findings, fix justified issues in one coherent revision and wait for incremental review again. Complete final validation before reporting merge readiness; maintainers merge. See [the review procedure](docs/pr-review-protocol.md) and the authoritative agent instructions in [AGENTS.md](AGENTS.md).
+
+CodeRabbit is mandatory review assistance, not automatically correct. It does not replace CI or the research protocol, authorize weaker validation, or merge code. Missing/skipped/failed review blocks readiness. Automated remediation stops after three substantive fix rounds for human escalation. The read-only helper `python scripts/pr_review_status.py --pr N --wait` provides bounded review snapshots; its feedback includes human and summary comments for manual assessment.
+
 ## Commits and research artifacts
 
 Commit `Cargo.lock`. Keep local generated files under ignored `results/local/`; commit only small canonical research artifacts with source provenance. Use concise problem/behavior-focused commit messages. Contributions are accepted under MIT OR Apache-2.0.
