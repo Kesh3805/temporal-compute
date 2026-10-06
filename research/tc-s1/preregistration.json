@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "generator_version": "tc-s1-v1",
+  "baseline_commit": "9166a6630db64b17dda84552c14fa752cbdc72ac",
+  "hypothesis": "Across the frozen 200-instance Earth-observation corpus, Temporal Utility will achieve at least 5% more total realized mission utility than the strongest preregistered conventional baseline, with positive paired gains across multiple mission mixes and load regimes, without a material reduction in critical-task success.",
+  "master_seed": 20261006,
+  "analysis_seed": 734921,
+  "prng": "SplitMix64; SHA-256-derived 64-bit instance seeds; multiply-high bounded latent draws",
+  "scenario_count": 200,
+  "instances_per_cell": 10,
+  "tasks_per_instance": 48,
+  "primary_scheduler": "temporal-utility",
+  "secondary_scheduler": "temporal-utility-density",
+  "schedulers": ["fifo", "fixed-priority", "edf", "edf-priority", "temporal-utility", "temporal-utility-density"],
+  "baselines": ["fifo", "fixed-priority", "edf", "edf-priority"],
+  "primary_metric": "corpus_total_realized_mission_utility",
+  "classes": {
+    "CLOUD_SCREEN": {"cost_s": [1,3], "base": [8,20], "deadline_s": [30,90], "fresh_s": [20,60], "priority": 1, "curve": "linear", "critical": false, "provenance": "D"},
+    "WILDFIRE_ALERT": {"cost_s": [8,24], "base": [100,160], "deadline_s": [60,120], "fresh_s": [45,90], "priority": 5, "curve": "exponential", "interval_s": [10,20], "retention_ppm": [850000,950000], "critical": true, "provenance": "D"},
+    "VESSEL_DETECTION": {"cost_s": [4,12], "base": [40,80], "deadline_s": [120,240], "fresh_s": [90,180], "priority": 2, "curve": "step", "step1_s": [30,60], "step2_s": [90,120], "step_values_ppm": [700000,200000], "critical": false, "provenance": "D"},
+    "MARINE_ANOMALY": {"cost_s": [6,18], "base": [60,100], "deadline_s": [240,480], "fresh_s": [180,360], "priority": 3, "curve": "exponential", "interval_s": [30,60], "retention_ppm": [950000,990000], "critical": false, "provenance": "D"},
+    "IMAGE_COMPRESSION": {"cost_s": [8,24], "base": [20,50], "deadline_s": [600,900], "fresh_s": [600,1200], "priority": 0, "curve": "constant", "critical": false, "provenance": "D"},
+    "DISASTER_MAPPING": {"cost_s": [16,40], "base": [100,160], "deadline_s": [300,600], "fresh_s": [240,600], "priority": 4, "curve": "linear", "critical": true, "provenance": "D"}
+  },
+  "class_order": ["CLOUD_SCREEN", "WILDFIRE_ALERT", "VESSEL_DETECTION", "MARINE_ANOMALY", "IMAGE_COMPRESSION", "DISASTER_MAPPING"],
+  "mission_mixes": {
+    "routine": [20,5,15,10,35,15],
+    "emergency-heavy": [10,35,5,5,10,35],
+    "cloud-heavy": [55,5,10,5,20,5],
+    "maritime-heavy": [10,5,40,30,10,5],
+    "mixed": [20,15,15,15,20,15]
+  },
+  "load_regimes": {"underloaded": [35,100], "moderate": [80,100], "overloaded": [125,100], "severe": [200,100]},
+  "generation": {"latent_draws_per_task": 10, "arrival_unit": "integer seconds", "acquisition_horizon": "ceil(sum(base costs)/nominal load)", "parameter_provenance": "D", "ordering": "manifest insertion order: mix, load, replicate 0..9"},
+  "sensitivity": {
+    "cost-minus20": {"axis": "cost", "percent": 80}, "cost-plus20": {"axis": "cost", "percent": 120},
+    "age-minus20": {"axis": "age", "percent": 80}, "age-plus20": {"axis": "age", "percent": 120},
+    "emergency-value-minus20": {"axis": "emergency-value", "percent": 80}, "emergency-value-plus20": {"axis": "emergency-value", "percent": 120},
+    "intensity-minus20": {"axis": "intensity", "percent": 80}, "intensity-plus20": {"axis": "intensity", "percent": 120},
+    "cloud-weight-minus20": {"axis": "cloud-weight", "percent": 80}, "cloud-weight-plus20": {"axis": "cloud-weight", "percent": 120},
+    "event-weight-minus20": {"axis": "event-weight", "percent": 80}, "event-weight-plus20": {"axis": "event-weight", "percent": 120}
+  },
+  "analysis": {"bootstrap_resamples": 10000, "bootstrap": "paired stratified percentile; resample 10 instances within each of 20 fixed cells; common resamples for all baselines", "confidence": 0.95, "quantiles": [0.1,0.25,0.5,0.75,0.9], "quantile_method": "linear interpolation at (n-1)*p", "tie": "exact integer utility equality", "critical_success_base_fraction": [1,2]},
+  "gates": {"aggregate_gain_min": 0.05, "all_baseline_ci_lower_positive": true, "median_normalized_paired_delta_min": 0.005, "load_gain_min": 0.02, "pressured_loads_required": 2, "mix_gain_min": 0.02, "mixes_required": 3, "sensitivity_nonnegative_required": 12, "sensitivity_gain_min": 0.02, "sensitivity_gain_required": 10, "critical_rate_loss_max": 0.02, "critical_tail_loss_max": 0.10, "critical_tail_fraction_required": 0.90},
+  "controls": ["constant-value", "underload-equivalence", "long-urgent", "density-starvation", "absolute-starvation", "deadline-dominant", "priority-dominant"],
+  "oracle": {"instances": 40, "replicates": [0,1], "tasks": 9, "selection": "seeded shuffle of each selected primary scenario; first 9 indices; scale acquisition arrival horizon to preserve nominal load; preserve relative age budgets", "algorithm": "exact subset DP with Pareto time/utility frontiers; skipping and clairvoyant idling allowed", "full_corpus": false},
+  "post_freeze": "No changes to primary corpus, parameter distributions, policies, seeds, outcome, gates or analysis. Errors require public errata; never silently replace the primary experiment."
+}

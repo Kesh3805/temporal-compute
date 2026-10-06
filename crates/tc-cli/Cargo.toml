@@ -18,6 +18,13 @@ serde_json.workspace = true
 clap.workspace = true
 anyhow.workspace = true
 
+[dev-dependencies]
+tc-core.workspace = true
+
+[[example]]
+name = "tc_s1_batch"
+test = true
+
 [[bin]]
 name = "tc"
 path = "src/main.rs"

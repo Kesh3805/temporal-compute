@@ -61,6 +61,8 @@ Crates have separate responsibilities, not service boundaries. There is no async
 
 ## Research status
 
+TC-S1's frozen Earth-observation workload gate **failed**: absolute Temporal Utility earned 524,509 points versus EDF's 552,525 (-5.07%); all five preregistered gates failed. Density also fell short of EDF. The source-grounded corpus uses explicitly assumed numerical values, not mission telemetry. The next decision is to substantially rethink the incremental-benefit thesis before contact-aware implementation. See the [full TC-S1 report](docs/tc-s1/results.md), [preregistration](docs/tc-s1/preregistration.md), [evidence dossier](docs/tc-s1/evidence.md) and [reproducible artifacts](results/tc-s1/README.md).
+
 TC-0 tests whether explicit completion-time utility improves mission utility under compute pressure. It compares two fixed, named greedy policies with identical baselines and workload semantics. Fixtures include overload, equal-deadline decay, freshness, a mixed workload, an EDF-favorable control, an equivalent-policy control and a density failure control. These are executable semantic experiments, not a representative mission dataset or a statistical demonstration.
 
 Read the [thesis](docs/thesis.md), [methodology and kill criteria](docs/research-methodology.md), [metric definitions](docs/metrics.md) and [roadmap](docs/roadmap.md). Benchmark outcomes are reported in `results/README.md`; scenarios are not retuned to improve temporal-policy results.

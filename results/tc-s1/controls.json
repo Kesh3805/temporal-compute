@@ -1,0 +1,3376 @@
+{
+  "constant-value": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 45916666.666666664,
+        "average_result_age_us": 45916666.666666664,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 87000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 45916666.666666664,
+        "average_result_age_us": 45916666.666666664,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 87000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 45916666.666666664,
+        "average_result_age_us": 45916666.666666664,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 87000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 45916666.666666664,
+        "average_result_age_us": 45916666.666666664,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 87000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 48208333.333333336,
+        "average_result_age_us": 48208333.333333336,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 88000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 0,
+        "deadline_hits": 0,
+        "deadline_hit_rate": null,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 34000000.0,
+        "average_result_age_us": 34000000.0,
+        "simulation_end_us": 90000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 83000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    }
+  },
+  "underload-equivalence": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 24,
+        "tasks_completed": 24,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 24,
+        "deadline_hits": 24,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 351,
+        "maximum_task_utility_sum": 351,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 90000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 3750000.0,
+        "average_result_age_us": 3750000.0,
+        "simulation_end_us": 463000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 24,
+          "completed": 24,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 351,
+          "utility": 351,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    }
+  },
+  "long-urgent": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 130,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 9000000.0,
+        "average_result_age_us": 9000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 8000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 130,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 9000000.0,
+        "average_result_age_us": 9000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 8000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 130,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 9000000.0,
+        "average_result_age_us": 9000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 8000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 130,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 9000000.0,
+        "average_result_age_us": 9000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 8000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 130,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 9000000.0,
+        "average_result_age_us": 9000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 8000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 1,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 30,
+        "maximum_task_utility_sum": 130,
+        "normalized_utility": 0.23076923076923078,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 8000000,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 30,
+          "utility": 30,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 1,
+          "base_utility": 100,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 2000000
+        }
+      }
+    }
+  },
+  "density-starvation": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 21,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 300,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 30000000.0,
+        "average_result_age_us": 30000000.0,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 39000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 21,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 300,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 30000000.0,
+        "average_result_age_us": 30000000.0,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 39000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 21,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 300,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 30000000.0,
+        "average_result_age_us": 30000000.0,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 39000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 21,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 300,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 30000000.0,
+        "average_result_age_us": 30000000.0,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 39000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 21,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 300,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 30000000.0,
+        "average_result_age_us": 30000000.0,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 39000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 21,
+        "tasks_completed": 21,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 21,
+        "deadline_hits": 20,
+        "deadline_hit_rate": 0.9523809523809523,
+        "total_utility": 200,
+        "maximum_task_utility_sum": 300,
+        "normalized_utility": 0.6666666666666666,
+        "compute_time_used_us": 40000000,
+        "compute_time_wasted_us": 20000000,
+        "average_completion_latency_us": 11904761.904761905,
+        "average_result_age_us": 11904761.904761905,
+        "simulation_end_us": 40000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 20,
+          "completed": 20,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 200,
+          "utility": 200,
+          "critical_successes": 0,
+          "max_waiting_us": 19000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 1,
+          "base_utility": 100,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 20000000
+        }
+      }
+    }
+  },
+  "absolute-starvation": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 9,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 9,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 870,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 81000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 41000000.0,
+        "average_result_age_us": 41000000.0,
+        "simulation_end_us": 81000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 70,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 71000000
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 9,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 9,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 870,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 81000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 41000000.0,
+        "average_result_age_us": 41000000.0,
+        "simulation_end_us": 81000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 70,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 71000000
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 9,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 9,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 870,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 81000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 41000000.0,
+        "average_result_age_us": 41000000.0,
+        "simulation_end_us": 81000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 70,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 71000000
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 9,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 9,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 870,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 81000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 41000000.0,
+        "average_result_age_us": 41000000.0,
+        "simulation_end_us": 81000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 70,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 71000000
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 8,
+        "tasks_expired": 1,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 8,
+        "deadline_hit_rate": 0.8888888888888888,
+        "total_utility": 800,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 0.9195402298850575,
+        "compute_time_used_us": 80000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 45000000.0,
+        "average_result_age_us": 45000000.0,
+        "simulation_end_us": 80000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 0,
+          "expired_unstarted": 1,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 10000001
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 70000000
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 9,
+        "tasks_completed": 9,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 9,
+        "deadline_hits": 9,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 870,
+        "maximum_task_utility_sum": 870,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 81000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 41000000.0,
+        "average_result_age_us": 41000000.0,
+        "simulation_end_us": 81000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 70,
+          "utility": 70,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 8,
+          "completed": 8,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 800,
+          "utility": 800,
+          "critical_successes": 8,
+          "max_waiting_us": 71000000
+        }
+      }
+    }
+  },
+  "deadline-dominant": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 1,
+        "tasks_expired": 1,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 1,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 100,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 0.625,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 6000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 0,
+          "expired_unstarted": 1,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 4000001
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 160,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7000000.0,
+        "average_result_age_us": 7000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 60,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 160,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7000000.0,
+        "average_result_age_us": 7000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 60,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 160,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 10000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7000000.0,
+        "average_result_age_us": 7000000.0,
+        "simulation_end_us": 10000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 60,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 1,
+        "tasks_expired": 1,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 1,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 100,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 0.625,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 6000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 0,
+          "expired_unstarted": 1,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 4000001
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 1,
+        "tasks_expired": 1,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 1,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 100,
+        "maximum_task_utility_sum": 160,
+        "normalized_utility": 0.625,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 6000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 0,
+          "expired_unstarted": 1,
+          "zero_utility_completions": 0,
+          "base_utility": 60,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 4000001
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    }
+  },
+  "priority-dominant": {
+    "fifo": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 1,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 80,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 0.4444444444444444,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 4000000,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 1,
+          "base_utility": 100,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "fixed-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 180,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 180,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "edf-priority": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 180,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 180,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    },
+    "temporal-utility-density": {
+      "metrics": {
+        "tasks_total": 2,
+        "tasks_completed": 2,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 2,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 180,
+        "maximum_task_utility_sum": 180,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 8000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 8000000
+      },
+      "classes": {
+        "CLOUD_SCREEN": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "WILDFIRE_ALERT": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 100,
+          "utility": 100,
+          "critical_successes": 1,
+          "max_waiting_us": 0
+        },
+        "VESSEL_DETECTION": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "MARINE_ANOMALY": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        },
+        "IMAGE_COMPRESSION": {
+          "tasks": 1,
+          "completed": 1,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 80,
+          "utility": 80,
+          "critical_successes": 0,
+          "max_waiting_us": 4000000
+        },
+        "DISASTER_MAPPING": {
+          "tasks": 0,
+          "completed": 0,
+          "expired_unstarted": 0,
+          "zero_utility_completions": 0,
+          "base_utility": 0,
+          "utility": 0,
+          "critical_successes": 0,
+          "max_waiting_us": 0
+        }
+      }
+    }
+  }
+}
