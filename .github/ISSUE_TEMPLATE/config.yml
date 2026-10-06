@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Research questions and ideas
+    url: https://github.com/Kesh3805/temporal-compute/discussions
+    about: Discuss methodology, scheduling ideas and result interpretation before they become concrete work.
+  - name: Confidential security report
+    url: https://github.com/Kesh3805/temporal-compute/security/advisories/new
+    about: Report vulnerabilities privately; ordinary correctness and replay problems belong in issues.

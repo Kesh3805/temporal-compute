@@ -65,6 +65,12 @@ TC-0 tests whether explicit completion-time utility improves mission utility und
 
 Read the [thesis](docs/thesis.md), [methodology and kill criteria](docs/research-methodology.md), [metric definitions](docs/metrics.md) and [roadmap](docs/roadmap.md). Benchmark outcomes are reported in `results/README.md`; scenarios are not retuned to improve temporal-policy results.
 
+## Collaborating on the research
+
+Use [Discussions](https://github.com/Kesh3805/temporal-compute/discussions) for questions, scheduling ideas, methodology and interpretation. Use [Issues](https://github.com/Kesh3805/temporal-compute/issues/new/choose) for reproducible problems and concrete work; the experiment form captures a hypothesis, baselines and validation plan. Use [Pull Requests](https://github.com/Kesh3805/temporal-compute/pulls) for proposed code, scenario, metric, methodology or documentation changes.
+
+Read [contributing](CONTRIBUTING.md) for validation and research review, and the [collaboration guide](docs/github-collaboration.md) for triage, Discussions and lightweight planning. Report confidential vulnerabilities through [private security reporting](https://github.com/Kesh3805/temporal-compute/security/advisories/new); see [security guidance](SECURITY.md).
+
 ## Engineering checks
 
 ```sh

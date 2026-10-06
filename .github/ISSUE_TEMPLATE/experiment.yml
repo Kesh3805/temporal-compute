@@ -2,13 +2,31 @@ name: Research experiment
 description: Propose a falsifiable scheduling experiment
 labels: [research, experiment]
 body:
+  - type: markdown
+    attributes:
+      value: "Use this for a concrete experiment. Explore early ideas or interpretation in [Discussions](https://github.com/Kesh3805/temporal-compute/discussions). Keep assumptions separate from measured mission facts."
   - type: textarea
+    id: hypothesis
     attributes:
       label: Hypothesis and falsification criteria
+      description: What question will this test? Name the primary policy/outcome and a result that would reject the claim, including conventional-policy wins or ties.
     validations:
       required: true
   - type: textarea
+    id: design
     attributes:
       label: Workload, baselines and measurements
+      description: Describe the experimental change, independent workload rationale, assumptions/sources, expected effect, all compared policies and useful failure/equivalence controls. Link an existing scenario or experiment if applicable.
     validations:
       required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Freeze and validation plan
+      description: What must be recorded before outcomes? State seeds/hash or provenance plans, replay checks and whether this changes existing scenarios, metrics, methodology or canonical results. Do not retune inputs after observing losses.
+    validations:
+      required: true
+  - type: input
+    id: discussion
+    attributes:
+      label: Related discussion or issue (optional)
