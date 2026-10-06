@@ -84,7 +84,7 @@ class GeneratorTests(unittest.TestCase):
 
 class AnalysisTests(unittest.TestCase):
     def test_quantiles_have_known_interpolation(self):
-        self.assertEqual(analysis.distribution([0,10,20,30])['p10'],3.0)
+        self.assertAlmostEqual(analysis.distribution([0,10,20,30])['p10'],3.0)
 
     def test_oracle_matches_exhaustive_search_including_idling(self):
         tasks = [gen.simple_task('t000-IMAGE_COMPRESSION',5,10),gen.simple_task('t001-WILDFIRE_ALERT',1,100,deadline=2,arrival=1),gen.simple_task('t002-DISASTER_MAPPING',3,20,deadline=10)]

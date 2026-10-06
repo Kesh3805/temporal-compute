@@ -1,3 +1,4 @@
 /target/
 /results/local/
 *.tmp
+__pycache__/
