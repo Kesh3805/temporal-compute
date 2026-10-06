@@ -1,0 +1,12 @@
+{
+  "upstream_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "source_sha256": "c5f7c8dafb4dc44cac78ab969e34217c13358a5cea6a6d2052581d68c7bc762e",
+  "instrumented_sha256": "b6aa852f92413596eef4b4271869577f4878432b8e0aa81e82eb341579c9f466",
+  "modified_path": "src/pbrt/cpu/integrators.cpp",
+  "scope": "CPU pinhole path with RGB Film ToOutputRGB, no participating media",
+  "accumulation_limitation": "Nonzero sample-begin images use stock film metadata/normalization; only sample records are valid for these batch fixtures.",
+  "binary_sha256": "3ba491a322ab3791701259a3e1b884dca8d5d0b64f1ff4420807e4aabc73d983",
+  "build_flags": "Release; Ninja; CPU; GLFW_BUILD_WAYLAND=OFF; parallel=2",
+  "dependency_revisions": " 101e1ba89dc41ceb75090831da97c43a76cd2906 src/ext/double-conversion (v1.1-253-g101e1ba)\n c5f9de30142453eb3c6fe991e82dfc2583373116 src/ext/filesystem (heads/master)\n 7b6aead9fb88b3623e3b3725ebb42670cbe4c579 src/ext/glfw (3.4)\n 1fd0bea6ca2073c68493632dafc4b1ddda1bcbc3 src/ext/libdeflate (v1.6-95-g1fd0bea)\n 8c6a9e30576f07bf470ad6f09458a2dcd7a6a84a src/ext/lodepng (8c6a9e3)\n f723c3940fff287c0a26b425b90a8e764823bfd4 src/ext/openexr (v3.3.1)\n 414bed84c2fc22e188eac7b611aa85c7edd7a5a9 src/ext/openvdb (v4.0.0-2961-g414bed84)\n 054047d02b9e06e690420b407114d2872435b953 src/ext/ptex (v2.4.3-2-g054047d)\n 028c75fd26e5e0758c7c711216c00404994c1ad3 src/ext/qoi (remotes/origin/experimental-166-g028c75f)\n af1a5bc352164740c1cc1354942b1c6b72eacb8a src/ext/stb (af1a5bc)\n d7bf128df773c2a1a7242eb80e51e91a769fc985 src/ext/utf8proc (v1.1.6-358-gd7bf128)\n 5a82f71ed1dfc0bec044d9702463dbdf84ea3b71 src/ext/zlib (v1.3.1-201-g5a82f71)\n",
+  "toolchain": "cmake version 3.31.6\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\nc++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+}

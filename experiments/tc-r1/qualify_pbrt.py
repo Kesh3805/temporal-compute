@@ -115,7 +115,10 @@ def main():
             counters={}
             for label in ('Camera rays traced','Regular ray intersection tests','Shadow ray intersection tests'):
                 match=re.search(re.escape(label)+r'\s+(\d[\d,]*)',stats)
-                counters[label]=int(match.group(1).replace(',','')) if match else None
+                # PBRT omits zero-valued STAT_COUNTER entries entirely.
+                if 'Statistics:' not in stats:
+                    raise ValueError('native statistics missing')
+                counters[label]=int(match.group(1).replace(',','')) if match else 0
             native_stats.append(counters)
         cps=1048576/statistics.median(elapsed)
         total=native_stats[1]['Regular ray intersection tests']

@@ -1,0 +1,16 @@
+{
+  "renderer": "Mitsuba",
+  "package_version": "3.9.1",
+  "upstream_release_commit": "478e193a183c21723f4a8251afc3ad29a8da4c5e",
+  "binary_provenance": "pip release wheel; upstream release mapping, not independently rebuilt source",
+  "variant": "cuda_ad_rgb",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "drjit_version": "1.5.0",
+  "license": "BSD-3-Clause",
+  "fixtures": {},
+  "complete_ray_accounting": false,
+  "accounting_limitation": "native path integrator has no exposed complete per-action ray counter",
+  "scope": "unrelated 64x64 synthetic infrastructure; no registered assets or policies",
+  "status": "UNAVAILABLE",
+  "reason": "jit_init_thread_state(): the CUDA backend hasn't been initialized. Make sure to call jit_init(JitBackend::CUDA) to properly initialize this backend."
+}
