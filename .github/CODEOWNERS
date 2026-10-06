@@ -1,0 +1,3 @@
+# Repository-wide review routing to the verified repository owner.
+# This does not claim separate crate maintainers or require approval by itself.
+* @Kesh3805

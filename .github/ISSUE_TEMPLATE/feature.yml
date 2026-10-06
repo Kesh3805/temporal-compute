@@ -1,0 +1,26 @@
+name: Concrete feature proposal
+description: Describe a current problem and a scoped implementation change
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "Explore speculative scheduling or architecture ideas in [Discussions](https://github.com/Kesh3805/temporal-compute/discussions). New execution mechanisms need evidence; the roadmap is not an implementation commitment."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Concrete problem
+      description: What existing task, command, scenario or contributor workflow is blocked? Link relevant evidence or a validated discussion if available.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change and expected behavior. Mention a simpler alternative if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation and research impact (optional)
+      description: How could we verify it? Note any effect on single-CPU semantics, scenarios, metrics, reproducibility or interpretation.

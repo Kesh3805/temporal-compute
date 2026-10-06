@@ -1,15 +1,39 @@
-name: Correctness issue
-description: Report a runtime, trace or metric discrepancy
+name: Bug or reproducibility problem
+description: Report simulator, scenario, metric, replay or CLI discrepancies
 labels: [correctness]
 body:
+  - type: markdown
+    attributes:
+      value: "For research questions or result interpretation, use [Discussions](https://github.com/Kesh3805/temporal-compute/discussions). Report confidential security vulnerabilities through [private reporting](https://github.com/Kesh3805/temporal-compute/security/advisories/new)."
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Where is the discrepancy?
+      options:
+        - Simulator behavior
+        - Scenario definition or interpretation
+        - Metric or trace accounting
+        - Reproducibility or build
+        - CLI or report output
+        - Unsure
+    validations:
+      required: true
   - type: textarea
+    id: reproduction
     attributes:
       label: Reproduction
-      description: Include commit, toolchain, scenario, scheduler, seed and command.
+      description: Include commit, OS/toolchain, exact command, scheduler/seed and a minimal scenario or existing scenario path. For replay problems, identify the artifact being compared.
     validations:
       required: true
   - type: textarea
+    id: behavior
     attributes:
       label: Expected and observed behavior
+      description: Explain the expected behavior using the documented semantics where possible. Include the actual error or mismatching metric/event; a policy losing utility is not itself a bug.
     validations:
       required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence (optional)
+      description: Relevant event lines, report fields or a small result diff. Remove confidential data; avoid pasting an entire large trace.
