@@ -1,0 +1,18 @@
+[package]
+name = "tc-sim"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+tc-core.workspace = true
+tc-ir.workspace = true
+tc-scheduler.workspace = true
+tc-trace.workspace = true
+tc-metrics.workspace = true
+serde.workspace = true
+thiserror.workspace = true

@@ -1,0 +1,30 @@
+[workspace]
+members = ["crates/*"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1"
+thiserror = "2"
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+tc-core = { path = "crates/tc-core" }
+tc-ir = { path = "crates/tc-ir" }
+tc-scheduler = { path = "crates/tc-scheduler" }
+tc-trace = { path = "crates/tc-trace" }
+tc-metrics = { path = "crates/tc-metrics" }
+tc-sim = { path = "crates/tc-sim" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+
