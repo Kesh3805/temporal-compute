@@ -1,6 +1,6 @@
 {
   "coderabbit_status_contexts": ["CodeRabbit"],
   "discovery_evidence": "PR #11 head 68743dfbee8f7661b903e83bf519d4fa2b30b5bb: GitHub commit status context CodeRabbit, accompanied by coderabbitai[bot] review-in-progress comment. Legacy status creator/target_url are null. Reverify before requiring in branch protection.",
-  "required_checks": ["validate (ubuntu-latest)", "validate (windows-latest)"],
+  "required_checks": ["validate (ubuntu-latest)", "validate (windows-latest)", "tests (ubuntu-latest)", "tests (windows-latest)"],
   "branch_protection_modified": false
 }
