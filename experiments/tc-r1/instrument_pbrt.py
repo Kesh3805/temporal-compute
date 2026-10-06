@@ -36,8 +36,9 @@ def instrument(root):
     replace('int64_t(spp) * pixelBounds.Area()', 'int64_t(spp - qualificationBegin) * pixelBounds.Area()')
     replace('int waveStart = 0, waveEnd = 1, nextWaveSize = 1;',
             'int waveStart = qualificationBegin, waveEnd = qualificationBegin + 1, nextWaveSize = 1;')
-    replace('// Sample wavelengths for the ray\n    Float lu',
-            'const int64_t qCamera = nCameraRays, qRegular = nIntersectionTests, qShadow = nShadowTests;\n    // Sample wavelengths for the ray\n    Float lu')
+    start = source.index('void RayIntegrator::EvaluatePixelSample(')
+    body = source.index('{',start)+1
+    source = source[:body]+'\n    const int64_t qCamera = nCameraRays, qRegular = nIntersectionTests, qShadow = nShadowTests;'+source[body:]
     replace('// Add camera ray\'s contribution to image', '''// Qualification-only per-sample diagnostic; no kernel/settings changes.
     if (const char *qPath = std::getenv("TC_R1E_SAMPLE_LOG")) {
         static std::mutex qMutex;
