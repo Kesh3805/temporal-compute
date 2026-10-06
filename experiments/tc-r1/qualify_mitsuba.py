@@ -55,7 +55,7 @@ def main():
     assert full == regrouped, 'sample stream changed with batch order'
     assert all(math.isfinite(v) for rgb in full.values() for v in rgb)
     # Intermediate statistics are sample statistics, without reference access.
-    values = [full[(3, 4, i)] for i in range(8)]
+    values = [full[(7, 6, i)] for i in range(8)]
     mean = [sum(rgb[c] for rgb in values)/8 for c in range(3)]
     variance = [sum((rgb[c]-mean[c])**2 for rgb in values)/7 for c in range(3)]
     native_start = time.perf_counter()
@@ -74,7 +74,7 @@ def main():
         'sample_records': len(keys), 'regrouped_replay_exact': full == regrouped,
         'seed_map': 'SHA256 scene:x:y:index, first 32 bits little-endian; qualification only',
         'sample_hash': hashlib.sha256(json.dumps(sorted(full.items())).encode()).hexdigest(),
-        'intermediate_pixel': {'count': 8, 'mean': mean, 'variance': variance,
+        'intermediate_pixel': {'pixel': [7, 6], 'count': 8, 'mean': mean, 'variance': variance,
                                'standard_error': [math.sqrt(v/8) for v in variance]},
         'manual_sample_seconds': elapsed, 'native_render_seconds': native_seconds,
         'native_camera_samples': 16384, 'native_camera_samples_per_second': throughput,

@@ -30,29 +30,33 @@
   "seed_map": "SHA256 scene:x:y:index, first 32 bits little-endian; qualification only",
   "sample_hash": "48d6af820721973e13263f3006eca4dbf4086cd6599a72ee0e2ec10b63ea5dab",
   "intermediate_pixel": {
+    "pixel": [
+      7,
+      6
+    ],
     "count": 8,
     "mean": [
-      1.0,
-      1.0,
-      1.0
+      0.3763412721455097,
+      0.5645119324326515,
+      0.28225596621632576
     ],
     "variance": [
-      0.0,
-      0.0,
-      0.0
+      0.01630735724939574,
+      0.03669155597292084,
+      0.00917288899323021
     ],
     "standard_error": [
-      0.0,
-      0.0,
-      0.0
+      0.045148861072838456,
+      0.06772329360430653,
+      0.03386164680215326
     ]
   },
-  "manual_sample_seconds": 0.0026301000034436584,
-  "native_render_seconds": 0.011332099995343015,
+  "manual_sample_seconds": 0.00251130000106059,
+  "native_render_seconds": 0.017007599992211908,
   "native_camera_samples": 16384,
-  "native_camera_samples_per_second": 1445804.3969549413,
+  "native_camera_samples_per_second": 963334.0393413847,
   "initial_reference_camera_samples": 32212254720,
-  "synthetic_throughput_reference_projection_hours": 6.188837544123332,
+  "synthetic_throughput_reference_projection_hours": 9.288417275746664,
   "projection_limitation": "single tiny synthetic scene, cold wall time; not corpus feasibility",
   "image_bytes": 3445,
   "complete_actual_ray_accounting": false,
