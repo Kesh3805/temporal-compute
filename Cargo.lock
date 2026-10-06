@@ -188,6 +188,7 @@ dependencies = [
  "clap",
  "serde",
  "serde_json",
+ "tc-core",
  "tc-ir",
  "tc-scheduler",
  "tc-sim",
