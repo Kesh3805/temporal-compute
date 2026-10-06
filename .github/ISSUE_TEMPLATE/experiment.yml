@@ -1,0 +1,14 @@
+name: Research experiment
+description: Propose a falsifiable scheduling experiment
+labels: [research, experiment]
+body:
+  - type: textarea
+    attributes:
+      label: Hypothesis and falsification criteria
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Workload, baselines and measurements
+    validations:
+      required: true
