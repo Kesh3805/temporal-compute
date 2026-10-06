@@ -1,0 +1,6 @@
+---
+description: Shared engineering, research and mandatory PR review lifecycle
+alwaysApply: true
+---
+
+Read and follow root `AGENTS.md` and `docs/pr-review-protocol.md` before non-trivial work. They are the canonical shared instructions. Preserve research freezes; complete CI/CodeRabbit review and bounded remediation before reporting readiness. Do not automatically merge.
