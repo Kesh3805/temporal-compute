@@ -2,7 +2,18 @@
 
 **Compute what matters while it still matters.**
 
-Ostrium Temporal Compute is a research runtime and simulator for computation whose utility changes with time. A task can finish correctly and still be worthless: an observation may become stale, a decision window may close, or a result may arrive after its deadline. TC-0 makes that value explicit and measures how scheduling changes the outcome on one constrained CPU.
+Ostrium Temporal Compute investigates **adaptive progressive computation**: reallocating compute as intermediate results reveal where additional work has the greatest marginal value. The current implemented runtime is the Generation I TC-0 simulator for whole time-valued jobs; Generation II is a separately preregistered research direction, not an implemented adaptive renderer or a demonstrated performance advantage.
+
+## Two generations of research
+
+| Generation | Question | Evidence / status |
+| --- | --- | --- |
+| I — Inter-task temporal scheduling | Which whole waiting job should execute next? | TC-0 establishes deterministic semantics and exposes wins, ties and losses. TC-S1 rejected the registered greedy-policy advantage: Temporal Utility lost 5.07% to EDF and failed all five gates. This incremental research thesis is retired pending new contrary evidence. |
+| II — Adaptive progressive computation | Given the intermediate state, what unit of computation is worth doing next? | TC-R1 — Marginal Compute in Path Tracing registers a new question against uniform and strong adaptive sampling. No rendering results or Generation II implementation exist yet. |
+
+Read the [Generation II research statement](docs/generation-ii.md), [TC-R1 protocol](docs/tc-r1/preregistration.md) and [preserved TC-S1 report](docs/tc-s1/results.md). TC-0 and TC-S1 remain reproducible historical experiments. Contacts, TC-S2 and improvements to the old schedulers are not the next step.
+
+A task can finish correctly and still be worthless: an observation may become stale, a decision window may close, or a result may arrive after its deadline. The existing TC-0 runtime makes that value explicit and measures how ordering whole jobs changes the outcome on one constrained CPU.
 
 | Conventional scheduling asks | Temporal scheduling asks |
 | --- | --- |
@@ -61,7 +72,7 @@ Crates have separate responsibilities, not service boundaries. There is no async
 
 ## Research status
 
-TC-S1's frozen Earth-observation workload gate **failed**: absolute Temporal Utility earned 524,509 points versus EDF's 552,525 (-5.07%); all five preregistered gates failed. Density also fell short of EDF. The source-grounded corpus uses explicitly assumed numerical values, not mission telemetry. The next decision is to substantially rethink the incremental-benefit thesis before contact-aware implementation. See the [full TC-S1 report](docs/tc-s1/results.md), [preregistration](docs/tc-s1/preregistration.md), [evidence dossier](docs/tc-s1/evidence.md) and [reproducible artifacts](results/tc-s1/README.md).
+TC-S1's frozen Earth-observation workload gate **failed**: absolute Temporal Utility earned 524,509 points versus EDF's 552,525 (-5.07%); all five preregistered gates failed. Density also fell short of EDF. The source-grounded corpus uses explicitly assumed numerical values, not mission telemetry. Its direction D decision is preserved; the separate TC-R1 question is the proposed substantial rethink, not a rescue of the old result. See the [full TC-S1 report](docs/tc-s1/results.md), [preregistration](docs/tc-s1/preregistration.md), [evidence dossier](docs/tc-s1/evidence.md) and [reproducible artifacts](results/tc-s1/README.md).
 
 TC-0 tests whether explicit completion-time utility improves mission utility under compute pressure. It compares two fixed, named greedy policies with identical baselines and workload semantics. Fixtures include overload, equal-deadline decay, freshness, a mixed workload, an EDF-favorable control, an equivalent-policy control and a density failure control. These are executable semantic experiments, not a representative mission dataset or a statistical demonstration.
 
