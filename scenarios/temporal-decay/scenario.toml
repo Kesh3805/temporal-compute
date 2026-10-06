@@ -1,0 +1,48 @@
+schema_version = 1
+name = "temporal-decay"
+description = "Equal deadlines with distinct decay curves."
+
+[[tasks]]
+id = "a-steady"
+arrival_time_us = 0
+execution_cost_us = 8000000
+priority = 0
+base_utility = 80
+deadline_us = 30000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b-rapid"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 0
+base_utility = 100
+deadline_us = 30000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 500000
+
+[[tasks]]
+id = "c-window"
+arrival_time_us = 0
+execution_cost_us = 3000000
+priority = 0
+base_utility = 60
+deadline_us = 30000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 6000000
+utility = 0
+
+[[tasks]]
+id = "d-linear"
+arrival_time_us = 0
+execution_cost_us = 4000000
+priority = 0
+base_utility = 100
+deadline_us = 30000000
+[tasks.utility]
+kind = "linear"

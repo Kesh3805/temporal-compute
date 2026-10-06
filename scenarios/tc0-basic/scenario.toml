@@ -1,0 +1,43 @@
+schema_version = 1
+name = "tc0-basic"
+description = "Overload: long low-value work competes with short urgent work."
+
+[[tasks]]
+id = "a-long"
+arrival_time_us = 0
+execution_cost_us = 8000000
+priority = 9
+base_utility = 10
+deadline_us = 20000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b-short"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 1
+base_utility = 60
+deadline_us = 5000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "c-short"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 1
+base_utility = 50
+deadline_us = 7000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "d-medium"
+arrival_time_us = 0
+execution_cost_us = 4000000
+priority = 3
+base_utility = 35
+deadline_us = 12000000
+[tasks.utility]
+kind = "constant"

@@ -1,0 +1,33 @@
+schema_version = 1
+name = "fifo-equivalent"
+description = "Underload constant-value control: all policies deliver equal mission utility."
+
+[[tasks]]
+id = "a"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 0
+base_utility = 10
+deadline_us = 100000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b"
+arrival_time_us = 10000000
+execution_cost_us = 3000000
+priority = 0
+base_utility = 20
+deadline_us = 100000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "c"
+arrival_time_us = 20000000
+execution_cost_us = 1000000
+priority = 0
+base_utility = 30
+deadline_us = 100000000
+[tasks.utility]
+kind = "constant"

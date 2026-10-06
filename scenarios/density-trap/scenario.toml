@@ -1,0 +1,23 @@
+schema_version = 1
+name = "density-trap"
+description = "Density control: short cheap work blocks a high-value nonpreemptive task."
+
+[[tasks]]
+id = "a-large"
+arrival_time_us = 0
+execution_cost_us = 8000000
+priority = 0
+base_utility = 100
+deadline_us = 8000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b-small"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 0
+base_utility = 30
+deadline_us = 12000000
+[tasks.utility]
+kind = "constant"

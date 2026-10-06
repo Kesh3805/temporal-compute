@@ -26,18 +26,44 @@ pub struct Event {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "event", rename_all = "snake_case")]
 pub enum EventKind {
-    SimulationStarted { scenario: String, seed: u64 },
-    TaskArrived { task_id: TaskId },
-    SchedulerDecision { selected: TaskId, candidates: Vec<Candidate> },
-    TaskStarted { task_id: TaskId, predicted_completion_us: SimTime, predicted_utility: Utility },
-    TaskCompleted { task_id: TaskId, utility: Utility, deadline_met: Option<bool>, fresh: bool, execution_cost_us: Duration, completion_latency_us: Duration, result_age_us: Duration },
-    TaskExpired { task_id: TaskId, reason: ExpiryReason },
+    SimulationStarted {
+        scenario: String,
+        seed: u64,
+    },
+    TaskArrived {
+        task_id: TaskId,
+    },
+    SchedulerDecision {
+        selected: TaskId,
+        candidates: Vec<Candidate>,
+    },
+    TaskStarted {
+        task_id: TaskId,
+        predicted_completion_us: SimTime,
+        predicted_utility: Utility,
+    },
+    TaskCompleted {
+        task_id: TaskId,
+        utility: Utility,
+        deadline_met: Option<bool>,
+        fresh: bool,
+        execution_cost_us: Duration,
+        completion_latency_us: Duration,
+        result_age_us: Duration,
+    },
+    TaskExpired {
+        task_id: TaskId,
+        reason: ExpiryReason,
+    },
     SimulationCompleted,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum ExpiryReason { Deadline, Freshness }
+pub enum ExpiryReason {
+    Deadline,
+    Freshness,
+}
 
 pub fn write_jsonl(writer: &mut impl Write, events: &[Event]) -> Result<(), serde_json::Error> {
     for event in events {

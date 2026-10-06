@@ -1,0 +1,23 @@
+schema_version = 1
+name = "deadline-pressure"
+description = "EDF control: greedy value and density can sacrifice a feasible urgent task."
+
+[[tasks]]
+id = "a-rich"
+arrival_time_us = 0
+execution_cost_us = 6000000
+priority = 0
+base_utility = 100
+deadline_us = 20000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b-urgent"
+arrival_time_us = 0
+execution_cost_us = 4000000
+priority = 0
+base_utility = 60
+deadline_us = 4000000
+[tasks.utility]
+kind = "constant"

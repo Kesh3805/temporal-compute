@@ -31,7 +31,12 @@ pub struct Configuration {
 
 impl Default for Configuration {
     fn default() -> Self {
-        Self { cpu_count: 1, preemption: false, time_unit: "microseconds".into(), expiry_mode: "waiting_after_inclusive_limit".into() }
+        Self {
+            cpu_count: 1,
+            preemption: false,
+            time_unit: "microseconds".into(),
+            expiry_mode: "waiting_after_inclusive_limit".into(),
+        }
     }
 }
 

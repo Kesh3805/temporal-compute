@@ -1,0 +1,317 @@
+schema_version = 1
+name = "mixed-utility"
+description = "Fixed arithmetic recipe: 24 arrivals with mixed costs, priority, freshness and curves."
+
+[[tasks]]
+id = "task-00"
+arrival_time_us = 0
+execution_cost_us = 4000000
+priority = 0
+base_utility = 119
+deadline_us = 5000000
+fresh_until_us = 3000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-01"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 2
+base_utility = 256
+deadline_us = 8000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-02"
+arrival_time_us = 0
+execution_cost_us = 7000000
+priority = 4
+base_utility = 393
+deadline_us = 11000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-03"
+arrival_time_us = 2000000
+execution_cost_us = 5000000
+priority = 1
+base_utility = 530
+deadline_us = 16000000
+fresh_until_us = 8000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 265
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 106
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0
+
+[[tasks]]
+id = "task-04"
+arrival_time_us = 2000000
+execution_cost_us = 3000000
+priority = 3
+base_utility = 667
+deadline_us = 19000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-05"
+arrival_time_us = 2000000
+execution_cost_us = 1000000
+priority = 0
+base_utility = 804
+deadline_us = 7000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-06"
+arrival_time_us = 4000000
+execution_cost_us = 6000000
+priority = 2
+base_utility = 140
+deadline_us = 12000000
+fresh_until_us = 13000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-07"
+arrival_time_us = 4000000
+execution_cost_us = 4000000
+priority = 4
+base_utility = 277
+deadline_us = 15000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 138
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 55
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0
+
+[[tasks]]
+id = "task-08"
+arrival_time_us = 4000000
+execution_cost_us = 2000000
+priority = 1
+base_utility = 414
+deadline_us = 18000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-09"
+arrival_time_us = 6000000
+execution_cost_us = 7000000
+priority = 3
+base_utility = 551
+deadline_us = 23000000
+fresh_until_us = 10000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-10"
+arrival_time_us = 6000000
+execution_cost_us = 5000000
+priority = 0
+base_utility = 688
+deadline_us = 11000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-11"
+arrival_time_us = 6000000
+execution_cost_us = 3000000
+priority = 2
+base_utility = 825
+deadline_us = 14000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 412
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 165
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0
+
+[[tasks]]
+id = "task-12"
+arrival_time_us = 8000000
+execution_cost_us = 1000000
+priority = 4
+base_utility = 161
+deadline_us = 19000000
+fresh_until_us = 15000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-13"
+arrival_time_us = 8000000
+execution_cost_us = 6000000
+priority = 1
+base_utility = 298
+deadline_us = 22000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-14"
+arrival_time_us = 8000000
+execution_cost_us = 4000000
+priority = 3
+base_utility = 435
+deadline_us = 25000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-15"
+arrival_time_us = 10000000
+execution_cost_us = 2000000
+priority = 0
+base_utility = 572
+deadline_us = 15000000
+fresh_until_us = 20000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 286
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 114
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0
+
+[[tasks]]
+id = "task-16"
+arrival_time_us = 10000000
+execution_cost_us = 7000000
+priority = 2
+base_utility = 709
+deadline_us = 18000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-17"
+arrival_time_us = 10000000
+execution_cost_us = 5000000
+priority = 4
+base_utility = 846
+deadline_us = 21000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-18"
+arrival_time_us = 12000000
+execution_cost_us = 3000000
+priority = 1
+base_utility = 182
+deadline_us = 26000000
+fresh_until_us = 17000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-19"
+arrival_time_us = 12000000
+execution_cost_us = 1000000
+priority = 3
+base_utility = 319
+deadline_us = 29000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 159
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 63
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0
+
+[[tasks]]
+id = "task-20"
+arrival_time_us = 12000000
+execution_cost_us = 6000000
+priority = 0
+base_utility = 456
+deadline_us = 17000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "task-21"
+arrival_time_us = 14000000
+execution_cost_us = 4000000
+priority = 2
+base_utility = 593
+deadline_us = 22000000
+fresh_until_us = 22000000
+[tasks.utility]
+kind = "linear"
+
+[[tasks]]
+id = "task-22"
+arrival_time_us = 14000000
+execution_cost_us = 2000000
+priority = 4
+base_utility = 730
+deadline_us = 25000000
+[tasks.utility]
+kind = "exponential"
+interval_us = 2000000
+retention_ppm = 750000
+
+[[tasks]]
+id = "task-23"
+arrival_time_us = 14000000
+execution_cost_us = 7000000
+priority = 1
+base_utility = 867
+deadline_us = 28000000
+[tasks.utility]
+kind = "step"
+[[tasks.utility.steps]]
+after_us = 4000000
+utility = 433
+[[tasks.utility.steps]]
+after_us = 8000000
+utility = 173
+[[tasks.utility.steps]]
+after_us = 12000000
+utility = 0

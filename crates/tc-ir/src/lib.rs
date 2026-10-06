@@ -1,10 +1,10 @@
 //! Validated workload representation shared by every policy.
 mod utility;
-pub use utility::{UtilityCurve, UtilityStep};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use tc_core::{Duration, Priority, SimTime, TaskId, Utility};
 use thiserror::Error;
+pub use utility::{UtilityCurve, UtilityStep};
 
 #[derive(Debug, Error)]
 pub enum ScenarioError {
@@ -84,18 +84,28 @@ impl Scenario {
             if task.execution_cost_us.0 == 0 {
                 return Err(invalid("execution cost must be positive"));
             }
-            if task.expiry_limit().is_some_and(|t| t < task.arrival_time_us)
+            if task
+                .expiry_limit()
+                .is_some_and(|t| t < task.arrival_time_us)
                 || task.input_time() > task.arrival_time_us
             {
-                return Err(invalid("deadline/freshness precedes arrival or input follows arrival"));
+                return Err(invalid(
+                    "deadline/freshness precedes arrival or input follows arrival",
+                ));
             }
             task.utility.validate(task).map_err(|s| invalid(s))?;
-            compute = compute.checked_add(task.execution_cost_us.0).ok_or_else(|| invalid("total compute overflow"))?;
-            utility = utility.checked_add(task.base_utility.0).ok_or_else(|| invalid("total utility overflow"))?;
+            compute = compute
+                .checked_add(task.execution_cost_us.0)
+                .ok_or_else(|| invalid("total compute overflow"))?;
+            utility = utility
+                .checked_add(task.base_utility.0)
+                .ok_or_else(|| invalid("total utility overflow"))?;
             last_arrival = last_arrival.max(task.arrival_time_us.0);
         }
         // A conservative bound makes all scheduling completion predictions safe.
-        last_arrival.checked_add(compute).ok_or_else(|| fail("simulation time bound overflows".into()))?;
+        last_arrival
+            .checked_add(compute)
+            .ok_or_else(|| fail("simulation time bound overflows".into()))?;
         Ok(())
     }
 }
@@ -105,6 +115,9 @@ mod tests {
     use super::*;
     #[test]
     fn rejects_unknown_configuration() {
-        assert!(Scenario::from_toml("schema_version=1\nname='x'\ndescription=''\ntasks=[]\ncpus=2").is_err());
+        assert!(
+            Scenario::from_toml("schema_version=1\nname='x'\ndescription=''\ntasks=[]\ncpus=2")
+                .is_err()
+        );
     }
 }

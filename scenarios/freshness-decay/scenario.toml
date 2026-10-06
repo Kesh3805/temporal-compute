@@ -1,0 +1,57 @@
+schema_version = 1
+name = "freshness-decay"
+description = "Freshness differs from deadline; stale completions waste compute."
+
+[[tasks]]
+id = "a-batch"
+arrival_time_us = 0
+execution_cost_us = 7000000
+priority = 9
+base_utility = 30
+deadline_us = 30000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "b-observation"
+arrival_time_us = 0
+execution_cost_us = 2000000
+priority = 0
+base_utility = 100
+deadline_us = 30000000
+fresh_until_us = 4000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "c-observation"
+arrival_time_us = 1000000
+execution_cost_us = 3000000
+priority = 0
+base_utility = 80
+deadline_us = 30000000
+fresh_until_us = 7000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "d-late"
+arrival_time_us = 8000000
+execution_cost_us = 2000000
+priority = 0
+base_utility = 60
+deadline_us = 30000000
+fresh_until_us = 11000000
+[tasks.utility]
+kind = "constant"
+
+[[tasks]]
+id = "e-stale-risk"
+arrival_time_us = 8000000
+execution_cost_us = 5000000
+priority = 0
+base_utility = 40
+deadline_us = 30000000
+fresh_until_us = 10000000
+[tasks.utility]
+kind = "constant"

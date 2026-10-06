@@ -42,7 +42,10 @@ mod tests {
 
     #[test]
     fn time_is_checked_and_cannot_be_negative() {
-        assert_eq!(SimTime(u64::MAX).checked_add(Duration(1)), Err(TimeOverflow));
+        assert_eq!(
+            SimTime(u64::MAX).checked_add(Duration(1)),
+            Err(TimeOverflow)
+        );
         assert_eq!(SimTime(3).elapsed_since(SimTime(4)), None);
         assert_eq!(SimTime(4).elapsed_since(SimTime(3)), Some(Duration(1)));
     }
