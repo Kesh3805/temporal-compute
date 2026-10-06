@@ -5,6 +5,7 @@ on:
     branches: [research/tc-r1e-execution-freeze]
     paths:
       - 'experiments/tc-r1/qualify_pbrt.py'
+      - 'experiments/tc-r1/instrument_pbrt.py'
       - '.github/workflows/tc-r1e-qualification.yml'
 permissions:
   contents: read
@@ -13,7 +14,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Retain runner identity
+        run: |
+          mkdir -p results/local/tc-r1e-pbrt
+          lscpu > results/local/tc-r1e-pbrt/cpu.txt
+          free -b > results/local/tc-r1e-pbrt/memory.txt
+          df -B1 > results/local/tc-r1e-pbrt/storage.txt
+          cmake --version > results/local/tc-r1e-pbrt/toolchain.txt
+          c++ --version >> results/local/tc-r1e-pbrt/toolchain.txt
       - name: Install upstream build dependencies
         run: |
           sudo apt-get update
@@ -23,21 +34,30 @@ jobs:
           git clone https://github.com/mmp/pbrt-v4.git target/pbrt
           git -C target/pbrt checkout b4ce9687e6c695f5582997c61b0c66cf064bdb4a
           git -C target/pbrt submodule update --init --recursive
+          git -C target/pbrt submodule status --recursive > results/local/tc-r1e-pbrt/dependencies.txt
+      - name: Minimal CPU instrumentation
+        run: python experiments/tc-r1/instrument_pbrt.py --source target/pbrt --manifest results/local/tc-r1e-pbrt/instrumentation.json
       - name: Build CPU renderer
+        shell: bash
         run: |
-          cmake -S target/pbrt -B target/pbrt-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_BUILD_GPU_RENDERER=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-          cmake --build target/pbrt-build --target pbrt_exe --parallel 2
-      - name: Retain runner identity
+          set -euo pipefail
+          cmake -S target/pbrt -B target/pbrt-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tee results/local/tc-r1e-pbrt/configure.log
+          /usr/bin/time -v cmake --build target/pbrt-build --target pbrt_exe --parallel 2 2>&1 | tee results/local/tc-r1e-pbrt/build.log
+      - name: Bind actual build provenance
         run: |
-          mkdir -p results/local/tc-r1e-pbrt
-          lscpu > results/local/tc-r1e-pbrt/cpu.txt
-          free -b > results/local/tc-r1e-pbrt/memory.txt
-          df -B1 > results/local/tc-r1e-pbrt/storage.txt
-          cmake --version > results/local/tc-r1e-pbrt/toolchain.txt
-          c++ --version >> results/local/tc-r1e-pbrt/toolchain.txt
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('results/local/tc-r1e-pbrt')
+          value=json.loads((root/'instrumentation.json').read_text())
+          value['binary_sha256']=hashlib.sha256(pathlib.Path('target/pbrt-build/pbrt').read_bytes()).hexdigest()
+          value['build_flags']='Release; Ninja; CPU; GLFW_BUILD_WAYLAND=OFF; parallel=2'
+          value['dependency_revisions']=(root/'dependencies.txt').read_text()
+          value['toolchain']=(root/'toolchain.txt').read_text()
+          (root/'build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')
+          PY
       - name: Synthetic probe only
-        run: python experiments/tc-r1/qualify_pbrt.py --pbrt target/pbrt-build/pbrt --output results/local/tc-r1e-pbrt
-      - uses: actions/upload-artifact@v4
+        run: /usr/bin/time -v python experiments/tc-r1/qualify_pbrt.py --pbrt target/pbrt-build/pbrt --output results/local/tc-r1e-pbrt --build-manifest results/local/tc-r1e-pbrt/build-manifest.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: tc-r1e-pbrt-synthetic-qualification
