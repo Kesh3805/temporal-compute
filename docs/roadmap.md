@@ -3,7 +3,7 @@
 | Milestone | Scope and gate |
 | --- | --- |
 | TC-0 | Temporal semantics, deterministic simulation, honest baseline comparison and reproducible measurements. |
-| TC-S1 | Contact-bounded Earth observation. First freeze independently designed workloads and value assumptions; then add only the contact/quality mechanisms those workloads require. |
+| TC-S1 | Completed independent EO workload preregistration and falsification gate. Primary hypothesis FAIL; contact-aware implementation is not justified by this result. |
 | TC-S2 | Probabilistic runtime and uncertainty; quantify sensitivity to wrong predictions. |
 | TC-S3 | Checkpoint/resume and temporal debt; measure costs before defining policy. |
 | TC-S4 | Contact-aware computation, coupled delivery timing and opportunity windows. |
@@ -11,6 +11,6 @@
 | TC-S6 | Flight-software integration experiments; no qualification claim. |
 | TC-X | Deep-space distributed temporal computation, contingent on earlier evidence. |
 
-TC-S1+ are planning boundaries, not implemented features. Candidate future Earth-observation tasks include cloud rejection, wildfire/ship detection, change detection, compression and classification, with contact windows, compute limits, freshness, quality levels and mission utility. TC-0 does not model these tasks or add speculative interfaces for them.
+TC-S2+ remain contingent planning boundaries, not implemented features. TC-S1 models six fictional EO product classes on the unchanged TC-0 compute semantics. It does not implement contacts, quality levels, delivery or mission pipelines.
 
-The immediate next milestone is TC-S1's independent workload specification and falsification protocol, before contact-aware implementation. The existing failure controls make it necessary to test broader evidence rather than assume that either greedy policy is generally successful.
+The selected next direction is **D: stop or substantially rethink the incremental-advantage thesis** before adding mechanisms. EDF beats both temporal heuristics in the primary aggregate; the primary loses in every registered load/mix group and all twelve sensitivities. Read the [TC-S1 report](tc-s1/results.md). A materially different future hypothesis needs new evidence and independent preregistration; these results do not authorize contact-aware complexity.

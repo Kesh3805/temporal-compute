@@ -1,0 +1,11 @@
+{
+  "aggregate.json": "d0bfbd1eb66fa364dc3ce2d4cf5a1dc8a80ea54f85f22a20fe651cdbd089a3d8",
+  "paired-comparisons.json": "d12ef81f5e13203a5ab65e6f94154f38feae0ba9aaa047ca5df7d2c2469ca9e4",
+  "class-breakdown.json": "7bd5ed0acc9b33321307a1b3ba1f12980b9a62e8025eb862b9c14429bb1cdaa0",
+  "sensitivity.json": "630f30466564d66383da825ddc1dd2b552711ed452926f1d451e7356a0bfe701",
+  "controls.json": "b62e80fc13c8572a00da8847b21ba99197b5938e76c1ee08194677b5df85ff50",
+  "oracle.json": "73c8a9e440244ca0187bd650b6cfe57830d432a937d3b3e510567e20b5302c08",
+  "provenance.json": "9ca2d9422b024ebaba83b864eaeed9f9944be5cfa1cfb5ae33a1f6e60a9bbadc",
+  "corpus/metrics.jsonl.gz": "499abe3e5a2c86e163ae7391c7c0788c69ebb15bf88b12cc9ccb924ddf6be584",
+  "corpus/stream-hashes.json": "380fbd7ce165b09e06d286355419ea5023b96b08c4fe2b859df96b99dead78ec"
+}

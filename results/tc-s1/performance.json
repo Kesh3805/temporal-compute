@@ -1,0 +1,5 @@
+{
+  "elapsed_seconds": 95.14411609999661,
+  "policy_runs": 15882,
+  "note": "Host-dependent runtime, excluded from byte-reproducible scientific artifacts."
+}

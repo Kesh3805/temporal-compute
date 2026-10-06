@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "preregistration_sha": "e5d7f916d45ddd63b97d0a50f5067f55a04fa726",
+  "source_sha": "aba8df62e0b485850193da35d3acc12d5c2c485c",
+  "dirty": false,
+  "corpus_sha256": "debe86d3e2e59aa2473f0a91b89099b7661fcff7d1ad6fce6526e8546338c243",
+  "specification_sha256": "5614ed13d7f95eb2948e63a8141608469769f69bad7513d3cf0bb864eb2d6ce9",
+  "simulation_version": "tc0-1",
+  "generator_version": "tc-s1-v1",
+  "primary_scenarios": 200,
+  "policy_runs": 15882,
+  "replayed_simulations": 31764,
+  "python": "3.12.9",
+  "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "replay": "Every run compared events, metrics and decisions in Rust; per-run canonical event hashes retained.",
+  "command": "python scripts/tc_s1.py",
+  "raw_reports": "raw-reports.jsonl.gz (local; regenerate rather than commit large full streams)"
+}

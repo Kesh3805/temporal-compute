@@ -1,0 +1,2267 @@
+{
+  "cases": {
+    "eo-0001-oracle": {
+      "utility": 673,
+      "completion_us": 303038147,
+      "schedule": [
+        "t002-WILDFIRE_ALERT",
+        "t044-VESSEL_DETECTION",
+        "t030-DISASTER_MAPPING",
+        "t027-IMAGE_COMPRESSION",
+        "t018-DISASTER_MAPPING",
+        "t023-IMAGE_COMPRESSION",
+        "t026-IMAGE_COMPRESSION",
+        "t040-VESSEL_DETECTION",
+        "t045-WILDFIRE_ALERT"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        },
+        "fixed-priority": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        },
+        "edf": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        },
+        "edf-priority": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        },
+        "temporal-utility": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        },
+        "temporal-utility-density": {
+          "utility": 672,
+          "regret": 1,
+          "normalized_regret": 0.0014858841010401188,
+          "capture": 0.9985141158989599
+        }
+      }
+    },
+    "eo-0002-oracle": {
+      "utility": 396,
+      "completion_us": 309090984,
+      "schedule": [
+        "t040-VESSEL_DETECTION",
+        "t025-CLOUD_SCREEN",
+        "t041-VESSEL_DETECTION",
+        "t006-DISASTER_MAPPING",
+        "t028-IMAGE_COMPRESSION",
+        "t039-MARINE_ANOMALY",
+        "t011-VESSEL_DETECTION",
+        "t044-IMAGE_COMPRESSION",
+        "t031-CLOUD_SCREEN"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 393,
+          "regret": 3,
+          "normalized_regret": 0.007575757575757576,
+          "capture": 0.9924242424242424
+        },
+        "fixed-priority": {
+          "utility": 382,
+          "regret": 14,
+          "normalized_regret": 0.03535353535353535,
+          "capture": 0.9646464646464646
+        },
+        "edf": {
+          "utility": 393,
+          "regret": 3,
+          "normalized_regret": 0.007575757575757576,
+          "capture": 0.9924242424242424
+        },
+        "edf-priority": {
+          "utility": 393,
+          "regret": 3,
+          "normalized_regret": 0.007575757575757576,
+          "capture": 0.9924242424242424
+        },
+        "temporal-utility": {
+          "utility": 382,
+          "regret": 14,
+          "normalized_regret": 0.03535353535353535,
+          "capture": 0.9646464646464646
+        },
+        "temporal-utility-density": {
+          "utility": 393,
+          "regret": 3,
+          "normalized_regret": 0.007575757575757576,
+          "capture": 0.9924242424242424
+        }
+      }
+    },
+    "eo-0011-oracle": {
+      "utility": 679,
+      "completion_us": 256790909,
+      "schedule": [
+        "t028-DISASTER_MAPPING",
+        "t045-CLOUD_SCREEN",
+        "t021-DISASTER_MAPPING",
+        "t033-CLOUD_SCREEN",
+        "t007-WILDFIRE_ALERT",
+        "t038-IMAGE_COMPRESSION",
+        "t010-CLOUD_SCREEN",
+        "t025-DISASTER_MAPPING",
+        "t013-DISASTER_MAPPING"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 668,
+          "regret": 11,
+          "normalized_regret": 0.016200294550810016,
+          "capture": 0.9837997054491899
+        },
+        "fixed-priority": {
+          "utility": 659,
+          "regret": 20,
+          "normalized_regret": 0.029455081001472753,
+          "capture": 0.9705449189985272
+        },
+        "edf": {
+          "utility": 668,
+          "regret": 11,
+          "normalized_regret": 0.016200294550810016,
+          "capture": 0.9837997054491899
+        },
+        "edf-priority": {
+          "utility": 668,
+          "regret": 11,
+          "normalized_regret": 0.016200294550810016,
+          "capture": 0.9837997054491899
+        },
+        "temporal-utility": {
+          "utility": 659,
+          "regret": 20,
+          "normalized_regret": 0.029455081001472753,
+          "capture": 0.9705449189985272
+        },
+        "temporal-utility-density": {
+          "utility": 668,
+          "regret": 11,
+          "normalized_regret": 0.016200294550810016,
+          "capture": 0.9837997054491899
+        }
+      }
+    },
+    "eo-0012-oracle": {
+      "utility": 465,
+      "completion_us": 149308022,
+      "schedule": [
+        "t031-IMAGE_COMPRESSION",
+        "t013-VESSEL_DETECTION",
+        "t027-MARINE_ANOMALY",
+        "t016-VESSEL_DETECTION",
+        "t033-CLOUD_SCREEN",
+        "t029-MARINE_ANOMALY",
+        "t045-IMAGE_COMPRESSION",
+        "t008-VESSEL_DETECTION",
+        "t038-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 460,
+          "regret": 5,
+          "normalized_regret": 0.010752688172043012,
+          "capture": 0.989247311827957
+        },
+        "fixed-priority": {
+          "utility": 447,
+          "regret": 18,
+          "normalized_regret": 0.03870967741935484,
+          "capture": 0.9612903225806452
+        },
+        "edf": {
+          "utility": 465,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 465,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 445,
+          "regret": 20,
+          "normalized_regret": 0.043010752688172046,
+          "capture": 0.956989247311828
+        },
+        "temporal-utility-density": {
+          "utility": 450,
+          "regret": 15,
+          "normalized_regret": 0.03225806451612903,
+          "capture": 0.967741935483871
+        }
+      }
+    },
+    "eo-0021-oracle": {
+      "utility": 640,
+      "completion_us": 115604651,
+      "schedule": [
+        "t030-CLOUD_SCREEN",
+        "t034-WILDFIRE_ALERT",
+        "t003-VESSEL_DETECTION",
+        "t001-VESSEL_DETECTION",
+        "t002-VESSEL_DETECTION",
+        "t043-IMAGE_COMPRESSION",
+        "t012-DISASTER_MAPPING",
+        "t015-WILDFIRE_ALERT",
+        "t032-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 591,
+          "regret": 49,
+          "normalized_regret": 0.0765625,
+          "capture": 0.9234375
+        },
+        "fixed-priority": {
+          "utility": 591,
+          "regret": 49,
+          "normalized_regret": 0.0765625,
+          "capture": 0.9234375
+        },
+        "edf": {
+          "utility": 589,
+          "regret": 51,
+          "normalized_regret": 0.0796875,
+          "capture": 0.9203125
+        },
+        "edf-priority": {
+          "utility": 589,
+          "regret": 51,
+          "normalized_regret": 0.0796875,
+          "capture": 0.9203125
+        },
+        "temporal-utility": {
+          "utility": 578,
+          "regret": 62,
+          "normalized_regret": 0.096875,
+          "capture": 0.903125
+        },
+        "temporal-utility-density": {
+          "utility": 571,
+          "regret": 69,
+          "normalized_regret": 0.1078125,
+          "capture": 0.8921875
+        }
+      }
+    },
+    "eo-0022-oracle": {
+      "utility": 583,
+      "completion_us": 155348310,
+      "schedule": [
+        "t032-IMAGE_COMPRESSION",
+        "t004-IMAGE_COMPRESSION",
+        "t039-IMAGE_COMPRESSION",
+        "t016-CLOUD_SCREEN",
+        "t036-DISASTER_MAPPING",
+        "t022-DISASTER_MAPPING",
+        "t009-MARINE_ANOMALY",
+        "t041-VESSEL_DETECTION",
+        "t017-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 546,
+          "regret": 37,
+          "normalized_regret": 0.0634648370497427,
+          "capture": 0.9365351629502573
+        },
+        "fixed-priority": {
+          "utility": 575,
+          "regret": 8,
+          "normalized_regret": 0.0137221269296741,
+          "capture": 0.9862778730703259
+        },
+        "edf": {
+          "utility": 575,
+          "regret": 8,
+          "normalized_regret": 0.0137221269296741,
+          "capture": 0.9862778730703259
+        },
+        "edf-priority": {
+          "utility": 575,
+          "regret": 8,
+          "normalized_regret": 0.0137221269296741,
+          "capture": 0.9862778730703259
+        },
+        "temporal-utility": {
+          "utility": 575,
+          "regret": 8,
+          "normalized_regret": 0.0137221269296741,
+          "capture": 0.9862778730703259
+        },
+        "temporal-utility-density": {
+          "utility": 572,
+          "regret": 11,
+          "normalized_regret": 0.018867924528301886,
+          "capture": 0.9811320754716981
+        }
+      }
+    },
+    "eo-0031-oracle": {
+      "utility": 606,
+      "completion_us": 163636363,
+      "schedule": [
+        "t009-MARINE_ANOMALY",
+        "t004-MARINE_ANOMALY",
+        "t008-CLOUD_SCREEN",
+        "t000-VESSEL_DETECTION",
+        "t026-VESSEL_DETECTION",
+        "t007-DISASTER_MAPPING",
+        "t023-DISASTER_MAPPING",
+        "t037-IMAGE_COMPRESSION",
+        "t041-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 559,
+          "regret": 47,
+          "normalized_regret": 0.07755775577557755,
+          "capture": 0.9224422442244224
+        },
+        "fixed-priority": {
+          "utility": 558,
+          "regret": 48,
+          "normalized_regret": 0.07920792079207921,
+          "capture": 0.9207920792079208
+        },
+        "edf": {
+          "utility": 597,
+          "regret": 9,
+          "normalized_regret": 0.01485148514851485,
+          "capture": 0.9851485148514851
+        },
+        "edf-priority": {
+          "utility": 597,
+          "regret": 9,
+          "normalized_regret": 0.01485148514851485,
+          "capture": 0.9851485148514851
+        },
+        "temporal-utility": {
+          "utility": 520,
+          "regret": 86,
+          "normalized_regret": 0.1419141914191419,
+          "capture": 0.858085808580858
+        },
+        "temporal-utility-density": {
+          "utility": 592,
+          "regret": 14,
+          "normalized_regret": 0.0231023102310231,
+          "capture": 0.976897689768977
+        }
+      }
+    },
+    "eo-0032-oracle": {
+      "utility": 369,
+      "completion_us": 110694006,
+      "schedule": [
+        "t026-DISASTER_MAPPING",
+        "t003-CLOUD_SCREEN",
+        "t018-CLOUD_SCREEN",
+        "t008-IMAGE_COMPRESSION",
+        "t025-IMAGE_COMPRESSION",
+        "t042-MARINE_ANOMALY",
+        "t039-IMAGE_COMPRESSION",
+        "t043-IMAGE_COMPRESSION",
+        "t046-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 335,
+          "regret": 34,
+          "normalized_regret": 0.0921409214092141,
+          "capture": 0.907859078590786
+        },
+        "fixed-priority": {
+          "utility": 341,
+          "regret": 28,
+          "normalized_regret": 0.07588075880758807,
+          "capture": 0.924119241192412
+        },
+        "edf": {
+          "utility": 358,
+          "regret": 11,
+          "normalized_regret": 0.02981029810298103,
+          "capture": 0.9701897018970189
+        },
+        "edf-priority": {
+          "utility": 358,
+          "regret": 11,
+          "normalized_regret": 0.02981029810298103,
+          "capture": 0.9701897018970189
+        },
+        "temporal-utility": {
+          "utility": 334,
+          "regret": 35,
+          "normalized_regret": 0.0948509485094851,
+          "capture": 0.9051490514905149
+        },
+        "temporal-utility-density": {
+          "utility": 361,
+          "regret": 8,
+          "normalized_regret": 0.02168021680216802,
+          "capture": 0.978319783197832
+        }
+      }
+    },
+    "eo-0041-oracle": {
+      "utility": 937,
+      "completion_us": 618634956,
+      "schedule": [
+        "t014-DISASTER_MAPPING",
+        "t016-IMAGE_COMPRESSION",
+        "t036-MARINE_ANOMALY",
+        "t025-DISASTER_MAPPING",
+        "t019-WILDFIRE_ALERT",
+        "t038-DISASTER_MAPPING",
+        "t047-WILDFIRE_ALERT",
+        "t001-DISASTER_MAPPING",
+        "t009-WILDFIRE_ALERT"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        },
+        "fixed-priority": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        },
+        "edf": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        },
+        "edf-priority": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        },
+        "temporal-utility": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        },
+        "temporal-utility-density": {
+          "utility": 935,
+          "regret": 2,
+          "normalized_regret": 0.0021344717182497333,
+          "capture": 0.9978655282817502
+        }
+      }
+    },
+    "eo-0042-oracle": {
+      "utility": 832,
+      "completion_us": 309938250,
+      "schedule": [
+        "t034-WILDFIRE_ALERT",
+        "t021-WILDFIRE_ALERT",
+        "t010-MARINE_ANOMALY",
+        "t024-DISASTER_MAPPING",
+        "t035-DISASTER_MAPPING",
+        "t033-WILDFIRE_ALERT",
+        "t007-CLOUD_SCREEN",
+        "t015-WILDFIRE_ALERT",
+        "t025-CLOUD_SCREEN"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 832,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 832,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 828,
+          "regret": 4,
+          "normalized_regret": 0.004807692307692308,
+          "capture": 0.9951923076923077
+        },
+        "edf-priority": {
+          "utility": 828,
+          "regret": 4,
+          "normalized_regret": 0.004807692307692308,
+          "capture": 0.9951923076923077
+        },
+        "temporal-utility": {
+          "utility": 832,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 832,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0051-oracle": {
+      "utility": 874,
+      "completion_us": 273530581,
+      "schedule": [
+        "t033-CLOUD_SCREEN",
+        "t026-WILDFIRE_ALERT",
+        "t024-WILDFIRE_ALERT",
+        "t007-WILDFIRE_ALERT",
+        "t039-CLOUD_SCREEN",
+        "t047-DISASTER_MAPPING",
+        "t014-DISASTER_MAPPING",
+        "t003-DISASTER_MAPPING",
+        "t029-DISASTER_MAPPING"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 874,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0052-oracle": {
+      "utility": 1030,
+      "completion_us": 286677740,
+      "schedule": [
+        "t043-WILDFIRE_ALERT",
+        "t042-DISASTER_MAPPING",
+        "t034-DISASTER_MAPPING",
+        "t044-DISASTER_MAPPING",
+        "t037-WILDFIRE_ALERT",
+        "t029-CLOUD_SCREEN",
+        "t019-WILDFIRE_ALERT",
+        "t027-WILDFIRE_ALERT",
+        "t014-DISASTER_MAPPING"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        },
+        "fixed-priority": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        },
+        "edf": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        },
+        "edf-priority": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        },
+        "temporal-utility": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        },
+        "temporal-utility-density": {
+          "utility": 1026,
+          "regret": 4,
+          "normalized_regret": 0.003883495145631068,
+          "capture": 0.996116504854369
+        }
+      }
+    },
+    "eo-0061-oracle": {
+      "utility": 896,
+      "completion_us": 211033751,
+      "schedule": [
+        "t004-WILDFIRE_ALERT",
+        "t047-WILDFIRE_ALERT",
+        "t008-WILDFIRE_ALERT",
+        "t026-DISASTER_MAPPING",
+        "t024-CLOUD_SCREEN",
+        "t014-WILDFIRE_ALERT",
+        "t035-WILDFIRE_ALERT",
+        "t033-DISASTER_MAPPING",
+        "t038-DISASTER_MAPPING"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 808,
+          "regret": 88,
+          "normalized_regret": 0.09821428571428571,
+          "capture": 0.9017857142857143
+        },
+        "fixed-priority": {
+          "utility": 876,
+          "regret": 20,
+          "normalized_regret": 0.022321428571428572,
+          "capture": 0.9776785714285714
+        },
+        "edf": {
+          "utility": 881,
+          "regret": 15,
+          "normalized_regret": 0.016741071428571428,
+          "capture": 0.9832589285714286
+        },
+        "edf-priority": {
+          "utility": 881,
+          "regret": 15,
+          "normalized_regret": 0.016741071428571428,
+          "capture": 0.9832589285714286
+        },
+        "temporal-utility": {
+          "utility": 814,
+          "regret": 82,
+          "normalized_regret": 0.09151785714285714,
+          "capture": 0.9084821428571429
+        },
+        "temporal-utility-density": {
+          "utility": 876,
+          "regret": 20,
+          "normalized_regret": 0.022321428571428572,
+          "capture": 0.9776785714285714
+        }
+      }
+    },
+    "eo-0062-oracle": {
+      "utility": 924,
+      "completion_us": 237541304,
+      "schedule": [
+        "t002-WILDFIRE_ALERT",
+        "t045-DISASTER_MAPPING",
+        "t019-DISASTER_MAPPING",
+        "t012-DISASTER_MAPPING",
+        "t029-WILDFIRE_ALERT",
+        "t027-DISASTER_MAPPING",
+        "t003-DISASTER_MAPPING",
+        "t036-DISASTER_MAPPING",
+        "t000-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 849,
+          "regret": 75,
+          "normalized_regret": 0.08116883116883117,
+          "capture": 0.9188311688311688
+        },
+        "fixed-priority": {
+          "utility": 871,
+          "regret": 53,
+          "normalized_regret": 0.05735930735930736,
+          "capture": 0.9426406926406926
+        },
+        "edf": {
+          "utility": 892,
+          "regret": 32,
+          "normalized_regret": 0.03463203463203463,
+          "capture": 0.9653679653679653
+        },
+        "edf-priority": {
+          "utility": 892,
+          "regret": 32,
+          "normalized_regret": 0.03463203463203463,
+          "capture": 0.9653679653679653
+        },
+        "temporal-utility": {
+          "utility": 827,
+          "regret": 97,
+          "normalized_regret": 0.10497835497835498,
+          "capture": 0.895021645021645
+        },
+        "temporal-utility-density": {
+          "utility": 877,
+          "regret": 47,
+          "normalized_regret": 0.050865800865800864,
+          "capture": 0.9491341991341992
+        }
+      }
+    },
+    "eo-0071-oracle": {
+      "utility": 778,
+      "completion_us": 118667425,
+      "schedule": [
+        "t010-WILDFIRE_ALERT",
+        "t029-CLOUD_SCREEN",
+        "t044-WILDFIRE_ALERT",
+        "t013-CLOUD_SCREEN",
+        "t004-WILDFIRE_ALERT",
+        "t027-VESSEL_DETECTION",
+        "t020-WILDFIRE_ALERT",
+        "t011-DISASTER_MAPPING",
+        "t003-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 602,
+          "regret": 176,
+          "normalized_regret": 0.2262210796915167,
+          "capture": 0.7737789203084833
+        },
+        "fixed-priority": {
+          "utility": 735,
+          "regret": 43,
+          "normalized_regret": 0.055269922879177376,
+          "capture": 0.9447300771208226
+        },
+        "edf": {
+          "utility": 772,
+          "regret": 6,
+          "normalized_regret": 0.007712082262210797,
+          "capture": 0.9922879177377892
+        },
+        "edf-priority": {
+          "utility": 772,
+          "regret": 6,
+          "normalized_regret": 0.007712082262210797,
+          "capture": 0.9922879177377892
+        },
+        "temporal-utility": {
+          "utility": 735,
+          "regret": 43,
+          "normalized_regret": 0.055269922879177376,
+          "capture": 0.9447300771208226
+        },
+        "temporal-utility-density": {
+          "utility": 761,
+          "regret": 17,
+          "normalized_regret": 0.021850899742930592,
+          "capture": 0.9781491002570694
+        }
+      }
+    },
+    "eo-0072-oracle": {
+      "utility": 761,
+      "completion_us": 168075450,
+      "schedule": [
+        "t018-WILDFIRE_ALERT",
+        "t041-WILDFIRE_ALERT",
+        "t022-WILDFIRE_ALERT",
+        "t031-WILDFIRE_ALERT",
+        "t026-DISASTER_MAPPING",
+        "t047-DISASTER_MAPPING",
+        "t008-DISASTER_MAPPING",
+        "t010-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 663,
+          "regret": 98,
+          "normalized_regret": 0.1287779237844941,
+          "capture": 0.871222076215506
+        },
+        "fixed-priority": {
+          "utility": 759,
+          "regret": 2,
+          "normalized_regret": 0.002628120893561104,
+          "capture": 0.9973718791064389
+        },
+        "edf": {
+          "utility": 754,
+          "regret": 7,
+          "normalized_regret": 0.009198423127463863,
+          "capture": 0.9908015768725361
+        },
+        "edf-priority": {
+          "utility": 754,
+          "regret": 7,
+          "normalized_regret": 0.009198423127463863,
+          "capture": 0.9908015768725361
+        },
+        "temporal-utility": {
+          "utility": 686,
+          "regret": 75,
+          "normalized_regret": 0.09855453350854139,
+          "capture": 0.9014454664914586
+        },
+        "temporal-utility-density": {
+          "utility": 682,
+          "regret": 79,
+          "normalized_regret": 0.1038107752956636,
+          "capture": 0.8961892247043364
+        }
+      }
+    },
+    "eo-0081-oracle": {
+      "utility": 247,
+      "completion_us": 200722208,
+      "schedule": [
+        "t025-CLOUD_SCREEN",
+        "t026-CLOUD_SCREEN",
+        "t011-CLOUD_SCREEN",
+        "t000-IMAGE_COMPRESSION",
+        "t047-WILDFIRE_ALERT",
+        "t016-IMAGE_COMPRESSION",
+        "t005-CLOUD_SCREEN",
+        "t010-IMAGE_COMPRESSION",
+        "t040-CLOUD_SCREEN"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 231,
+          "regret": 16,
+          "normalized_regret": 0.06477732793522267,
+          "capture": 0.9352226720647774
+        },
+        "fixed-priority": {
+          "utility": 231,
+          "regret": 16,
+          "normalized_regret": 0.06477732793522267,
+          "capture": 0.9352226720647774
+        },
+        "edf": {
+          "utility": 231,
+          "regret": 16,
+          "normalized_regret": 0.06477732793522267,
+          "capture": 0.9352226720647774
+        },
+        "edf-priority": {
+          "utility": 231,
+          "regret": 16,
+          "normalized_regret": 0.06477732793522267,
+          "capture": 0.9352226720647774
+        },
+        "temporal-utility": {
+          "utility": 232,
+          "regret": 15,
+          "normalized_regret": 0.06072874493927125,
+          "capture": 0.9392712550607287
+        },
+        "temporal-utility-density": {
+          "utility": 232,
+          "regret": 15,
+          "normalized_regret": 0.06072874493927125,
+          "capture": 0.9392712550607287
+        }
+      }
+    },
+    "eo-0082-oracle": {
+      "utility": 259,
+      "completion_us": 248898731,
+      "schedule": [
+        "t020-CLOUD_SCREEN",
+        "t008-CLOUD_SCREEN",
+        "t041-DISASTER_MAPPING",
+        "t003-CLOUD_SCREEN",
+        "t035-CLOUD_SCREEN",
+        "t006-IMAGE_COMPRESSION",
+        "t009-CLOUD_SCREEN",
+        "t023-CLOUD_SCREEN",
+        "t043-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        },
+        "fixed-priority": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        },
+        "edf": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        },
+        "edf-priority": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        },
+        "temporal-utility": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        },
+        "temporal-utility-density": {
+          "utility": 256,
+          "regret": 3,
+          "normalized_regret": 0.011583011583011582,
+          "capture": 0.9884169884169884
+        }
+      }
+    },
+    "eo-0091-oracle": {
+      "utility": 516,
+      "completion_us": 150414840,
+      "schedule": [
+        "t040-MARINE_ANOMALY",
+        "t039-WILDFIRE_ALERT",
+        "t012-WILDFIRE_ALERT",
+        "t006-CLOUD_SCREEN",
+        "t017-CLOUD_SCREEN",
+        "t038-VESSEL_DETECTION",
+        "t023-CLOUD_SCREEN",
+        "t043-VESSEL_DETECTION",
+        "t033-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 496,
+          "regret": 20,
+          "normalized_regret": 0.03875968992248062,
+          "capture": 0.9612403100775194
+        },
+        "fixed-priority": {
+          "utility": 496,
+          "regret": 20,
+          "normalized_regret": 0.03875968992248062,
+          "capture": 0.9612403100775194
+        },
+        "edf": {
+          "utility": 514,
+          "regret": 2,
+          "normalized_regret": 0.003875968992248062,
+          "capture": 0.9961240310077519
+        },
+        "edf-priority": {
+          "utility": 514,
+          "regret": 2,
+          "normalized_regret": 0.003875968992248062,
+          "capture": 0.9961240310077519
+        },
+        "temporal-utility": {
+          "utility": 498,
+          "regret": 18,
+          "normalized_regret": 0.03488372093023256,
+          "capture": 0.9651162790697675
+        },
+        "temporal-utility-density": {
+          "utility": 498,
+          "regret": 18,
+          "normalized_regret": 0.03488372093023256,
+          "capture": 0.9651162790697675
+        }
+      }
+    },
+    "eo-0092-oracle": {
+      "utility": 381,
+      "completion_us": 146503929,
+      "schedule": [
+        "t011-CLOUD_SCREEN",
+        "t006-CLOUD_SCREEN",
+        "t030-CLOUD_SCREEN",
+        "t020-DISASTER_MAPPING",
+        "t019-CLOUD_SCREEN",
+        "t042-CLOUD_SCREEN",
+        "t025-CLOUD_SCREEN",
+        "t004-DISASTER_MAPPING",
+        "t016-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 347,
+          "regret": 34,
+          "normalized_regret": 0.08923884514435695,
+          "capture": 0.910761154855643
+        },
+        "fixed-priority": {
+          "utility": 346,
+          "regret": 35,
+          "normalized_regret": 0.09186351706036745,
+          "capture": 0.9081364829396326
+        },
+        "edf": {
+          "utility": 380,
+          "regret": 1,
+          "normalized_regret": 0.0026246719160104987,
+          "capture": 0.9973753280839895
+        },
+        "edf-priority": {
+          "utility": 380,
+          "regret": 1,
+          "normalized_regret": 0.0026246719160104987,
+          "capture": 0.9973753280839895
+        },
+        "temporal-utility": {
+          "utility": 346,
+          "regret": 35,
+          "normalized_regret": 0.09186351706036745,
+          "capture": 0.9081364829396326
+        },
+        "temporal-utility-density": {
+          "utility": 378,
+          "regret": 3,
+          "normalized_regret": 0.007874015748031496,
+          "capture": 0.9921259842519685
+        }
+      }
+    },
+    "eo-0101-oracle": {
+      "utility": 319,
+      "completion_us": 123464864,
+      "schedule": [
+        "t042-CLOUD_SCREEN",
+        "t012-CLOUD_SCREEN",
+        "t023-IMAGE_COMPRESSION",
+        "t047-DISASTER_MAPPING",
+        "t003-IMAGE_COMPRESSION",
+        "t032-CLOUD_SCREEN",
+        "t009-IMAGE_COMPRESSION",
+        "t039-VESSEL_DETECTION",
+        "t018-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 290,
+          "regret": 29,
+          "normalized_regret": 0.09090909090909091,
+          "capture": 0.9090909090909091
+        },
+        "fixed-priority": {
+          "utility": 317,
+          "regret": 2,
+          "normalized_regret": 0.006269592476489028,
+          "capture": 0.9937304075235109
+        },
+        "edf": {
+          "utility": 317,
+          "regret": 2,
+          "normalized_regret": 0.006269592476489028,
+          "capture": 0.9937304075235109
+        },
+        "edf-priority": {
+          "utility": 317,
+          "regret": 2,
+          "normalized_regret": 0.006269592476489028,
+          "capture": 0.9937304075235109
+        },
+        "temporal-utility": {
+          "utility": 311,
+          "regret": 8,
+          "normalized_regret": 0.025078369905956112,
+          "capture": 0.9749216300940439
+        },
+        "temporal-utility-density": {
+          "utility": 315,
+          "regret": 4,
+          "normalized_regret": 0.012539184952978056,
+          "capture": 0.987460815047022
+        }
+      }
+    },
+    "eo-0102-oracle": {
+      "utility": 333,
+      "completion_us": 82720000,
+      "schedule": [
+        "t003-CLOUD_SCREEN",
+        "t014-CLOUD_SCREEN",
+        "t038-CLOUD_SCREEN",
+        "t031-CLOUD_SCREEN",
+        "t015-VESSEL_DETECTION",
+        "t009-CLOUD_SCREEN",
+        "t030-MARINE_ANOMALY",
+        "t032-VESSEL_DETECTION",
+        "t024-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 327,
+          "regret": 6,
+          "normalized_regret": 0.018018018018018018,
+          "capture": 0.9819819819819819
+        },
+        "fixed-priority": {
+          "utility": 325,
+          "regret": 8,
+          "normalized_regret": 0.024024024024024024,
+          "capture": 0.975975975975976
+        },
+        "edf": {
+          "utility": 327,
+          "regret": 6,
+          "normalized_regret": 0.018018018018018018,
+          "capture": 0.9819819819819819
+        },
+        "edf-priority": {
+          "utility": 327,
+          "regret": 6,
+          "normalized_regret": 0.018018018018018018,
+          "capture": 0.9819819819819819
+        },
+        "temporal-utility": {
+          "utility": 323,
+          "regret": 10,
+          "normalized_regret": 0.03003003003003003,
+          "capture": 0.96996996996997
+        },
+        "temporal-utility-density": {
+          "utility": 323,
+          "regret": 10,
+          "normalized_regret": 0.03003003003003003,
+          "capture": 0.96996996996997
+        }
+      }
+    },
+    "eo-0111-oracle": {
+      "utility": 410,
+      "completion_us": 129147540,
+      "schedule": [
+        "t033-CLOUD_SCREEN",
+        "t020-VESSEL_DETECTION",
+        "t042-CLOUD_SCREEN",
+        "t014-WILDFIRE_ALERT",
+        "t022-CLOUD_SCREEN",
+        "t006-CLOUD_SCREEN",
+        "t024-DISASTER_MAPPING",
+        "t015-IMAGE_COMPRESSION",
+        "t029-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 341,
+          "regret": 69,
+          "normalized_regret": 0.16829268292682928,
+          "capture": 0.8317073170731707
+        },
+        "fixed-priority": {
+          "utility": 369,
+          "regret": 41,
+          "normalized_regret": 0.1,
+          "capture": 0.9
+        },
+        "edf": {
+          "utility": 374,
+          "regret": 36,
+          "normalized_regret": 0.08780487804878048,
+          "capture": 0.9121951219512195
+        },
+        "edf-priority": {
+          "utility": 374,
+          "regret": 36,
+          "normalized_regret": 0.08780487804878048,
+          "capture": 0.9121951219512195
+        },
+        "temporal-utility": {
+          "utility": 353,
+          "regret": 57,
+          "normalized_regret": 0.13902439024390245,
+          "capture": 0.8609756097560975
+        },
+        "temporal-utility-density": {
+          "utility": 367,
+          "regret": 43,
+          "normalized_regret": 0.1048780487804878,
+          "capture": 0.8951219512195122
+        }
+      }
+    },
+    "eo-0112-oracle": {
+      "utility": 159,
+      "completion_us": 61875000,
+      "schedule": [
+        "t042-CLOUD_SCREEN",
+        "t008-CLOUD_SCREEN",
+        "t020-CLOUD_SCREEN",
+        "t000-CLOUD_SCREEN",
+        "t007-CLOUD_SCREEN",
+        "t026-CLOUD_SCREEN",
+        "t045-CLOUD_SCREEN",
+        "t016-IMAGE_COMPRESSION",
+        "t019-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 130,
+          "regret": 29,
+          "normalized_regret": 0.18238993710691823,
+          "capture": 0.8176100628930818
+        },
+        "fixed-priority": {
+          "utility": 146,
+          "regret": 13,
+          "normalized_regret": 0.08176100628930817,
+          "capture": 0.9182389937106918
+        },
+        "edf": {
+          "utility": 141,
+          "regret": 18,
+          "normalized_regret": 0.11320754716981132,
+          "capture": 0.8867924528301887
+        },
+        "edf-priority": {
+          "utility": 141,
+          "regret": 18,
+          "normalized_regret": 0.11320754716981132,
+          "capture": 0.8867924528301887
+        },
+        "temporal-utility": {
+          "utility": 129,
+          "regret": 30,
+          "normalized_regret": 0.18867924528301888,
+          "capture": 0.8113207547169812
+        },
+        "temporal-utility-density": {
+          "utility": 140,
+          "regret": 19,
+          "normalized_regret": 0.11949685534591195,
+          "capture": 0.8805031446540881
+        }
+      }
+    },
+    "eo-0121-oracle": {
+      "utility": 627,
+      "completion_us": 194466762,
+      "schedule": [
+        "t020-IMAGE_COMPRESSION",
+        "t011-MARINE_ANOMALY",
+        "t015-DISASTER_MAPPING",
+        "t044-CLOUD_SCREEN",
+        "t021-MARINE_ANOMALY",
+        "t004-VESSEL_DETECTION",
+        "t024-VESSEL_DETECTION",
+        "t026-MARINE_ANOMALY",
+        "t039-VESSEL_DETECTION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 622,
+          "regret": 5,
+          "normalized_regret": 0.007974481658692184,
+          "capture": 0.9920255183413078
+        },
+        "fixed-priority": {
+          "utility": 617,
+          "regret": 10,
+          "normalized_regret": 0.01594896331738437,
+          "capture": 0.9840510366826156
+        },
+        "edf": {
+          "utility": 622,
+          "regret": 5,
+          "normalized_regret": 0.007974481658692184,
+          "capture": 0.9920255183413078
+        },
+        "edf-priority": {
+          "utility": 622,
+          "regret": 5,
+          "normalized_regret": 0.007974481658692184,
+          "capture": 0.9920255183413078
+        },
+        "temporal-utility": {
+          "utility": 617,
+          "regret": 10,
+          "normalized_regret": 0.01594896331738437,
+          "capture": 0.9840510366826156
+        },
+        "temporal-utility-density": {
+          "utility": 622,
+          "regret": 5,
+          "normalized_regret": 0.007974481658692184,
+          "capture": 0.9920255183413078
+        }
+      }
+    },
+    "eo-0122-oracle": {
+      "utility": 473,
+      "completion_us": 216895140,
+      "schedule": [
+        "t002-CLOUD_SCREEN",
+        "t006-IMAGE_COMPRESSION",
+        "t035-CLOUD_SCREEN",
+        "t003-MARINE_ANOMALY",
+        "t041-VESSEL_DETECTION",
+        "t015-CLOUD_SCREEN",
+        "t034-WILDFIRE_ALERT",
+        "t043-VESSEL_DETECTION",
+        "t037-VESSEL_DETECTION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 473,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0131-oracle": {
+      "utility": 560,
+      "completion_us": 109606374,
+      "schedule": [
+        "t010-MARINE_ANOMALY",
+        "t006-CLOUD_SCREEN",
+        "t005-MARINE_ANOMALY",
+        "t043-VESSEL_DETECTION",
+        "t047-MARINE_ANOMALY",
+        "t009-IMAGE_COMPRESSION",
+        "t011-VESSEL_DETECTION",
+        "t040-VESSEL_DETECTION",
+        "t014-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 557,
+          "regret": 3,
+          "normalized_regret": 0.005357142857142857,
+          "capture": 0.9946428571428572
+        },
+        "fixed-priority": {
+          "utility": 554,
+          "regret": 6,
+          "normalized_regret": 0.010714285714285714,
+          "capture": 0.9892857142857143
+        },
+        "edf": {
+          "utility": 558,
+          "regret": 2,
+          "normalized_regret": 0.0035714285714285713,
+          "capture": 0.9964285714285714
+        },
+        "edf-priority": {
+          "utility": 558,
+          "regret": 2,
+          "normalized_regret": 0.0035714285714285713,
+          "capture": 0.9964285714285714
+        },
+        "temporal-utility": {
+          "utility": 546,
+          "regret": 14,
+          "normalized_regret": 0.025,
+          "capture": 0.975
+        },
+        "temporal-utility-density": {
+          "utility": 554,
+          "regret": 6,
+          "normalized_regret": 0.010714285714285714,
+          "capture": 0.9892857142857143
+        }
+      }
+    },
+    "eo-0132-oracle": {
+      "utility": 687,
+      "completion_us": 195431010,
+      "schedule": [
+        "t033-CLOUD_SCREEN",
+        "t030-VESSEL_DETECTION",
+        "t029-MARINE_ANOMALY",
+        "t027-MARINE_ANOMALY",
+        "t043-MARINE_ANOMALY",
+        "t041-MARINE_ANOMALY",
+        "t001-DISASTER_MAPPING",
+        "t019-DISASTER_MAPPING",
+        "t010-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 687,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0141-oracle": {
+      "utility": 645,
+      "completion_us": 91290322,
+      "schedule": [
+        "t015-WILDFIRE_ALERT",
+        "t047-MARINE_ANOMALY",
+        "t017-VESSEL_DETECTION",
+        "t027-VESSEL_DETECTION",
+        "t035-MARINE_ANOMALY",
+        "t008-CLOUD_SCREEN",
+        "t037-MARINE_ANOMALY",
+        "t004-VESSEL_DETECTION",
+        "t007-VESSEL_DETECTION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 629,
+          "regret": 16,
+          "normalized_regret": 0.024806201550387597,
+          "capture": 0.9751937984496124
+        },
+        "fixed-priority": {
+          "utility": 629,
+          "regret": 16,
+          "normalized_regret": 0.024806201550387597,
+          "capture": 0.9751937984496124
+        },
+        "edf": {
+          "utility": 630,
+          "regret": 15,
+          "normalized_regret": 0.023255813953488372,
+          "capture": 0.9767441860465116
+        },
+        "edf-priority": {
+          "utility": 630,
+          "regret": 15,
+          "normalized_regret": 0.023255813953488372,
+          "capture": 0.9767441860465116
+        },
+        "temporal-utility": {
+          "utility": 629,
+          "regret": 16,
+          "normalized_regret": 0.024806201550387597,
+          "capture": 0.9751937984496124
+        },
+        "temporal-utility-density": {
+          "utility": 623,
+          "regret": 22,
+          "normalized_regret": 0.034108527131782945,
+          "capture": 0.9658914728682171
+        }
+      }
+    },
+    "eo-0142-oracle": {
+      "utility": 609,
+      "completion_us": 99260606,
+      "schedule": [
+        "t043-VESSEL_DETECTION",
+        "t046-MARINE_ANOMALY",
+        "t022-VESSEL_DETECTION",
+        "t038-MARINE_ANOMALY",
+        "t042-VESSEL_DETECTION",
+        "t014-VESSEL_DETECTION",
+        "t024-VESSEL_DETECTION",
+        "t025-VESSEL_DETECTION",
+        "t031-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 609,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0151-oracle": {
+      "utility": 609,
+      "completion_us": 120803571,
+      "schedule": [
+        "t022-VESSEL_DETECTION",
+        "t007-MARINE_ANOMALY",
+        "t013-VESSEL_DETECTION",
+        "t047-VESSEL_DETECTION",
+        "t023-DISASTER_MAPPING",
+        "t002-IMAGE_COMPRESSION",
+        "t026-VESSEL_DETECTION",
+        "t029-MARINE_ANOMALY",
+        "t024-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 585,
+          "regret": 24,
+          "normalized_regret": 0.03940886699507389,
+          "capture": 0.9605911330049262
+        },
+        "fixed-priority": {
+          "utility": 575,
+          "regret": 34,
+          "normalized_regret": 0.05582922824302135,
+          "capture": 0.9441707717569786
+        },
+        "edf": {
+          "utility": 605,
+          "regret": 4,
+          "normalized_regret": 0.006568144499178982,
+          "capture": 0.993431855500821
+        },
+        "edf-priority": {
+          "utility": 605,
+          "regret": 4,
+          "normalized_regret": 0.006568144499178982,
+          "capture": 0.993431855500821
+        },
+        "temporal-utility": {
+          "utility": 575,
+          "regret": 34,
+          "normalized_regret": 0.05582922824302135,
+          "capture": 0.9441707717569786
+        },
+        "temporal-utility-density": {
+          "utility": 587,
+          "regret": 22,
+          "normalized_regret": 0.0361247947454844,
+          "capture": 0.9638752052545156
+        }
+      }
+    },
+    "eo-0152-oracle": {
+      "utility": 593,
+      "completion_us": 88527559,
+      "schedule": [
+        "t011-MARINE_ANOMALY",
+        "t035-WILDFIRE_ALERT",
+        "t000-VESSEL_DETECTION",
+        "t001-MARINE_ANOMALY",
+        "t012-MARINE_ANOMALY",
+        "t038-VESSEL_DETECTION",
+        "t022-IMAGE_COMPRESSION",
+        "t027-VESSEL_DETECTION",
+        "t037-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 593,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0161-oracle": {
+      "utility": 469,
+      "completion_us": 256112855,
+      "schedule": [
+        "t038-WILDFIRE_ALERT",
+        "t022-CLOUD_SCREEN",
+        "t025-CLOUD_SCREEN",
+        "t033-VESSEL_DETECTION",
+        "t002-CLOUD_SCREEN",
+        "t027-CLOUD_SCREEN",
+        "t031-MARINE_ANOMALY",
+        "t030-IMAGE_COMPRESSION",
+        "t045-WILDFIRE_ALERT"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        },
+        "fixed-priority": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        },
+        "edf": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        },
+        "edf-priority": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        },
+        "temporal-utility": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        },
+        "temporal-utility-density": {
+          "utility": 466,
+          "regret": 3,
+          "normalized_regret": 0.006396588486140725,
+          "capture": 0.9936034115138592
+        }
+      }
+    },
+    "eo-0162-oracle": {
+      "utility": 588,
+      "completion_us": 426650794,
+      "schedule": [
+        "t045-WILDFIRE_ALERT",
+        "t035-CLOUD_SCREEN",
+        "t004-CLOUD_SCREEN",
+        "t002-DISASTER_MAPPING",
+        "t036-DISASTER_MAPPING",
+        "t001-DISASTER_MAPPING",
+        "t040-DISASTER_MAPPING",
+        "t022-CLOUD_SCREEN",
+        "t031-CLOUD_SCREEN"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "fixed-priority": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "edf-priority": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        },
+        "temporal-utility-density": {
+          "utility": 588,
+          "regret": 0,
+          "normalized_regret": 0.0,
+          "capture": 1.0
+        }
+      }
+    },
+    "eo-0171-oracle": {
+      "utility": 642,
+      "completion_us": 189250000,
+      "schedule": [
+        "t011-IMAGE_COMPRESSION",
+        "t017-VESSEL_DETECTION",
+        "t014-MARINE_ANOMALY",
+        "t027-MARINE_ANOMALY",
+        "t042-CLOUD_SCREEN",
+        "t024-DISASTER_MAPPING",
+        "t039-VESSEL_DETECTION",
+        "t003-DISASTER_MAPPING",
+        "t018-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 621,
+          "regret": 21,
+          "normalized_regret": 0.03271028037383177,
+          "capture": 0.9672897196261683
+        },
+        "fixed-priority": {
+          "utility": 599,
+          "regret": 43,
+          "normalized_regret": 0.06697819314641744,
+          "capture": 0.9330218068535826
+        },
+        "edf": {
+          "utility": 634,
+          "regret": 8,
+          "normalized_regret": 0.012461059190031152,
+          "capture": 0.9875389408099688
+        },
+        "edf-priority": {
+          "utility": 634,
+          "regret": 8,
+          "normalized_regret": 0.012461059190031152,
+          "capture": 0.9875389408099688
+        },
+        "temporal-utility": {
+          "utility": 599,
+          "regret": 43,
+          "normalized_regret": 0.06697819314641744,
+          "capture": 0.9330218068535826
+        },
+        "temporal-utility-density": {
+          "utility": 633,
+          "regret": 9,
+          "normalized_regret": 0.014018691588785047,
+          "capture": 0.985981308411215
+        }
+      }
+    },
+    "eo-0172-oracle": {
+      "utility": 663,
+      "completion_us": 125137434,
+      "schedule": [
+        "t004-WILDFIRE_ALERT",
+        "t033-CLOUD_SCREEN",
+        "t045-WILDFIRE_ALERT",
+        "t024-CLOUD_SCREEN",
+        "t014-VESSEL_DETECTION",
+        "t005-VESSEL_DETECTION",
+        "t046-MARINE_ANOMALY",
+        "t030-WILDFIRE_ALERT",
+        "t000-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 593,
+          "regret": 70,
+          "normalized_regret": 0.10558069381598793,
+          "capture": 0.8944193061840121
+        },
+        "fixed-priority": {
+          "utility": 604,
+          "regret": 59,
+          "normalized_regret": 0.0889894419306184,
+          "capture": 0.9110105580693816
+        },
+        "edf": {
+          "utility": 631,
+          "regret": 32,
+          "normalized_regret": 0.048265460030165915,
+          "capture": 0.951734539969834
+        },
+        "edf-priority": {
+          "utility": 631,
+          "regret": 32,
+          "normalized_regret": 0.048265460030165915,
+          "capture": 0.951734539969834
+        },
+        "temporal-utility": {
+          "utility": 604,
+          "regret": 59,
+          "normalized_regret": 0.0889894419306184,
+          "capture": 0.9110105580693816
+        },
+        "temporal-utility-density": {
+          "utility": 618,
+          "regret": 45,
+          "normalized_regret": 0.06787330316742081,
+          "capture": 0.9321266968325792
+        }
+      }
+    },
+    "eo-0181-oracle": {
+      "utility": 433,
+      "completion_us": 139077611,
+      "schedule": [
+        "t039-MARINE_ANOMALY",
+        "t019-IMAGE_COMPRESSION",
+        "t007-CLOUD_SCREEN",
+        "t037-VESSEL_DETECTION",
+        "t015-IMAGE_COMPRESSION",
+        "t006-MARINE_ANOMALY",
+        "t016-IMAGE_COMPRESSION",
+        "t034-MARINE_ANOMALY",
+        "t036-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 426,
+          "regret": 7,
+          "normalized_regret": 0.016166281755196306,
+          "capture": 0.9838337182448037
+        },
+        "fixed-priority": {
+          "utility": 430,
+          "regret": 3,
+          "normalized_regret": 0.006928406466512702,
+          "capture": 0.9930715935334873
+        },
+        "edf": {
+          "utility": 430,
+          "regret": 3,
+          "normalized_regret": 0.006928406466512702,
+          "capture": 0.9930715935334873
+        },
+        "edf-priority": {
+          "utility": 430,
+          "regret": 3,
+          "normalized_regret": 0.006928406466512702,
+          "capture": 0.9930715935334873
+        },
+        "temporal-utility": {
+          "utility": 415,
+          "regret": 18,
+          "normalized_regret": 0.04157043879907621,
+          "capture": 0.9584295612009238
+        },
+        "temporal-utility-density": {
+          "utility": 430,
+          "regret": 3,
+          "normalized_regret": 0.006928406466512702,
+          "capture": 0.9930715935334873
+        }
+      }
+    },
+    "eo-0182-oracle": {
+      "utility": 767,
+      "completion_us": 144748437,
+      "schedule": [
+        "t008-CLOUD_SCREEN",
+        "t017-DISASTER_MAPPING",
+        "t002-MARINE_ANOMALY",
+        "t024-DISASTER_MAPPING",
+        "t047-WILDFIRE_ALERT",
+        "t007-WILDFIRE_ALERT",
+        "t045-DISASTER_MAPPING",
+        "t003-VESSEL_DETECTION",
+        "t021-MARINE_ANOMALY"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 754,
+          "regret": 13,
+          "normalized_regret": 0.01694915254237288,
+          "capture": 0.9830508474576272
+        },
+        "fixed-priority": {
+          "utility": 744,
+          "regret": 23,
+          "normalized_regret": 0.02998696219035202,
+          "capture": 0.970013037809648
+        },
+        "edf": {
+          "utility": 760,
+          "regret": 7,
+          "normalized_regret": 0.009126466753585397,
+          "capture": 0.9908735332464146
+        },
+        "edf-priority": {
+          "utility": 760,
+          "regret": 7,
+          "normalized_regret": 0.009126466753585397,
+          "capture": 0.9908735332464146
+        },
+        "temporal-utility": {
+          "utility": 744,
+          "regret": 23,
+          "normalized_regret": 0.02998696219035202,
+          "capture": 0.970013037809648
+        },
+        "temporal-utility-density": {
+          "utility": 763,
+          "regret": 4,
+          "normalized_regret": 0.005215123859191656,
+          "capture": 0.9947848761408083
+        }
+      }
+    },
+    "eo-0191-oracle": {
+      "utility": 484,
+      "completion_us": 86347368,
+      "schedule": [
+        "t042-VESSEL_DETECTION",
+        "t036-CLOUD_SCREEN",
+        "t031-WILDFIRE_ALERT",
+        "t027-CLOUD_SCREEN",
+        "t030-CLOUD_SCREEN",
+        "t015-MARINE_ANOMALY",
+        "t046-WILDFIRE_ALERT",
+        "t047-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 322,
+          "regret": 162,
+          "normalized_regret": 0.3347107438016529,
+          "capture": 0.6652892561983471
+        },
+        "fixed-priority": {
+          "utility": 406,
+          "regret": 78,
+          "normalized_regret": 0.16115702479338842,
+          "capture": 0.8388429752066116
+        },
+        "edf": {
+          "utility": 471,
+          "regret": 13,
+          "normalized_regret": 0.026859504132231406,
+          "capture": 0.9731404958677686
+        },
+        "edf-priority": {
+          "utility": 471,
+          "regret": 13,
+          "normalized_regret": 0.026859504132231406,
+          "capture": 0.9731404958677686
+        },
+        "temporal-utility": {
+          "utility": 461,
+          "regret": 23,
+          "normalized_regret": 0.047520661157024795,
+          "capture": 0.9524793388429752
+        },
+        "temporal-utility-density": {
+          "utility": 461,
+          "regret": 23,
+          "normalized_regret": 0.047520661157024795,
+          "capture": 0.9524793388429752
+        }
+      }
+    },
+    "eo-0192-oracle": {
+      "utility": 536,
+      "completion_us": 131206896,
+      "schedule": [
+        "t010-CLOUD_SCREEN",
+        "t037-MARINE_ANOMALY",
+        "t019-VESSEL_DETECTION",
+        "t016-VESSEL_DETECTION",
+        "t006-VESSEL_DETECTION",
+        "t003-DISASTER_MAPPING",
+        "t046-MARINE_ANOMALY",
+        "t002-IMAGE_COMPRESSION",
+        "t007-IMAGE_COMPRESSION"
+      ],
+      "exact": true,
+      "policies": {
+        "fifo": {
+          "utility": 498,
+          "regret": 38,
+          "normalized_regret": 0.0708955223880597,
+          "capture": 0.9291044776119403
+        },
+        "fixed-priority": {
+          "utility": 487,
+          "regret": 49,
+          "normalized_regret": 0.0914179104477612,
+          "capture": 0.9085820895522388
+        },
+        "edf": {
+          "utility": 531,
+          "regret": 5,
+          "normalized_regret": 0.009328358208955223,
+          "capture": 0.9906716417910447
+        },
+        "edf-priority": {
+          "utility": 531,
+          "regret": 5,
+          "normalized_regret": 0.009328358208955223,
+          "capture": 0.9906716417910447
+        },
+        "temporal-utility": {
+          "utility": 487,
+          "regret": 49,
+          "normalized_regret": 0.0914179104477612,
+          "capture": 0.9085820895522388
+        },
+        "temporal-utility-density": {
+          "utility": 531,
+          "regret": 5,
+          "normalized_regret": 0.009328358208955223,
+          "capture": 0.9906716417910447
+        }
+      }
+    }
+  },
+  "summary": {
+    "fifo": {
+      "total_utility": 22254,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9489169367218148,
+      "total_regret": 1198,
+      "worst_regret": 176,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9447233678593084,
+        "median": 0.9785878902157972,
+        "p10": 0.8672706003012725,
+        "p25": 0.9168136653372874,
+        "p50": 0.9785878902157972,
+        "p75": 0.9950112690707351,
+        "p90": 1.0
+      }
+    },
+    "fixed-priority": {
+      "total_utility": 22680,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9670816987890158,
+      "total_regret": 772,
+      "worst_regret": 78,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9631958598362681,
+        "median": 0.9755848872127941,
+        "p10": 0.9107677112176673,
+        "p25": 0.9346724557619787,
+        "p50": 0.9755848872127941,
+        "p75": 0.9964303484173864,
+        "p90": 1.0
+      }
+    },
+    "edf": {
+      "total_utility": 23107,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9852891011427597,
+      "total_regret": 345,
+      "worst_regret": 51,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9822165163719841,
+        "median": 0.9921567180395485,
+        "p10": 0.9500833531793283,
+        "p25": 0.9829396919240669,
+        "p50": 0.9921567180395485,
+        "p75": 0.996665260592426,
+        "p90": 1.0
+      }
+    },
+    "edf-priority": {
+      "total_utility": 23107,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9852891011427597,
+      "total_regret": 345,
+      "worst_regret": 51,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9822165163719841,
+        "median": 0.9921567180395485,
+        "p10": 0.9500833531793283,
+        "p25": 0.9829396919240669,
+        "p50": 0.9921567180395485,
+        "p75": 0.996665260592426,
+        "p90": 1.0
+      }
+    },
+    "temporal-utility": {
+      "total_utility": 22435,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9566348285860481,
+      "total_regret": 1017,
+      "worst_regret": 97,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9527669556345174,
+        "median": 0.9675431245198687,
+        "p10": 0.9008030843444773,
+        "p25": 0.9104034409400958,
+        "p50": 0.9675431245198687,
+        "p75": 0.9942316848489867,
+        "p90": 1.0
+      }
+    },
+    "temporal-utility-density": {
+      "total_utility": 22889,
+      "oracle_utility": 23452,
+      "corpus_capture": 0.9759935186764455,
+      "total_regret": 563,
+      "worst_regret": 79,
+      "capture_distribution": {
+        "count": 40,
+        "mean": 0.9734483335465208,
+        "median": 0.9867210617291184,
+        "p10": 0.928532949619755,
+        "p25": 0.9656976744186047,
+        "p50": 0.9867210617291184,
+        "p75": 0.9951177833191985,
+        "p90": 1.0
+      }
+    }
+  },
+  "note": "Exact for 40 derived nine-job problems; not an oracle for the full primary corpus."
+}
