@@ -95,6 +95,14 @@ def author_login(item):
     return (item.get('user') or {}).get('login')
 
 
+def substantive_review(review, inline_comments):
+    """Thread replies can create empty COMMENTED reviews without reviewing code."""
+    return (review['state'] in ('APPROVED', 'CHANGES_REQUESTED')
+            or bool((review.get('body') or '').strip())
+            or any(c.get('pull_request_review_id') == review['id']
+                   and not c.get('in_reply_to_id') for c in inline_comments))
+
+
 def summarize(data, config, local_sha=None, addressed_sha=None):
     pr, head = data['pr'], data['pr']['head']['sha']
     # GitHub may retain reruns and multiple statuses: newest per producer/context wins.
@@ -115,7 +123,8 @@ def summarize(data, config, local_sha=None, addressed_sha=None):
         ci_state = 'missing'
     rabbit_state = gate(rabbit)
     current_reviews = [r for r in data['reviews'] if author_login(r) == BOT
-                       and r.get('commit_id') == head and r['state'] != 'PENDING']
+                       and r.get('commit_id') == head and r['state'] != 'PENDING'
+                       and substantive_review(r, data['inline_comments'])]
     if rabbit_state == 'success':
         rabbit_state = 'complete' if current_reviews else 'unverified'
     # Only negative fallback hints: text never establishes successful completion.

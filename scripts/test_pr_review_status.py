@@ -70,6 +70,14 @@ class StatusTests(unittest.TestCase):
         data['reviews'][0]['commit_id']='b'*40
         self.assertEqual(self.result(data)['coderabbit'],'unverified')
 
+    def test_empty_bot_reply_review_cannot_certify_code_review(self):
+        data=fixture()
+        data['reviews'][0]['body']=''
+        data['inline_comments']=[{'pull_request_review_id':1,'in_reply_to_id':999}]
+        self.assertEqual(self.result(data)['coderabbit'],'unverified')
+        data['inline_comments'][0].pop('in_reply_to_id')
+        self.assertEqual(self.result(data)['coderabbit'],'complete')
+
     def test_bot_requested_changes_block_even_without_threads(self):
         data=fixture()
         data['reviews'][0]['state']='CHANGES_REQUESTED'
