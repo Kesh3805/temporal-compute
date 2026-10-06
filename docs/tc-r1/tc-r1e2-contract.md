@@ -1,0 +1,25 @@
+# TC-R1E2 — PBRT execution contract: pre-test gate
+
+This gate is committed before any E2 render. It preserves PR #11's result: no renderer selected. PBRT alone receives one bounded attempt; neither a custom renderer nor Mitsuba is a fallback within this gate. No policies, registered assets, references or TC comparisons.
+
+## Frozen feature envelope
+
+Pinned PBRT `b4ce9687e6c695f5582997c61b0c66cf064bdb4a`, CPU float Release, native `path`, RGB Film, pinhole perspective, independent sampler configured at 16 spp, seed19, box filter, unclamped radiance, maxdepth8, native Russian roulette and MIS, regularization disabled. Allowed geometry: spheres and triangle meshes with opaque diffuse, conductor or dielectric BSDFs; finite point/area and uniform environment lights. Motion families may use independently positioned static geometry at each frame: no temporal reuse or motion blur is needed to represent changed visibility. Specular and noisy families can use glass/metals and small bright emitters; diffuse and adaptive-friendly families can use spatially heterogeneous surface/light layouts. This surface-only envelope represents all five registered family challenges without requiring volume transport.
+
+Exclude media, subsurface, null interfaces, thin-lens camera, textures, splats, normal/bump/displacement maps, specialized integrators, light-path tracing, bidirectional/photon transport, guiding, denoising, GPU and reconstruction beyond box. Future assets must obey this envelope or require a new pre-outcome decision; no feature may be silently added to a selected kernel. Freeze here is a feature-contract decision, not the full TC-R1 execution freeze.
+
+## Estimator gate
+
+Use unrelated 64×64 empty, diffuse, conductor, dielectric, point-light and area-light fixtures plus an enclosing diffuse sphere for long paths/roulette. Compare exactly [0,16) against four batches [0,4),[4,8),[8,12),[12,16), both forward and reverse batch order. Compare one whole central 8×8 region against four disjoint 4×4 tiles and 1 versus 2 threads. Native sampler configuration remains 16 for every call; sample identity is exact (pixel,index,RGB value), tested separately.
+
+The progressive estimator is the count-weighted combination of native Film.GetPixelRGB for each batch, with box weights equal to one and no splats/clamping. Validate logged output-sample mean against native Film for each pixel, then validate pooled native batch Film against native one-shot Film. Finite values required. Compare linear RGB channels using `abs(a-b) <= 1e-6 + 1e-5 * max(abs(a),abs(b))` independently for every channel/pixel; no averaging away failures, no EXR byte comparison. This tolerance and method cannot change after render results. A sample-identity mismatch fails even if image tolerance passes. Every tested permutation must pass.
+
+## Charged-work gate
+
+Charge camera-ray generation, every native path continuation ray generation (including rays discarded by roulette before a trace), and each visibility ray query. The common total increments at those operation sites and an event ledger separately records camera/continuation/visibility classes for each pixel/sample. No allocation probes are executed; any future probe must call the same charged kernel and cannot be free. Arithmetic direction candidates without a constructed ray are not ray operations. Trace queries are also recorded independently at Intersect/IntersectP; every traced ray must have a preceding charged generation in its class. Reject any sample with visibility query/charge mismatch, camera query/charge mismatch, or traced continuations exceeding generated continuations. Untraced generated continuations remain charged.
+
+For each sample and globally require common total = camera + generated continuation + visibility, and ledger counts agree with independent operation counters; do not derive this from spp, renderer stats or averages. Empty environment analytically requires one camera charge/query and no other rays. Diffuse/conductor require exercised continuation; point/area lights require visibility; dielectric must exercise transmission paths; enclosing sphere must exercise depth/roulette with generated-but-untraced continuation observable. Source audit must verify no other ray-producing path reachable in this envelope. Mere identity among duplicated bookkeeping counters is insufficient without call-site audit and analytic/coverage fixtures.
+
+## Bounded attempt and decision
+
+One implementation and one synthetic contract run after this pre-test commit. Build/transport failures may be diagnosed as infrastructure without changing the numerical/feature contract; any scientific assertion failure ends the gate without renderer rewrite. Missing coverage or incomplete evidence is not PASS. Both gates PASS permits PBRT CPU selection for subsequent execution work, not a TC benefit claim. Either gate FAIL stops E2 and recommends reconsidering path tracing. Retain complete artifacts, hashes, call-site audit and every failed case. No `tc-r1-execution-preregistered` tag here.
