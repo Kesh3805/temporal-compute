@@ -1,0 +1,4 @@
+# Qualification tools only. Not a frozen execution environment.
+mitsuba==3.9.1
+drjit==1.5.0
+numpy==2.5.3

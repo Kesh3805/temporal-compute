@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "amendment": "0001-comparator-selection",
+  "original_protocol_sha": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "selection_unit": "one registered conventional method for the entire corpus",
+  "quality_aggregate": "equal-weight mean log relative MSE across scene/seed units retaining all frames/budgets",
+  "quality_selection": "minimum corpus-level quality aggregate",
+  "time_aggregate": "corpus-level restricted mean time to joint target at one frozen common cap",
+  "time_selection": "minimum corpus-level time aggregate, independently of quality selection",
+  "tie_order": ["uniform", "adaptive", "variance", "native"],
+  "bootstrap_reselect": false,
+  "report_every_baseline": true,
+  "per_case_super_baseline_prohibited": true
+}

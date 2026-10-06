@@ -1,0 +1,81 @@
+{
+  "renderer": "Mitsuba",
+  "package_version": "3.9.1",
+  "upstream_release_commit": "478e193a183c21723f4a8251afc3ad29a8da4c5e",
+  "binary_provenance": "pip release wheel; upstream release mapping, not independently rebuilt source",
+  "variant": "llvm_ad_rgb",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "drjit_version": "1.5.0",
+  "license": "BSD-3-Clause",
+  "fixtures": {
+    "empty": {
+      "load_seconds": 0.004480298000004268,
+      "cold_wall_seconds": 1.426483444000013,
+      "warm_wall_seconds": [
+        0.07671026400001324,
+        0.07736941699999988,
+        0.0759184659999903
+      ],
+      "camera_samples_per_render": 16777216,
+      "camera_samples_per_second": 218708880.99142906,
+      "measured_rays_per_second": null,
+      "projected_256x256_8192spp_seconds": 2.4547284480004237,
+      "projected_60_reference_frames_hours": 0.04091214080000706,
+      "projection_not_corpus_measurement": true,
+      "timing": "dr.eval plus dr.sync_thread before start/after stop for JIT; native scalar is synchronous"
+    },
+    "diffuse": {
+      "load_seconds": 0.0022182329999793637,
+      "cold_wall_seconds": 0.6084654800000067,
+      "warm_wall_seconds": [
+        0.4739320979999775,
+        0.45710625200001687,
+        0.4582489740000142
+      ],
+      "camera_samples_per_render": 16777216,
+      "camera_samples_per_second": 36611573.515491344,
+      "measured_rays_per_second": null,
+      "projected_256x256_8192spp_seconds": 14.663967168000454,
+      "projected_60_reference_frames_hours": 0.24439945280000758,
+      "projection_not_corpus_measurement": true,
+      "timing": "dr.eval plus dr.sync_thread before start/after stop for JIT; native scalar is synchronous"
+    },
+    "specular": {
+      "load_seconds": 0.0023722709999844938,
+      "cold_wall_seconds": 0.4191300079999962,
+      "warm_wall_seconds": [
+        0.31777038699999594,
+        0.318752915999994,
+        0.3180451980000214
+      ],
+      "camera_samples_per_render": 16777216,
+      "camera_samples_per_second": 52751043.26523701,
+      "measured_rays_per_second": null,
+      "projected_256x256_8192spp_seconds": 10.177446336000685,
+      "projected_60_reference_frames_hours": 0.16962410560001143,
+      "projection_not_corpus_measurement": true,
+      "timing": "dr.eval plus dr.sync_thread before start/after stop for JIT; native scalar is synchronous"
+    },
+    "pointlit": {
+      "load_seconds": 0.0015343519999930777,
+      "cold_wall_seconds": 0.6559446349999973,
+      "warm_wall_seconds": [
+        0.45826443600000744,
+        0.4587888890000045,
+        0.4584305180000001
+      ],
+      "camera_samples_per_render": 16777216,
+      "camera_samples_per_second": 36597074.89194687,
+      "measured_rays_per_second": null,
+      "projected_256x256_8192spp_seconds": 14.669776576000004,
+      "projected_60_reference_frames_hours": 0.24449627626666673,
+      "projection_not_corpus_measurement": true,
+      "timing": "dr.eval plus dr.sync_thread before start/after stop for JIT; native scalar is synchronous"
+    }
+  },
+  "complete_ray_accounting": false,
+  "accounting_limitation": "native path integrator has no exposed complete per-action ray counter",
+  "scope": "unrelated 64x64 synthetic infrastructure; no registered assets or policies",
+  "status": "PASS WITH LIMITATION",
+  "initialization_seconds": 0.29359349999998585
+}
