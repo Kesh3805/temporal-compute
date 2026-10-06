@@ -5,7 +5,6 @@ use std::{
     fs,
     io::{self, Write},
     path::PathBuf,
-    process::Command,
 };
 use tc_ir::Scenario;
 use tc_scheduler::Policy;
@@ -65,21 +64,9 @@ struct Report {
     schema_version: u32,
     git_commit: Option<String>,
     git_dirty: Option<bool>,
+    rustc_version: Option<&'static str>,
     scenario_path: String,
     runs: Vec<RunResult>,
-}
-
-fn git(args: &[&str]) -> Option<String> {
-    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let output = Command::new("git")
-        .args(args)
-        .current_dir(root)
-        .output()
-        .ok()?;
-    output
-        .status
-        .success()
-        .then(|| String::from_utf8_lossy(&output.stdout).trim().to_owned())
 }
 
 fn execute() -> Result<()> {
@@ -123,9 +110,9 @@ fn execute() -> Result<()> {
     }
     let report = Report {
         schema_version: 1,
-        git_commit: git(&["rev-parse", "HEAD"]),
-        git_dirty: git(&["status", "--porcelain", "--untracked-files=normal"])
-            .map(|s| !s.is_empty()),
+        git_commit: option_env!("TC_BUILD_GIT_COMMIT").map(str::to_owned),
+        git_dirty: option_env!("TC_BUILD_GIT_DIRTY").and_then(|value| value.parse().ok()),
+        rustc_version: option_env!("TC_BUILD_RUSTC"),
         scenario_path: path.to_string_lossy().replace('\\', "/"),
         runs,
     };
@@ -147,10 +134,11 @@ fn execute() -> Result<()> {
             for run in &report.runs {
                 let m = &run.metrics;
                 text.push_str(&format!(
-                    "{:<26} {:>10} {:>10.4} {:>10} {:>10} {:>12}\n",
+                    "{:<26} {:>10} {:>10} {:>10} {:>10} {:>12}\n",
                     run.scheduler,
                     m.total_utility,
-                    m.normalized_utility.unwrap_or(0.0),
+                    m.normalized_utility
+                        .map_or_else(|| "n/a".into(), |u| format!("{u:.4}")),
                     m.tasks_completed,
                     m.tasks_expired,
                     m.compute_time_wasted_us

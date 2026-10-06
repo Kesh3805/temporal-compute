@@ -2,6 +2,7 @@
 """Run every fixed scenario twice, verify byte replay, and save research artifacts."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 
@@ -13,8 +14,10 @@ def main():
     root = Path(__file__).resolve().parents[1]
     if not args.binary:
         subprocess.run(['cargo', 'build', '--locked', '--release', '-p', 'tc-cli'], cwd=root, check=True)
-    import os
-    binary = Path(args.binary).resolve() if args.binary else root / 'target' / 'release' / ('tc.exe' if os.name == 'nt' else 'tc')
+    target = Path(os.environ.get('CARGO_TARGET_DIR', 'target'))
+    if not target.is_absolute():
+        target = root / target
+    binary = Path(args.binary).resolve() if args.binary else target / 'release' / ('tc.exe' if os.name == 'nt' else 'tc')
     directory = root / args.output
     directory.mkdir(parents=True, exist_ok=True)
     summaries = []

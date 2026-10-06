@@ -16,7 +16,7 @@ The seven fixed fixtures are specified in `scripts/create_scenarios.py` and chec
 
 `python scripts/tc0.py` executes 35 runs twice and checks byte equality before saving reports. Tests independently assert monotonic time, unique execution, arrival eligibility, consumed duration, completion utility, reconciliation and stable ties. Unit tests cover curve and time boundaries; a finite-domain property test checks utility bounds and monotonicity. No ceremonial property-testing dependency is needed.
 
-Every JSON report records full scenario definitions, scenario path, policy, seed, source Git commit and dirty flag, simulator version and effective configuration. Integer arithmetic controls all scheduling decisions. Reproduce source commit with a clean checkout and `Cargo.lock`; then use the same commands. Git metadata changes after committing artifact files, so compare event streams/metrics rather than report headers across different commits. If Git is unavailable, provenance fields are `null`, never fabricated.
+Every JSON report records full scenario definitions, scenario path, policy, seed, source Git commit and dirty flag captured when the CLI is built, compiler version, simulator version and effective configuration. Integer arithmetic controls all scheduling decisions. Build-time provenance prevents an old binary from claiming a newer checkout's revision. Reproduce source commit with a clean checkout and `Cargo.lock`; then use the same commands. Git metadata changes after committing artifact files, so compare event streams/metrics rather than report headers across different commits. If Git is unavailable at build time, provenance fields are `null`, never fabricated.
 
 ## Kill criteria
 

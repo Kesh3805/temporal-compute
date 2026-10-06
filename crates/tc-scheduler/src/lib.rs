@@ -56,10 +56,8 @@ impl Policy {
         let rank = match self {
             Self::Fifo => Ordering::Equal,
             Self::FixedPriority => b.priority.cmp(&a.priority),
-            Self::Edf => a
-                .deadline_us
-                .unwrap_or(SimTime(u64::MAX))
-                .cmp(&b.deadline_us.unwrap_or(SimTime(u64::MAX))),
+            Self::Edf => (a.deadline_us.is_none(), a.deadline_us)
+                .cmp(&(b.deadline_us.is_none(), b.deadline_us)),
             Self::TemporalUtility => {
                 Self::predicted_utility(b, now).cmp(&Self::predicted_utility(a, now))
             }
@@ -150,6 +148,11 @@ mod tests {
             Policy::TemporalUtilityDensity.select_next(&context, &[&a, &b]),
             Some(b.id.clone())
         );
+        assert_eq!(
+            Policy::Edf.select_next(&context, &[&a, &b]),
+            Some(b.id.clone())
+        );
+        b.deadline_us = Some(SimTime(u64::MAX));
         assert_eq!(
             Policy::Edf.select_next(&context, &[&a, &b]),
             Some(b.id.clone())

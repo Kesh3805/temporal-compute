@@ -223,6 +223,45 @@ fn scheduler_contract_is_enforced() {
 }
 
 #[test]
+fn simultaneous_arrival_expiration_and_completion_are_ordered() {
+    let mut s = single(0, 5, None);
+    let mut waiting = s.tasks[0].clone();
+    waiting.id = TaskId("b".into());
+    waiting.deadline_us = Some(SimTime(4));
+    let mut arriving = s.tasks[0].clone();
+    arriving.id = TaskId("c".into());
+    arriving.arrival_time_us = SimTime(5);
+    arriving.input_time_us = Some(SimTime(0));
+    arriving.execution_cost_us = Duration(2);
+    s.tasks.extend([waiting, arriving]);
+    let run = simulate(&s, &mut Policy::Fifo, 0).unwrap();
+    let at_five: Vec<_> = run
+        .events
+        .iter()
+        .filter(|e| e.sim_time_us == SimTime(5))
+        .map(|e| &e.kind)
+        .collect();
+    assert!(matches!(at_five[0], EventKind::TaskArrived { task_id } if task_id.0 == "c"));
+    assert!(matches!(at_five[1], EventKind::TaskExpired { task_id, .. } if task_id.0 == "b"));
+    assert!(matches!(at_five[2], EventKind::TaskCompleted { task_id, .. } if task_id.0 == "a"));
+    let completed = run
+        .events
+        .iter()
+        .find(|e| matches!(&e.kind, EventKind::TaskCompleted { task_id, .. } if task_id.0 == "c"))
+        .unwrap();
+    assert!(matches!(
+        completed.kind,
+        EventKind::TaskCompleted {
+            completion_latency_us: Duration(2),
+            result_age_us: Duration(7),
+            ..
+        }
+    ));
+    assert_eq!(run.metrics.average_completion_latency_us, Some(3.5));
+    assert_eq!(run.metrics.average_result_age_us, Some(6.0));
+}
+
+#[test]
 fn permutations_do_not_change_event_stream_or_metrics() {
     let mut s = fixture("mixed-utility");
     let before = simulate(&s, &mut Policy::TemporalUtilityDensity, 42).unwrap();

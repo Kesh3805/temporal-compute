@@ -15,7 +15,7 @@ Consider Task A: runtime 40 seconds, value 100, deadline 60 seconds. Task B: run
 
 ## Quick start
 
-Install stable Rust with Rustfmt and Clippy. The workspace uses edition 2024 and declares Rust 1.97 as its minimum; `rust-toolchain.toml` selects current stable. Python 3 is needed only for the full experiment script, not for the simulator.
+Install stable Rust with Rustfmt and Clippy. The workspace uses edition 2024 and declares Rust 1.97 as its minimum; `rust-toolchain.toml` selects current stable. On GNU Windows this Rust-only workspace selects Rust's bundled LLD, avoiding a separate GCC linker driver. Python 3 is needed only for the full experiment script, not for the simulator.
 
 ```sh
 cargo run --release -p tc-cli -- simulate scenarios/tc0-basic/scenario.toml \

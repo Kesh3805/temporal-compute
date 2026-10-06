@@ -93,7 +93,7 @@ impl Scenario {
                     "deadline/freshness precedes arrival or input follows arrival",
                 ));
             }
-            task.utility.validate(task).map_err(|s| invalid(s))?;
+            task.utility.validate(task).map_err(&invalid)?;
             compute = compute
                 .checked_add(task.execution_cost_us.0)
                 .ok_or_else(|| invalid("total compute overflow"))?;

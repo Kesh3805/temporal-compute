@@ -1,0 +1,4 @@
+# The Rust-only GNU Windows workspace can use Rust's bundled LLD directly.
+# This avoids requiring a separate GCC installation for the linker driver.
+[target.x86_64-pc-windows-gnu]
+linker = "rust-lld"
