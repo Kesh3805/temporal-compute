@@ -11,6 +11,7 @@ import drjit as dr
 import mitsuba as mi
 
 SOURCE = '478e193a183c21723f4a8251afc3ad29a8da4c5e'  # dereferenced upstream v3.9.1
+REFERENCE_CAMERA_SAMPLES = 10 * 3 * 2 * 256 * 256 * 8192
 
 
 def scene(kind):
@@ -65,7 +66,8 @@ def main():
                 warm_wall_seconds=timings[1:],camera_samples_per_render=16777216,
                 camera_samples_per_second=cps,measured_rays_per_second=None,
                 projected_256x256_8192spp_seconds=536870912/cps,
-                projected_60_reference_frames_hours=32212254720/cps/3600,
+                projected_60_reference_frames_hours=REFERENCE_CAMERA_SAMPLES/cps/3600,
+                reference_projection_definition='10 scenes x 3 frames x 2 independent streams x 256^2 pixels x 8192 spp',
                 projection_not_corpus_measurement=True,
                 timing='dr.eval plus dr.sync_thread before start/after stop for JIT; native scalar is synchronous')
     args.output.parent.mkdir(parents=True,exist_ok=True)

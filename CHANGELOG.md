@@ -2,6 +2,7 @@
 
 ## Generation II research direction — 2026-10-06
 
+- Clarified TC-R1 before outcomes: one corpus-wide quality comparator and one independently selected time comparator, fixed tie order and bootstrap identities; regional/perceptual PASS guards remain mandatory.
 - Accepted TC-S1 unchanged as a failed Generation I experiment; retired its incremental-policy thesis pending contrary evidence.
 - Registered TC-R1 — Marginal Compute in Path Tracing as a separate research protocol against uniform and strong adaptive sampling.
 - Preserved Generation I implementation, frozen definitions, measurements and reproducibility. No renderer, controller or contact mechanics were added; an execution freeze is required before TC-R1 outcomes.

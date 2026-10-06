@@ -52,8 +52,10 @@ def main():
     full = {key: sample(*key) for key in keys}
     elapsed = time.perf_counter()-start
     regrouped = {key: sample(*key) for i in range(8) for key in reversed(keys) if key[2] == i}
-    assert full == regrouped, 'sample stream changed with batch order'
-    assert all(math.isfinite(v) for rgb in full.values() for v in rgb)
+    if full != regrouped:
+        raise ValueError('sample stream changed with batch order')
+    if not all(math.isfinite(v) for rgb in full.values() for v in rgb):
+        raise ValueError('nonfinite sample value')
     # Intermediate statistics are sample statistics, without reference access.
     values = [full[(7, 6, i)] for i in range(8)]
     mean = [sum(rgb[c] for rgb in values)/8 for c in range(3)]

@@ -3,10 +3,22 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from qualify_pbrt import load_records, state
+from qualify_pbrt import fresh_log, load_records, require, state
 
 
 class QualificationRecords(unittest.TestCase):
+    def test_stale_sample_log_removed(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'samples.csv'
+            path.write_text('old data')
+            fresh_log(path)
+            self.assertFalse(path.exists())
+            fresh_log(path)
+
+    def test_runtime_validation_cannot_be_disabled(self):
+        with self.assertRaises(ValueError):
+            require(False,'invalid qualification')
+
     def test_sample_moments_and_actual_ray_cost(self):
         rows={(2,3,0):(1.,2.,3.,1,2,1),(2,3,1):(3.,4.,5.,1,3,2)}
         value=state(rows)[0]

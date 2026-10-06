@@ -28,6 +28,15 @@ SCENES = {
 }
 
 
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def fresh_log(path):
+    path.unlink(missing_ok=True)
+
+
 def load_records(path):
     records={}
     for row in csv.reader(path.read_text().splitlines()):
@@ -73,6 +82,8 @@ def main():
     def run(scene,name,begin=None,end=None,bounds=None,threads=1):
         prefix=args.output/name
         log=prefix.with_suffix('.csv')
+        if begin is not None:
+            fresh_log(log)
         env={k:v for k,v in os.environ.items() if not k.startswith('TC_R1E_')}
         if begin is not None:
             env.update(TC_R1E_SAMPLE_BEGIN=str(begin),TC_R1E_SAMPLE_END=str(end),TC_R1E_SAMPLE_LOG=str(log.resolve()))
@@ -87,6 +98,8 @@ def main():
         prefix.with_suffix('.txt').write_text(result.stdout+result.stderr,encoding='utf-8')
         if result.returncode:
             raise RuntimeError(f'PBRT failed; retained {prefix.with_suffix(".txt")}')
+        if begin is not None and not log.is_file():
+            raise ValueError('renderer did not produce a new sample log')
         return (load_records(log) if begin is not None else None),wall,result.stdout+result.stderr
 
     for name,geometry in SCENES.items():
@@ -97,14 +110,14 @@ def main():
         second,_,_=run(scene,name+'-second',4,8,[28,36,28,36])
         threaded,_,_=run(scene,name+'-threads',0,8,[28,36,28,36],2)
         expected={(x,y,i) for x in range(28,36) for y in range(28,36) for i in range(8)}
-        assert set(full)==expected and set(first).isdisjoint(second)
-        assert full=={**first,**second}==threaded, 'paired streams changed with batching/threads'
-        assert all(v[3]==1 and v[4]>=v[3] and v[5]>=0 for v in full.values())
+        require(set(full)==expected and set(first).isdisjoint(second), 'missing or overlapping sample records')
+        require(full=={**first,**second}==threaded, 'paired streams changed with batching/threads')
+        require(all(v[3]==1 and v[4]>=v[3] and v[5]>=0 for v in full.values()), 'invalid ray accounting')
         camera=sum(v[3] for v in full.values())
         regular=sum(v[4] for v in full.values())
         shadow=sum(v[5] for v in full.values())
         if name=='empty-environment':
-            assert regular==camera and shadow==0, 'analytic one-ray fixture failed'
+            require(regular==camera and shadow==0, 'analytic one-ray fixture failed')
         before,after=state(first),state(full)
         improvement=[sum(b['standard_error'])-sum(a['standard_error']) for b,a in zip(before,after)]
         elapsed=[]
