@@ -1,6 +1,11 @@
 name: TC-S1 frozen experiment replay
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/tc-s1.yml'
+      - 'scripts/tc_s1*.py'
+      - 'results/tc-s1/**'
 permissions:
   contents: read
 jobs:

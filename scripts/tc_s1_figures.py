@@ -52,7 +52,7 @@ def main():
     fig,ax = plt.subplots(figsize=(9,4.5))
     for i,p in enumerate(policies):
         values = sorted(r['metrics']['normalized_utility'] for r in rows if r['scheduler']==p)
-        ax.plot(values,np.arange(1,len(values)+1)/len(values),label=labels[i].replace('\n',' '),color=colors[i])
+        ax.step(values,np.arange(1,len(values)+1)/len(values),where='post',label=labels[i].replace('\n',' '),color=colors[i])
     ax.set(xlim=(0,1),ylim=(0,1),xlabel='Per-instance realized / base utility',ylabel='Empirical cumulative fraction',title='Utility distribution: every primary instance')
     ax.legend(fontsize=8)
     save(fig,'utility-distribution')
