@@ -1,0 +1,20 @@
+# TC-0 assumptions and semantics
+
+1. One CPU, unit capacity, zero scheduling overhead. Tasks consume their declared positive execution cost without parallelism.
+2. Execution is deterministic and non-preemptive. Running work always finishes. There is no cancellation, checkpoint, restart or migration cost.
+3. Tasks arrive at absolute simulated times. Workload definitions are fully available to the simulator, but policies only inspect the runnable set. They do not anticipate future arrivals or deliberately idle.
+4. Deadlines and freshness are absolute, inclusive limits. Completion equal to a limit remains eligible; completion strictly after either limit earns zero.
+5. Waiting tasks expire at `min(deadline, fresh_until) + 1 microsecond`. When the limit is `u64::MAX`, there is no representable expiration event. Running tasks are exempt from waiting expiration and can finish late.
+6. Feasibility is not a shared admission filter: a task can start before its limit even when its duration predicts a late completion. This allows conventional policies' wasted compute to be measured. Temporal policies fall back to FIFO ties when every candidate yields zero; they do not refuse work. Zero utility from decay alone does not expire a task.
+7. At the same time, arrivals are emitted in ID order, then waiting expirations in ID order, then completion of a running task, then the next decision/start. Simulation-start precedes arrivals at zero. The CPU never dispatches in the middle of another task.
+8. Every policy resolves score ties by earliest arrival then lexicographic ID. Larger integer priority is higher. EDF places absent deadlines last. Input task ordering does not affect events or metrics.
+9. Utility uses integer points. Fractional utility is truncated, not rounded; quantization can yield zero. Values are additive, nonnegative and nonincreasing after arrival. Task dependencies, rewards for partial progress and result quality are absent.
+10. Constant utility remains at base until a hard limit. Linear utility is `floor(base * (deadline - completion)/(deadline - arrival))`; it needs a deadline after arrival and is zero at that deadline.
+11. Exponential utility is discrete geometric decay: `floor(base * (retention_ppm / 1000000)^floor(age / interval_us))`. Implementation uses fixed-point scale 10^12 and exponentiation by squaring, truncating each multiplication. This deterministic approximation may differ slightly from the exact real formula. It is constant within each interval; zero retention drops to zero at the first interval. Retention one million means constant utility. No platform math library is involved.
+12. Step utility starts at base and changes to specified absolute values at inclusive elapsed-time boundaries. Steps must be strictly ordered and nonincreasing, bounded by base. Empty steps mean constant utility.
+13. Freshness is a hard zero gate, not another decay curve. Input time defaults to arrival and must be at or before arrival; it affects result age, not utility's decay origin.
+14. Deadline/freshness before arrival, duplicate/blank IDs, zero execution cost, invalid curves, unknown TOML fields and overflow-prone total compute/utility are rejected. Maximum arrival plus total execution cost is conservatively required to fit in `u64`.
+15. Simulation drains the finite workload. There is no arbitrary horizon, energy budget, memory limit, communication/contact window, runtime uncertainty, runtime estimation error or task-value uncertainty.
+16. Seed is metadata only: TC-0 uses fixed workloads and no random generator. Changing seed changes run metadata but not scheduling behavior. Time and scheduling arithmetic are integer; displayed ratios/averages use `f64` and are never fed back into scheduling.
+17. All events are retained in memory so metrics and traces share one source. This is suitable for small TC-0 experiments; large workloads will require a streaming sink and reducer.
+18. There is no starvation prevention or admission control. Neither temporal heuristic is optimal, fair, quality-aware or contact-aware. No flight-software integration exists.
