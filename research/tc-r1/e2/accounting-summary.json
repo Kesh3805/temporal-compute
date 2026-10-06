@@ -1,0 +1,65 @@
+{
+  "empty-environment": {
+    "camera_queries": 1024,
+    "regular_queries": 1024,
+    "visibility_queries": 0,
+    "charged_total": 1024,
+    "charged_camera": 1024,
+    "generated_continuation": 0,
+    "charged_visibility": 0
+  },
+  "diffuse-sphere": {
+    "camera_queries": 1024,
+    "regular_queries": 2048,
+    "visibility_queries": 0,
+    "charged_total": 2048,
+    "charged_camera": 1024,
+    "generated_continuation": 1024,
+    "charged_visibility": 0
+  },
+  "specular-sphere": {
+    "camera_queries": 1024,
+    "regular_queries": 2048,
+    "visibility_queries": 0,
+    "charged_total": 2048,
+    "charged_camera": 1024,
+    "generated_continuation": 1024,
+    "charged_visibility": 0
+  },
+  "pointlit-sphere": {
+    "camera_queries": 1024,
+    "regular_queries": 2048,
+    "visibility_queries": 501,
+    "charged_total": 2549,
+    "charged_camera": 1024,
+    "generated_continuation": 1024,
+    "charged_visibility": 501
+  },
+  "dielectric": {
+    "camera_queries": 1024,
+    "regular_queries": 3076,
+    "visibility_queries": 0,
+    "charged_total": 3076,
+    "charged_camera": 1024,
+    "generated_continuation": 2052,
+    "charged_visibility": 0
+  },
+  "area": {
+    "camera_queries": 1024,
+    "regular_queries": 2049,
+    "visibility_queries": 1024,
+    "charged_total": 3077,
+    "charged_camera": 1024,
+    "generated_continuation": 1029,
+    "charged_visibility": 1024
+  },
+  "roulette": {
+    "camera_queries": 1024,
+    "regular_queries": 2061,
+    "visibility_queries": 2061,
+    "charged_total": 5146,
+    "charged_camera": 1024,
+    "generated_continuation": 2061,
+    "charged_visibility": 2061
+  }
+}
