@@ -1,9 +1,10 @@
 """Deterministic API fixtures; tests never access live GitHub."""
 from copy import deepcopy
+import json
 import unittest
 from unittest.mock import patch
 
-from pr_review_status import collect, gate, pages, summarize
+from pr_review_status import collect, gate, main, pages, summarize
 
 HEAD = 'a'*40
 CONFIG = {'coderabbit_status_contexts': ['Observed review context']}
@@ -119,6 +120,39 @@ class StatusTests(unittest.TestCase):
 
     def test_neutral_is_not_success(self):
         self.assertEqual(gate([{'state':'neutral'}]),'skipped')
+
+    def test_deleted_authors_are_retained_without_crashing(self):
+        data=fixture()
+        data['comments']=[{'user':None,'body':'Historical comment'}]
+        data['reviews'] += [{'id':2,'user':None,'state':'CHANGES_REQUESTED'},
+                            {'id':3,'user':None,'state':'APPROVED'}]
+        result=self.result(data)
+        self.assertEqual(result['human_requested_changes'],1)
+        self.assertFalse(result['merge_ready'])
+        self.assertEqual(result['feedback']['comments'],data['comments'])
+
+    def run_wait(self, snapshots):
+        args=['script','--pr','12','--wait','--max-polls','2',
+              '--local-validated-sha',HEAD,'--findings-addressed-sha',HEAD]
+        with patch('sys.argv',args), patch('pr_review_status.collect',side_effect=snapshots), \
+             patch('pathlib.Path.read_text',return_value=json.dumps(CONFIG)), \
+             patch('pr_review_status.time.sleep') as sleeper, patch('builtins.print'):
+            return main(),sleeper.call_count
+
+    def test_wait_unknown_mergeability_then_success(self):
+        pending=fixture()
+        pending['pr']['mergeable']=None
+        self.assertEqual(self.run_wait([pending,fixture()]),(0,1))
+
+    def test_wait_unknown_mergeability_exhausts_bound(self):
+        pending=fixture()
+        pending['pr']['mergeable']=None
+        self.assertEqual(self.run_wait([pending,pending]),(2,1))
+
+    def test_wait_settled_review_blocker_exits(self):
+        blocked=fixture()
+        blocked['threads']=[{'isResolved':False}]
+        self.assertEqual(self.run_wait([blocked]),(1,0))
 
 
 if __name__=='__main__':

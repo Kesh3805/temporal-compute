@@ -91,6 +91,10 @@ def gate(items):
     return 'unknown'
 
 
+def author_login(item):
+    return (item.get('user') or {}).get('login')
+
+
 def summarize(data, config, local_sha=None, addressed_sha=None):
     pr, head = data['pr'], data['pr']['head']['sha']
     # GitHub may retain reruns and multiple statuses: newest per producer/context wins.
@@ -110,12 +114,12 @@ def summarize(data, config, local_sha=None, addressed_sha=None):
     if missing_required:
         ci_state = 'missing'
     rabbit_state = gate(rabbit)
-    current_reviews = [r for r in data['reviews'] if r['user']['login'] == BOT
+    current_reviews = [r for r in data['reviews'] if author_login(r) == BOT
                        and r.get('commit_id') == head and r['state'] != 'PENDING']
     if rabbit_state == 'success':
         rabbit_state = 'complete' if current_reviews else 'unverified'
     # Only negative fallback hints: text never establishes successful completion.
-    bot_comments = [c for c in data['comments'] if c['user']['login'] == BOT]
+    bot_comments = [c for c in data['comments'] if author_login(c) == BOT]
     latest = max(bot_comments, key=lambda c:c.get('updated_at', ''), default={}).get('body', '').lower()
     if rabbit_state in ('missing', 'pending', 'unverified'):
         if 'rate limit' in latest:
@@ -124,8 +128,9 @@ def summarize(data, config, local_sha=None, addressed_sha=None):
             rabbit_state = 'skipped'
     latest_human = {}
     for r in sorted(data['reviews'], key=lambda r:r['id']):
-        if r['user']['login'] != BOT and r['state'] in ('APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'):
-            latest_human[r['user']['login']] = r
+        if author_login(r) != BOT and r['state'] in ('APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'):
+            # Deleted accounts cannot be linked reliably; retain their requests.
+            latest_human[author_login(r) or f'deleted-review-{r["id"]}'] = r
     requested = [r for r in latest_human.values() if r['state'] == 'CHANGES_REQUESTED']
     bot_requested = bool(current_reviews and max(current_reviews,key=lambda r:r['id'])['state'] == 'CHANGES_REQUESTED')
     unresolved = [t for t in data['threads'] if not t['isResolved']]
@@ -169,7 +174,9 @@ def main():
             return 1
         if result['remote_gates_green'] or not args.wait:
             return 1
-        if result['ci'] not in ('pending','missing') and result['coderabbit'] not in ('pending','missing','unverified'):
+        mergeability_pending = result['feedback']['pr'].get('mergeable') is None
+        if (not mergeability_pending and result['ci'] not in ('pending','missing')
+                and result['coderabbit'] not in ('pending','missing','unverified')):
             return 1
         if poll+1 < args.max_polls:
             time.sleep(args.interval)
