@@ -1,0 +1,41 @@
+name: TC-R1E synthetic renderer qualification
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/tc-r1e-execution-freeze]
+    paths:
+      - 'experiments/tc-r1/qualify_pbrt.py'
+      - '.github/workflows/tc-r1e-qualification.yml'
+permissions:
+  contents: read
+jobs:
+  pbrt-cpu-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch immutable PBRT source
+        run: |
+          git clone https://github.com/mmp/pbrt-v4.git target/pbrt
+          git -C target/pbrt checkout b4ce9687e6c695f5582997c61b0c66cf064bdb4a
+          git -C target/pbrt submodule update --init --recursive
+      - name: Build CPU renderer
+        run: |
+          cmake -S target/pbrt -B target/pbrt-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_BUILD_GPU_RENDERER=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+          cmake --build target/pbrt-build --target pbrt_exe --parallel 2
+      - name: Retain runner identity
+        run: |
+          mkdir -p results/local/tc-r1e-pbrt
+          lscpu > results/local/tc-r1e-pbrt/cpu.txt
+          free -b > results/local/tc-r1e-pbrt/memory.txt
+          df -B1 > results/local/tc-r1e-pbrt/storage.txt
+          cmake --version > results/local/tc-r1e-pbrt/toolchain.txt
+          c++ --version >> results/local/tc-r1e-pbrt/toolchain.txt
+      - name: Synthetic probe only
+        run: python experiments/tc-r1/qualify_pbrt.py --pbrt target/pbrt-build/pbrt --output results/local/tc-r1e-pbrt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tc-r1e-pbrt-synthetic-qualification
+          path: results/local/tc-r1e-pbrt
+          retention-days: 30

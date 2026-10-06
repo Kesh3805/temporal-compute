@@ -1,0 +1,61 @@
+{
+  "scope": "unrelated synthetic sphere only; no TC or baseline comparison",
+  "mitsuba_version": "3.9.1",
+  "python": "3.12.9",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "backend_probes": {
+    "scalar_rgb": {
+      "available": true
+    },
+    "llvm_ad_rgb": {
+      "available": false,
+      "error": "jit_init_thread_state(): the LLVM backend is inactive because the LLVM shared library (\"LLVM-C.dll\") could not be found! Set the DRJIT_LIBLLVM_PATH environment variable to specify its path."
+    },
+    "cuda_ad_rgb": {
+      "available": false,
+      "error": "jit_init_thread_state(): the CUDA backend hasn't been initialized. Make sure to call jit_init(JitBackend::CUDA) to properly initialize this backend."
+    }
+  },
+  "selected_probe_variant": "scalar_rgb",
+  "renderer_selected": false,
+  "bounded_region": [
+    3,
+    9,
+    4,
+    8
+  ],
+  "samples_per_pixel": 8,
+  "sample_records": 192,
+  "regrouped_replay_exact": true,
+  "seed_map": "SHA256 scene:x:y:index, first 32 bits little-endian; qualification only",
+  "sample_hash": "48d6af820721973e13263f3006eca4dbf4086cd6599a72ee0e2ec10b63ea5dab",
+  "intermediate_pixel": {
+    "count": 8,
+    "mean": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "variance": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "standard_error": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "manual_sample_seconds": 0.0026301000034436584,
+  "native_render_seconds": 0.011332099995343015,
+  "native_camera_samples": 16384,
+  "native_camera_samples_per_second": 1445804.3969549413,
+  "initial_reference_camera_samples": 32212254720,
+  "synthetic_throughput_reference_projection_hours": 6.188837544123332,
+  "projection_limitation": "single tiny synthetic scene, cold wall time; not corpus feasibility",
+  "image_bytes": 3445,
+  "complete_actual_ray_accounting": false,
+  "accounting_limitation": "native integrator does not expose every traced ray to this Python wrapper",
+  "qualification_status": "incomplete"
+}
