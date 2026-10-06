@@ -1,0 +1,1189 @@
+{
+  "schema_version": 1,
+  "git_commit": "5bfe1dff43397e3a8075808c8378521a1df81470",
+  "git_dirty": false,
+  "rustc_version": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "scenario_path": "scenarios/fifo-equivalent/scenario.toml",
+  "runs": [
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "fifo-equivalent",
+        "description": "Underload constant-value control: all policies deliver equal mission utility.",
+        "tasks": [
+          {
+            "id": "a",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b",
+            "arrival_time_us": 10000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 20,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c",
+            "arrival_time_us": 20000000,
+            "execution_cost_us": 1000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fifo",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 3,
+        "tasks_completed": 3,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 3,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 60,
+        "maximum_task_utility_sum": 60,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 2000000.0,
+        "average_result_age_us": 2000000.0,
+        "simulation_end_us": 21000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "simulation_started",
+          "scenario": "fifo-equivalent",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "a"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "a",
+          "candidates": [
+            {
+              "task_id": "a",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "a",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 2000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "a",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "b"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "b",
+          "candidates": [
+            {
+              "task_id": "b",
+              "predicted_completion_us": 13000000,
+              "predicted_utility": 20,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "b",
+          "predicted_completion_us": 13000000,
+          "predicted_utility": 20
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 13000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "b",
+          "utility": 20,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 3000000,
+          "result_age_us": 3000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 20000000,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "c"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 20000000,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "c",
+          "candidates": [
+            {
+              "task_id": "c",
+              "predicted_completion_us": 21000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 1000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 20000000,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "c",
+          "predicted_completion_us": 21000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 21000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "c",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 1000000,
+          "completion_latency_us": 1000000,
+          "result_age_us": 1000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 21000000,
+          "scheduler": "fifo",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "fifo-equivalent",
+        "description": "Underload constant-value control: all policies deliver equal mission utility.",
+        "tasks": [
+          {
+            "id": "a",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b",
+            "arrival_time_us": 10000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 20,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c",
+            "arrival_time_us": 20000000,
+            "execution_cost_us": 1000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fixed-priority",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 3,
+        "tasks_completed": 3,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 3,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 60,
+        "maximum_task_utility_sum": 60,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 2000000.0,
+        "average_result_age_us": 2000000.0,
+        "simulation_end_us": 21000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "simulation_started",
+          "scenario": "fifo-equivalent",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "a"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "a",
+          "candidates": [
+            {
+              "task_id": "a",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "a",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 2000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "a",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "b"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "b",
+          "candidates": [
+            {
+              "task_id": "b",
+              "predicted_completion_us": 13000000,
+              "predicted_utility": 20,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "b",
+          "predicted_completion_us": 13000000,
+          "predicted_utility": 20
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 13000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "b",
+          "utility": 20,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 3000000,
+          "result_age_us": 3000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 20000000,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "c"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 20000000,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "c",
+          "candidates": [
+            {
+              "task_id": "c",
+              "predicted_completion_us": 21000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 1000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 20000000,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "c",
+          "predicted_completion_us": 21000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 21000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "c",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 1000000,
+          "completion_latency_us": 1000000,
+          "result_age_us": 1000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 21000000,
+          "scheduler": "fixed-priority",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "fifo-equivalent",
+        "description": "Underload constant-value control: all policies deliver equal mission utility.",
+        "tasks": [
+          {
+            "id": "a",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b",
+            "arrival_time_us": 10000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 20,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c",
+            "arrival_time_us": 20000000,
+            "execution_cost_us": 1000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "edf",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 3,
+        "tasks_completed": 3,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 3,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 60,
+        "maximum_task_utility_sum": 60,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 2000000.0,
+        "average_result_age_us": 2000000.0,
+        "simulation_end_us": 21000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "simulation_started",
+          "scenario": "fifo-equivalent",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "a"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "a",
+          "candidates": [
+            {
+              "task_id": "a",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "a",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 2000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "a",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "b"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "b",
+          "candidates": [
+            {
+              "task_id": "b",
+              "predicted_completion_us": 13000000,
+              "predicted_utility": 20,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "b",
+          "predicted_completion_us": 13000000,
+          "predicted_utility": 20
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 13000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "b",
+          "utility": 20,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 3000000,
+          "result_age_us": 3000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 20000000,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "c"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 20000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "c",
+          "candidates": [
+            {
+              "task_id": "c",
+              "predicted_completion_us": 21000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 1000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 20000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "c",
+          "predicted_completion_us": 21000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 21000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "c",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 1000000,
+          "completion_latency_us": 1000000,
+          "result_age_us": 1000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 21000000,
+          "scheduler": "edf",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "fifo-equivalent",
+        "description": "Underload constant-value control: all policies deliver equal mission utility.",
+        "tasks": [
+          {
+            "id": "a",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b",
+            "arrival_time_us": 10000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 20,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c",
+            "arrival_time_us": 20000000,
+            "execution_cost_us": 1000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 3,
+        "tasks_completed": 3,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 3,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 60,
+        "maximum_task_utility_sum": 60,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 2000000.0,
+        "average_result_age_us": 2000000.0,
+        "simulation_end_us": 21000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "simulation_started",
+          "scenario": "fifo-equivalent",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "a"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "a",
+          "candidates": [
+            {
+              "task_id": "a",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "a",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "a",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "b"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "b",
+          "candidates": [
+            {
+              "task_id": "b",
+              "predicted_completion_us": 13000000,
+              "predicted_utility": 20,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "b",
+          "predicted_completion_us": 13000000,
+          "predicted_utility": 20
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 13000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "b",
+          "utility": 20,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 3000000,
+          "result_age_us": 3000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "c"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "c",
+          "candidates": [
+            {
+              "task_id": "c",
+              "predicted_completion_us": 21000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 1000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "c",
+          "predicted_completion_us": 21000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 21000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "c",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 1000000,
+          "completion_latency_us": 1000000,
+          "result_age_us": 1000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 21000000,
+          "scheduler": "temporal-utility",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "fifo-equivalent",
+        "description": "Underload constant-value control: all policies deliver equal mission utility.",
+        "tasks": [
+          {
+            "id": "a",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b",
+            "arrival_time_us": 10000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 20,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c",
+            "arrival_time_us": 20000000,
+            "execution_cost_us": 1000000,
+            "deadline_us": 100000000,
+            "priority": 0,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility-density",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 3,
+        "tasks_completed": 3,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 3,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 60,
+        "maximum_task_utility_sum": 60,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 6000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 2000000.0,
+        "average_result_age_us": 2000000.0,
+        "simulation_end_us": 21000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_started",
+          "scenario": "fifo-equivalent",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "a"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "a",
+          "candidates": [
+            {
+              "task_id": "a",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "a",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "a",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "b"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "b",
+          "candidates": [
+            {
+              "task_id": "b",
+              "predicted_completion_us": 13000000,
+              "predicted_utility": 20,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 10000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "b",
+          "predicted_completion_us": 13000000,
+          "predicted_utility": 20
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 13000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "b",
+          "utility": 20,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 3000000,
+          "result_age_us": 3000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "c"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "c",
+          "candidates": [
+            {
+              "task_id": "c",
+              "predicted_completion_us": 21000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 1000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 20000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "c",
+          "predicted_completion_us": 21000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 21000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "c",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 1000000,
+          "completion_latency_us": 1000000,
+          "result_age_us": 1000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 21000000,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_completed"
+        }
+      ]
+    }
+  ]
+}

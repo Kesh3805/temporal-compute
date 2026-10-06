@@ -1,0 +1,1514 @@
+{
+  "schema_version": 1,
+  "git_commit": "5bfe1dff43397e3a8075808c8378521a1df81470",
+  "git_dirty": false,
+  "rustc_version": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "scenario_path": "scenarios/tc0-basic/scenario.toml",
+  "runs": [
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "tc0-basic",
+        "description": "Overload: long low-value work competes with short urgent work.",
+        "tasks": [
+          {
+            "id": "a-long",
+            "arrival_time_us": 0,
+            "execution_cost_us": 8000000,
+            "deadline_us": 20000000,
+            "priority": 9,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 5000000,
+            "priority": 1,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 7000000,
+            "priority": 1,
+            "base_utility": 50,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "d-medium",
+            "arrival_time_us": 0,
+            "execution_cost_us": 4000000,
+            "deadline_us": 12000000,
+            "priority": 3,
+            "base_utility": 35,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fifo",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 4,
+        "tasks_completed": 2,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 4,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 45,
+        "maximum_task_utility_sum": 155,
+        "normalized_utility": 0.2903225806451613,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 10000000.0,
+        "average_result_age_us": 10000000.0,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "simulation_started",
+          "scenario": "tc0-basic",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "a-long"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "b-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "c-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "d-medium"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "a-long",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "b-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 60,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "a-long",
+          "predicted_completion_us": 8000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 5000001,
+          "scheduler": "fifo",
+          "event": "task_expired",
+          "task_id": "b-short",
+          "reason": "deadline"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 7000001,
+          "scheduler": "fifo",
+          "event": "task_expired",
+          "task_id": "c-short",
+          "reason": "deadline"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 8000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "a-long",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 8000000,
+          "completion_latency_us": 8000000,
+          "result_age_us": 8000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 8000000,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "d-medium",
+          "candidates": [
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 8000000,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "d-medium",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 35
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 12000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "d-medium",
+          "utility": 35,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 4000000,
+          "completion_latency_us": 12000000,
+          "result_age_us": 12000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 12000000,
+          "scheduler": "fifo",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "tc0-basic",
+        "description": "Overload: long low-value work competes with short urgent work.",
+        "tasks": [
+          {
+            "id": "a-long",
+            "arrival_time_us": 0,
+            "execution_cost_us": 8000000,
+            "deadline_us": 20000000,
+            "priority": 9,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 5000000,
+            "priority": 1,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 7000000,
+            "priority": 1,
+            "base_utility": 50,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "d-medium",
+            "arrival_time_us": 0,
+            "execution_cost_us": 4000000,
+            "deadline_us": 12000000,
+            "priority": 3,
+            "base_utility": 35,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fixed-priority",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 4,
+        "tasks_completed": 2,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 4,
+        "deadline_hits": 2,
+        "deadline_hit_rate": 0.5,
+        "total_utility": 45,
+        "maximum_task_utility_sum": 155,
+        "normalized_utility": 0.2903225806451613,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 10000000.0,
+        "average_result_age_us": 10000000.0,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "simulation_started",
+          "scenario": "tc0-basic",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "a-long"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "b-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "c-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "d-medium"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "a-long",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "b-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 60,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "a-long",
+          "predicted_completion_us": 8000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 5000001,
+          "scheduler": "fixed-priority",
+          "event": "task_expired",
+          "task_id": "b-short",
+          "reason": "deadline"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 7000001,
+          "scheduler": "fixed-priority",
+          "event": "task_expired",
+          "task_id": "c-short",
+          "reason": "deadline"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 8000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "a-long",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 8000000,
+          "completion_latency_us": 8000000,
+          "result_age_us": 8000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 8000000,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "d-medium",
+          "candidates": [
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 8000000,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "d-medium",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 35
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 12000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "d-medium",
+          "utility": 35,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 4000000,
+          "completion_latency_us": 12000000,
+          "result_age_us": 12000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 12000000,
+          "scheduler": "fixed-priority",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "tc0-basic",
+        "description": "Overload: long low-value work competes with short urgent work.",
+        "tasks": [
+          {
+            "id": "a-long",
+            "arrival_time_us": 0,
+            "execution_cost_us": 8000000,
+            "deadline_us": 20000000,
+            "priority": 9,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 5000000,
+            "priority": 1,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 7000000,
+            "priority": 1,
+            "base_utility": 50,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "d-medium",
+            "arrival_time_us": 0,
+            "execution_cost_us": 4000000,
+            "deadline_us": 12000000,
+            "priority": 3,
+            "base_utility": 35,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "edf",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 4,
+        "tasks_completed": 4,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 4,
+        "deadline_hits": 4,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 155,
+        "maximum_task_utility_sum": 155,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 16000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7500000.0,
+        "average_result_age_us": 7500000.0,
+        "simulation_end_us": 16000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "simulation_started",
+          "scenario": "tc0-basic",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "a-long"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "b-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "c-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "d-medium"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "b-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "b-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 60,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "b-short",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 60
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 2000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "b-short",
+          "utility": 60,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 2000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "c-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 6000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 2000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "c-short",
+          "predicted_completion_us": 4000000,
+          "predicted_utility": 50
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 4000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "c-short",
+          "utility": 50,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 4000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "d-medium",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 4000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "d-medium",
+          "predicted_completion_us": 8000000,
+          "predicted_utility": 35
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 8000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "d-medium",
+          "utility": 35,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 4000000,
+          "completion_latency_us": 8000000,
+          "result_age_us": 8000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 8000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "a-long",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 16000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 8000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "a-long",
+          "predicted_completion_us": 16000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 16000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "a-long",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 8000000,
+          "completion_latency_us": 16000000,
+          "result_age_us": 16000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 16000000,
+          "scheduler": "edf",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "tc0-basic",
+        "description": "Overload: long low-value work competes with short urgent work.",
+        "tasks": [
+          {
+            "id": "a-long",
+            "arrival_time_us": 0,
+            "execution_cost_us": 8000000,
+            "deadline_us": 20000000,
+            "priority": 9,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 5000000,
+            "priority": 1,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 7000000,
+            "priority": 1,
+            "base_utility": 50,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "d-medium",
+            "arrival_time_us": 0,
+            "execution_cost_us": 4000000,
+            "deadline_us": 12000000,
+            "priority": 3,
+            "base_utility": 35,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 4,
+        "tasks_completed": 4,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 4,
+        "deadline_hits": 4,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 155,
+        "maximum_task_utility_sum": 155,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 16000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7500000.0,
+        "average_result_age_us": 7500000.0,
+        "simulation_end_us": 16000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "simulation_started",
+          "scenario": "tc0-basic",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "a-long"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "b-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "c-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "d-medium"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "b-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "b-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 60,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "b-short",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 60
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "b-short",
+          "utility": 60,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "c-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 6000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "c-short",
+          "predicted_completion_us": 4000000,
+          "predicted_utility": 50
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "c-short",
+          "utility": 50,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "d-medium",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "d-medium",
+          "predicted_completion_us": 8000000,
+          "predicted_utility": 35
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "d-medium",
+          "utility": 35,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 4000000,
+          "completion_latency_us": 8000000,
+          "result_age_us": 8000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "a-long",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 16000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "a-long",
+          "predicted_completion_us": 16000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 16000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "a-long",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 8000000,
+          "completion_latency_us": 16000000,
+          "result_age_us": 16000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 16000000,
+          "scheduler": "temporal-utility",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "tc0-basic",
+        "description": "Overload: long low-value work competes with short urgent work.",
+        "tasks": [
+          {
+            "id": "a-long",
+            "arrival_time_us": 0,
+            "execution_cost_us": 8000000,
+            "deadline_us": 20000000,
+            "priority": 9,
+            "base_utility": 10,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 5000000,
+            "priority": 1,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "c-short",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 7000000,
+            "priority": 1,
+            "base_utility": 50,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "d-medium",
+            "arrival_time_us": 0,
+            "execution_cost_us": 4000000,
+            "deadline_us": 12000000,
+            "priority": 3,
+            "base_utility": 35,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility-density",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 4,
+        "tasks_completed": 4,
+        "tasks_expired": 0,
+        "deadline_tasks_total": 4,
+        "deadline_hits": 4,
+        "deadline_hit_rate": 1.0,
+        "total_utility": 155,
+        "maximum_task_utility_sum": 155,
+        "normalized_utility": 1.0,
+        "compute_time_used_us": 16000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 7500000.0,
+        "average_result_age_us": 7500000.0,
+        "simulation_end_us": 16000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_started",
+          "scenario": "tc0-basic",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "a-long"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "b-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "c-short"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "d-medium"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "b-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "b-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 60,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "b-short",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 60
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "b-short",
+          "utility": 60,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "c-short",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "c-short",
+              "predicted_completion_us": 4000000,
+              "predicted_utility": 50,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 6000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "c-short",
+          "predicted_completion_us": 4000000,
+          "predicted_utility": 50
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "c-short",
+          "utility": 50,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "d-medium",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            },
+            {
+              "task_id": "d-medium",
+              "predicted_completion_us": 8000000,
+              "predicted_utility": 35,
+              "execution_cost_us": 4000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 4000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "d-medium",
+          "predicted_completion_us": 8000000,
+          "predicted_utility": 35
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "d-medium",
+          "utility": 35,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 4000000,
+          "completion_latency_us": 8000000,
+          "result_age_us": 8000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "a-long",
+          "candidates": [
+            {
+              "task_id": "a-long",
+              "predicted_completion_us": 16000000,
+              "predicted_utility": 10,
+              "execution_cost_us": 8000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "a-long",
+          "predicted_completion_us": 16000000,
+          "predicted_utility": 10
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 16000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "a-long",
+          "utility": 10,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 8000000,
+          "completion_latency_us": 16000000,
+          "result_age_us": 16000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 16000000,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_completed"
+        }
+      ]
+    }
+  ]
+}

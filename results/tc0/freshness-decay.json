@@ -1,0 +1,1549 @@
+{
+  "schema_version": 1,
+  "git_commit": "5bfe1dff43397e3a8075808c8378521a1df81470",
+  "git_dirty": false,
+  "rustc_version": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "scenario_path": "scenarios/freshness-decay/scenario.toml",
+  "runs": [
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "freshness-decay",
+        "description": "Freshness differs from deadline; stale completions waste compute.",
+        "tasks": [
+          {
+            "id": "a-batch",
+            "arrival_time_us": 0,
+            "execution_cost_us": 7000000,
+            "deadline_us": 30000000,
+            "priority": 9,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-observation",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 100,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 4000000,
+            "input_time_us": null
+          },
+          {
+            "id": "c-observation",
+            "arrival_time_us": 1000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 80,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 7000000,
+            "input_time_us": null
+          },
+          {
+            "id": "d-late",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 11000000,
+            "input_time_us": null
+          },
+          {
+            "id": "e-stale-risk",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 5000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 40,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 10000000,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fifo",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 5,
+        "tasks_completed": 3,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 5,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 0.6,
+        "total_utility": 30,
+        "maximum_task_utility_sum": 310,
+        "normalized_utility": 0.0967741935483871,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 5000000,
+        "average_completion_latency_us": 6666666.666666667,
+        "average_result_age_us": 6666666.666666667,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "simulation_started",
+          "scenario": "freshness-decay",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "a-batch"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "b-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "a-batch",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 7000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "b-observation",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 100,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "a-batch",
+          "predicted_completion_us": 7000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 1000000,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "c-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 4000001,
+          "scheduler": "fifo",
+          "event": "task_expired",
+          "task_id": "b-observation",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 7000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "a-batch",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 7000000,
+          "completion_latency_us": 7000000,
+          "result_age_us": 7000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 7000000,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "c-observation",
+          "candidates": [
+            {
+              "task_id": "c-observation",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 7000000,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "c-observation",
+          "predicted_completion_us": 10000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 8000000,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "d-late"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 8000000,
+          "scheduler": "fifo",
+          "event": "task_arrived",
+          "task_id": "e-stale-risk"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "c-observation",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 9000000,
+          "result_age_us": 9000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "scheduler_decision",
+          "selected": "d-late",
+          "candidates": [
+            {
+              "task_id": "d-late",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "e-stale-risk",
+              "predicted_completion_us": 15000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 5000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 10000000,
+          "scheduler": "fifo",
+          "event": "task_started",
+          "task_id": "d-late",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 10000001,
+          "scheduler": "fifo",
+          "event": "task_expired",
+          "task_id": "e-stale-risk",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 12000000,
+          "scheduler": "fifo",
+          "event": "task_completed",
+          "task_id": "d-late",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 12000000,
+          "scheduler": "fifo",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "freshness-decay",
+        "description": "Freshness differs from deadline; stale completions waste compute.",
+        "tasks": [
+          {
+            "id": "a-batch",
+            "arrival_time_us": 0,
+            "execution_cost_us": 7000000,
+            "deadline_us": 30000000,
+            "priority": 9,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-observation",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 100,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 4000000,
+            "input_time_us": null
+          },
+          {
+            "id": "c-observation",
+            "arrival_time_us": 1000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 80,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 7000000,
+            "input_time_us": null
+          },
+          {
+            "id": "d-late",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 11000000,
+            "input_time_us": null
+          },
+          {
+            "id": "e-stale-risk",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 5000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 40,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 10000000,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "fixed-priority",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 5,
+        "tasks_completed": 3,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 5,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 0.6,
+        "total_utility": 30,
+        "maximum_task_utility_sum": 310,
+        "normalized_utility": 0.0967741935483871,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 5000000,
+        "average_completion_latency_us": 6666666.666666667,
+        "average_result_age_us": 6666666.666666667,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "simulation_started",
+          "scenario": "freshness-decay",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "a-batch"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "b-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "a-batch",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 7000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "b-observation",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 100,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "a-batch",
+          "predicted_completion_us": 7000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 1000000,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "c-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 4000001,
+          "scheduler": "fixed-priority",
+          "event": "task_expired",
+          "task_id": "b-observation",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 7000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "a-batch",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 7000000,
+          "completion_latency_us": 7000000,
+          "result_age_us": 7000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 7000000,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "c-observation",
+          "candidates": [
+            {
+              "task_id": "c-observation",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 7000000,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "c-observation",
+          "predicted_completion_us": 10000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 8000000,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "d-late"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 8000000,
+          "scheduler": "fixed-priority",
+          "event": "task_arrived",
+          "task_id": "e-stale-risk"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "c-observation",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 9000000,
+          "result_age_us": 9000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "scheduler_decision",
+          "selected": "d-late",
+          "candidates": [
+            {
+              "task_id": "d-late",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "e-stale-risk",
+              "predicted_completion_us": 15000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 5000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 10000000,
+          "scheduler": "fixed-priority",
+          "event": "task_started",
+          "task_id": "d-late",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 10000001,
+          "scheduler": "fixed-priority",
+          "event": "task_expired",
+          "task_id": "e-stale-risk",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 12000000,
+          "scheduler": "fixed-priority",
+          "event": "task_completed",
+          "task_id": "d-late",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 12000000,
+          "scheduler": "fixed-priority",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "freshness-decay",
+        "description": "Freshness differs from deadline; stale completions waste compute.",
+        "tasks": [
+          {
+            "id": "a-batch",
+            "arrival_time_us": 0,
+            "execution_cost_us": 7000000,
+            "deadline_us": 30000000,
+            "priority": 9,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-observation",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 100,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 4000000,
+            "input_time_us": null
+          },
+          {
+            "id": "c-observation",
+            "arrival_time_us": 1000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 80,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 7000000,
+            "input_time_us": null
+          },
+          {
+            "id": "d-late",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 11000000,
+            "input_time_us": null
+          },
+          {
+            "id": "e-stale-risk",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 5000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 40,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 10000000,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "edf",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 5,
+        "tasks_completed": 3,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 5,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 0.6,
+        "total_utility": 30,
+        "maximum_task_utility_sum": 310,
+        "normalized_utility": 0.0967741935483871,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 5000000,
+        "average_completion_latency_us": 6666666.666666667,
+        "average_result_age_us": 6666666.666666667,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "simulation_started",
+          "scenario": "freshness-decay",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "a-batch"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "b-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "a-batch",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 7000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "b-observation",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 100,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "a-batch",
+          "predicted_completion_us": 7000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 1000000,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "c-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 4000001,
+          "scheduler": "edf",
+          "event": "task_expired",
+          "task_id": "b-observation",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 7000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "a-batch",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 7000000,
+          "completion_latency_us": 7000000,
+          "result_age_us": 7000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 7000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "c-observation",
+          "candidates": [
+            {
+              "task_id": "c-observation",
+              "predicted_completion_us": 10000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 7000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "c-observation",
+          "predicted_completion_us": 10000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 8000000,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "d-late"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 8000000,
+          "scheduler": "edf",
+          "event": "task_arrived",
+          "task_id": "e-stale-risk"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "c-observation",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 9000000,
+          "result_age_us": 9000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "scheduler_decision",
+          "selected": "d-late",
+          "candidates": [
+            {
+              "task_id": "d-late",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 2000000
+            },
+            {
+              "task_id": "e-stale-risk",
+              "predicted_completion_us": 15000000,
+              "predicted_utility": 0,
+              "execution_cost_us": 5000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 10000000,
+          "scheduler": "edf",
+          "event": "task_started",
+          "task_id": "d-late",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 0
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 10000001,
+          "scheduler": "edf",
+          "event": "task_expired",
+          "task_id": "e-stale-risk",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 12000000,
+          "scheduler": "edf",
+          "event": "task_completed",
+          "task_id": "d-late",
+          "utility": 0,
+          "deadline_met": true,
+          "fresh": false,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 12000000,
+          "scheduler": "edf",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "freshness-decay",
+        "description": "Freshness differs from deadline; stale completions waste compute.",
+        "tasks": [
+          {
+            "id": "a-batch",
+            "arrival_time_us": 0,
+            "execution_cost_us": 7000000,
+            "deadline_us": 30000000,
+            "priority": 9,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-observation",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 100,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 4000000,
+            "input_time_us": null
+          },
+          {
+            "id": "c-observation",
+            "arrival_time_us": 1000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 80,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 7000000,
+            "input_time_us": null
+          },
+          {
+            "id": "d-late",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 11000000,
+            "input_time_us": null
+          },
+          {
+            "id": "e-stale-risk",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 5000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 40,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 10000000,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 5,
+        "tasks_completed": 3,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 5,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 0.6,
+        "total_utility": 210,
+        "maximum_task_utility_sum": 310,
+        "normalized_utility": 0.6774193548387096,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "simulation_started",
+          "scenario": "freshness-decay",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "a-batch"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "b-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "b-observation",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 7000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "b-observation",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 100,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "b-observation",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 100
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 1000000,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "c-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "b-observation",
+          "utility": 100,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "c-observation",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 9000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "c-observation",
+              "predicted_completion_us": 5000000,
+              "predicted_utility": 80,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "c-observation",
+          "predicted_completion_us": 5000000,
+          "predicted_utility": 80
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "c-observation",
+          "utility": 80,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility",
+          "event": "scheduler_decision",
+          "selected": "a-batch",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility",
+          "event": "task_started",
+          "task_id": "a-batch",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "d-late"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility",
+          "event": "task_arrived",
+          "task_id": "e-stale-risk"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 10000001,
+          "scheduler": "temporal-utility",
+          "event": "task_expired",
+          "task_id": "e-stale-risk",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 11000001,
+          "scheduler": "temporal-utility",
+          "event": "task_expired",
+          "task_id": "d-late",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 12000000,
+          "scheduler": "temporal-utility",
+          "event": "task_completed",
+          "task_id": "a-batch",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 7000000,
+          "completion_latency_us": 12000000,
+          "result_age_us": 12000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 12000000,
+          "scheduler": "temporal-utility",
+          "event": "simulation_completed"
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "simulation_version": "tc0-1",
+      "scenario": {
+        "schema_version": 1,
+        "name": "freshness-decay",
+        "description": "Freshness differs from deadline; stale completions waste compute.",
+        "tasks": [
+          {
+            "id": "a-batch",
+            "arrival_time_us": 0,
+            "execution_cost_us": 7000000,
+            "deadline_us": 30000000,
+            "priority": 9,
+            "base_utility": 30,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": null,
+            "input_time_us": null
+          },
+          {
+            "id": "b-observation",
+            "arrival_time_us": 0,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 100,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 4000000,
+            "input_time_us": null
+          },
+          {
+            "id": "c-observation",
+            "arrival_time_us": 1000000,
+            "execution_cost_us": 3000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 80,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 7000000,
+            "input_time_us": null
+          },
+          {
+            "id": "d-late",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 2000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 60,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 11000000,
+            "input_time_us": null
+          },
+          {
+            "id": "e-stale-risk",
+            "arrival_time_us": 8000000,
+            "execution_cost_us": 5000000,
+            "deadline_us": 30000000,
+            "priority": 0,
+            "base_utility": 40,
+            "utility": {
+              "kind": "constant"
+            },
+            "fresh_until_us": 10000000,
+            "input_time_us": null
+          }
+        ]
+      },
+      "scheduler": "temporal-utility-density",
+      "seed": 42,
+      "configuration": {
+        "cpu_count": 1,
+        "preemption": false,
+        "time_unit": "microseconds",
+        "expiry_mode": "waiting_after_inclusive_limit"
+      },
+      "metrics": {
+        "tasks_total": 5,
+        "tasks_completed": 3,
+        "tasks_expired": 2,
+        "deadline_tasks_total": 5,
+        "deadline_hits": 3,
+        "deadline_hit_rate": 0.6,
+        "total_utility": 210,
+        "maximum_task_utility_sum": 310,
+        "normalized_utility": 0.6774193548387096,
+        "compute_time_used_us": 12000000,
+        "compute_time_wasted_us": 0,
+        "average_completion_latency_us": 6000000.0,
+        "average_result_age_us": 6000000.0,
+        "simulation_end_us": 12000000
+      },
+      "events": [
+        {
+          "schema_version": 1,
+          "sequence": 0,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_started",
+          "scenario": "freshness-decay",
+          "seed": 42
+        },
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "a-batch"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "b-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "b-observation",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 7000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "b-observation",
+              "predicted_completion_us": 2000000,
+              "predicted_utility": 100,
+              "execution_cost_us": 2000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "sim_time_us": 0,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "b-observation",
+          "predicted_completion_us": 2000000,
+          "predicted_utility": 100
+        },
+        {
+          "schema_version": 1,
+          "sequence": 5,
+          "sim_time_us": 1000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "c-observation"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 6,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "b-observation",
+          "utility": 100,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 2000000,
+          "completion_latency_us": 2000000,
+          "result_age_us": 2000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 7,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "c-observation",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 9000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            },
+            {
+              "task_id": "c-observation",
+              "predicted_completion_us": 5000000,
+              "predicted_utility": 80,
+              "execution_cost_us": 3000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 8,
+          "sim_time_us": 2000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "c-observation",
+          "predicted_completion_us": 5000000,
+          "predicted_utility": 80
+        },
+        {
+          "schema_version": 1,
+          "sequence": 9,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "c-observation",
+          "utility": 80,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 3000000,
+          "completion_latency_us": 4000000,
+          "result_age_us": 4000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 10,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility-density",
+          "event": "scheduler_decision",
+          "selected": "a-batch",
+          "candidates": [
+            {
+              "task_id": "a-batch",
+              "predicted_completion_us": 12000000,
+              "predicted_utility": 30,
+              "execution_cost_us": 7000000
+            }
+          ]
+        },
+        {
+          "schema_version": 1,
+          "sequence": 11,
+          "sim_time_us": 5000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_started",
+          "task_id": "a-batch",
+          "predicted_completion_us": 12000000,
+          "predicted_utility": 30
+        },
+        {
+          "schema_version": 1,
+          "sequence": 12,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "d-late"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 13,
+          "sim_time_us": 8000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_arrived",
+          "task_id": "e-stale-risk"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 14,
+          "sim_time_us": 10000001,
+          "scheduler": "temporal-utility-density",
+          "event": "task_expired",
+          "task_id": "e-stale-risk",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 15,
+          "sim_time_us": 11000001,
+          "scheduler": "temporal-utility-density",
+          "event": "task_expired",
+          "task_id": "d-late",
+          "reason": "freshness"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 16,
+          "sim_time_us": 12000000,
+          "scheduler": "temporal-utility-density",
+          "event": "task_completed",
+          "task_id": "a-batch",
+          "utility": 30,
+          "deadline_met": true,
+          "fresh": true,
+          "execution_cost_us": 7000000,
+          "completion_latency_us": 12000000,
+          "result_age_us": 12000000
+        },
+        {
+          "schema_version": 1,
+          "sequence": 17,
+          "sim_time_us": 12000000,
+          "scheduler": "temporal-utility-density",
+          "event": "simulation_completed"
+        }
+      ]
+    }
+  ]
+}
