@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  profile: assertive
+  high_level_summary: true
+  review_status: true
+  review_progress: true
+  commit_status: true
+  fail_commit_status: true
+  abort_on_close: true
+  poem: false
+  sequence_diagrams: false
+  # No repository docstring quota; prioritize correctness/provenance review.
+  pre_merge_checks:
+    docstrings:
+      mode: 'off'
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+  finishing_touches:
+    autofix:
+      enabled: false
+    fix_ci:
+      enabled: false
+    resolve_merge_conflict:
+      enabled: false
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+  path_instructions:
+    - path: 'crates/**'
+      instructions: 'Review checked arithmetic, deterministic ordering, error propagation, ownership and API invariants. Rust must remain warning-free. Unexpected floats in scheduling decisions require scrutiny.'
+    - path: 'scripts/**'
+      instructions: 'Review portable paths, Windows/Linux subprocess behavior, error propagation, safe shell handling, deterministic file ordering and hash correctness. Never weaken validation to pass CI.'
+    - path: '{research,results,docs/tc-s1}/**'
+      instructions: 'Prioritize freeze integrity and scientific provenance over prose style. Preserve historical inputs, losing cases and results. No silent regeneration, hash drift, post-outcome tuning or unsupported claims.'
+    - path: '{experiments/tc-r1,docs/tc-r1}/**'
+      instructions: 'Review reference leakage, paired streams, biased stopping, estimator/settings parity, controller-only signals, uncounted probes/overhead, asymmetric budget overshoot and metric drift. No comparisons before execution freeze or post-outcome algorithm tuning.'
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - files: 'AGENTS.md,CONTRIBUTING.md,docs/tc-r1/preregistration.md,docs/generation-ii.md'
+        applyTo: '**/*'
