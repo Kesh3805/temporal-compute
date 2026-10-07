@@ -168,6 +168,29 @@ class CorpusTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'non-regular'):
             corpus.verify(self.root)
 
+    def test_external_canonical_manifest_symlink_rejected(self):
+        corpus.write(self.root)
+        manifest = self.root / 'research/tc-r1/corpus/manifest.json'
+        with tempfile.TemporaryDirectory() as external:
+            target = Path(external) / 'manifest.json'
+            target.write_bytes(manifest.read_bytes())
+            manifest.unlink()
+            try:
+                manifest.symlink_to(target)
+            except OSError as error:
+                self.skipTest('Host cannot create symlinks: ' + str(error))
+            with self.assertRaisesRegex(ValueError, 'manifest must be an in-root regular file'):
+                corpus.verify(self.root)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX named pipe fixture')
+    def test_non_regular_manifest_rejected_before_read(self):
+        corpus.write(self.root)
+        manifest = self.root / 'research/tc-r1/corpus/manifest.json'
+        manifest.unlink()
+        os.mkfifo(manifest)
+        with self.assertRaisesRegex(ValueError, 'manifest must be an in-root regular file'):
+            corpus.verify(self.root)
+
 
 if __name__ == '__main__':
     unittest.main()

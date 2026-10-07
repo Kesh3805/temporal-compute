@@ -277,8 +277,10 @@ def expected(root=ROOT):
 
 
 def verify(root=ROOT):
-    manifest, files = expected(root)
     path = root / DIRECTORY / 'manifest.json'
+    require(not path.is_symlink() and path.is_file() and
+            path.resolve().is_relative_to(root.resolve()), 'manifest must be an in-root regular file')
+    manifest, files = expected(root)
     actual = load(path)
     require(actual == manifest, 'manifest/source/hash mismatch')
     require(path.read_bytes() == canonical(manifest), 'noncanonical manifest bytes')
