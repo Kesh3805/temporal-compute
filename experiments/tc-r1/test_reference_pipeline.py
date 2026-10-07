@@ -66,9 +66,45 @@ class ReferencePipelineTests(unittest.TestCase):
             path = Path(directory) / 'failure.json'
             row = ref.failure_record(self.plan(), 'synthetic', 'test')
             ref.retain_record(path, row)
-            with self.assertRaises(FileExistsError):
+            with self.assertRaises(ValueError):
                 ref.retain_record(path, dict(row, decision='converged'))
             self.assertEqual(json.loads(path.read_text()), row)
+
+    def test_interrupted_publication_never_exposes_partial_final_row(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'row.json'
+            record = ref.failure_record(self.plan(), 'synthetic', 'test')
+            with patch.object(ref.os, 'link', side_effect=OSError('synthetic interruption')):
+                with self.assertRaises(OSError):
+                    ref.retain_record(path, record)
+            self.assertFalse(path.exists())
+            pending = path.with_name(path.name + '.pending')
+            self.assertEqual(json.loads(pending.read_text()), record)
+            before = pending.read_bytes()
+            with self.assertRaises(FileExistsError):
+                ref.retain_record(path, record)
+            self.assertEqual(pending.read_bytes(), before)
+
+    def test_partial_pending_requires_terminal_recovery_without_producer_retry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'diffuse-01-f0-8192.json'
+            pending = path.with_name(path.name + '.pending')
+            pending.write_bytes(b'{"interrupted":')
+            produce = unittest.mock.Mock()
+            with self.assertRaises(ValueError):
+                ref.retain_attempt(root, self.plan(), produce)
+            produce.assert_not_called()
+            record = ref.recover_interrupted_attempt(root, self.plan(), 'reviewed synthetic interrupted write')
+            self.assertEqual(record['decision'], 'failed')
+            self.assertEqual(record['interrupted_evidence']['sha256'], ref.sha256(pending))
+            self.assertEqual(pending.read_bytes(), b'{"interrupted":')
+            self.assertEqual(json.loads(path.read_text()), record)
+            with self.assertRaises(ValueError):
+                ref.retain_attempt(root, self.plan(16384), produce)
+            produce.assert_not_called()
+            with self.assertRaises(ValueError):
+                ref.recover_interrupted_attempt(root, self.plan(), 'no second recovery')
 
     def test_canonical_image_corruption_dtype_shape_and_nonfinite(self):
         with tempfile.TemporaryDirectory() as directory:

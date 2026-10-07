@@ -162,8 +162,16 @@ orders, synchronized CPU timing wrapper and event/censor rows. Perceptual scores
 come from Track E's separately validated metric producer; a hash-bound report
 alone is not proof that its producer computed SSIM/LPIPS correctly. The reference
 ledger is single-writer, rejects retries/identity changes and retains artifact
-validation failures without silently escalating them. Cross-process locking and
-EXR conversion remain integration responsibilities.
+validation failures without silently escalating them. Retention writes/fsyncs a
+same-directory exclusive `.pending` file, then atomically publishes complete
+bytes using a no-overwrite hard link. Hard-link support is an integration storage
+prerequisite; publication failure preserves pending evidence and blocks producer
+retry. A human may explicitly call `recover_interrupted_attempt` with the reviewed
+plan/reason to retain a terminal failed row plus the original pending bytes/hash;
+this never retries or permits escalation. An interrupted recovery requires human
+inspection too. This establishes interruption-safe visibility, not a guarantee
+against every filesystem/power-loss failure. Cross-process locking and EXR
+conversion remain integration responsibilities.
 
 Read-only host inspection and corpus planning examples (outputs are ignored):
 

@@ -172,12 +172,49 @@ def scoring_reference(a, b):
     return np.ascontiguousarray(result, dtype='<f8')
 
 
-def retain_record(path, record):
-    """Create an immutable row; never overwrite a failed or successful attempt."""
+def _publish_record(path, record, suffix='.pending'):
+    """Fsync complete bytes, then atomically link without replacing any row.
+
+    Pending evidence survives an interruption or unsupported hard-link operation.
+    The final path is never visible with partial JSON contents. This requires a
+    filesystem supporting same-directory hard links; unavailable support fails
+    closed and must be addressed before production integration.
+    """
+    path = Path(path)
     payload = json.dumps(record, sort_keys=True, indent=2, allow_nan=False) + '\n'
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    with Path(path).open('x', encoding='utf-8', newline='\n') as output:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    require(not path.exists(), 'immutable record already exists')
+    pending = path.with_name(path.name + suffix)
+    with pending.open('x', encoding='utf-8', newline='\n') as output:
         output.write(payload)
+        output.flush()
+        os.fsync(output.fileno())
+    os.link(pending, path)
+    pending.unlink()
+
+
+def retain_record(path, record):
+    """Never overwrite or automatically discard an interrupted attempt."""
+    _publish_record(path, record)
+
+
+def recover_interrupted_attempt(directory, plan, reason):
+    """Explicitly terminalize incomplete evidence while preserving original bytes.
+
+    A human reviews the pending artifact and supplies the registered plan/reason.
+    This function does not retry a producer, delete evidence or permit escalation.
+    """
+    expected = reference_plan(plan['scene_id'], plan['frame_id'], plan['asset_sha256'],
+                              plan['corpus_sha256'], plan['spp'])
+    require(plan == expected, 'reference plan differs from registered construction')
+    path = Path(directory) / f'{plan["scene_id"]}-{plan["frame_id"]}-{plan["spp"]}.json'
+    pending = path.with_name(path.name + '.pending')
+    require(pending.is_file() and not path.exists(), 'no unpublished interrupted attempt')
+    record = failure_record(plan, 'interrupted-record', reason)
+    record['interrupted_evidence'] = dict(path=pending.name, sha256=sha256(pending),
+                                           bytes=pending.stat().st_size)
+    _publish_record(path, record, '.recovery-pending')
+    return record
 
 
 def failure_record(plan, phase, error):
@@ -200,6 +237,10 @@ def retain_attempt(directory, plan, produce_record):
     prior = []
     for level in LEVELS:
         path = directory / f'{plan["scene_id"]}-{plan["frame_id"]}-{level}.json'
+        require(not path.with_name(path.name + '.pending').exists() or path.exists(),
+                'interrupted reference record requires explicit terminal recovery')
+        require(not path.with_name(path.name + '.recovery-pending').exists(),
+                'interrupted recovery requires human inspection')
         if path.exists():
             prior.append(json.loads(path.read_text(encoding='utf-8')))
     validate_progression(prior, plan)
