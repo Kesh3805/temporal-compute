@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from progressive_kernel import (Moments, NativeSample, ProgressiveKernel, Region,
                                 WorkRequest, pbrt_seed_map, stream_seed)
-from pbrt_batch_backend import load_batch
+from pbrt_batch_backend import PbrtBatchBackend, load_batch
 
 
 class SyntheticBackend:
@@ -115,6 +115,63 @@ class ProgressiveKernelTests(unittest.TestCase):
         self.assertEqual(k.observe()[0].sample_count,0)
         self.assertEqual(k.observe()[0].version,0)
         self.assertFalse(k.work_known)
+
+    def test_interruption_rolls_back_and_invalidates_work(self):
+        for stage in ('render','clock','final_observation'):
+            with self.subTest(stage=stage):
+                backend=SyntheticBackend()
+                k=kernel(backend=backend)
+                k.sample_region(WorkRequest(k.regions[0],2))
+                before=k.observe()
+                if stage=='render':
+                    guard=patch.object(backend,'render',side_effect=KeyboardInterrupt)
+                elif stage=='clock':
+                    guard=patch.object(k,'_clock',side_effect=[0,KeyboardInterrupt()])
+                else:
+                    observe=k.observe
+                    calls=0
+                    def interrupt_after_trace():
+                        nonlocal calls
+                        calls+=1
+                        if calls==3:
+                            raise KeyboardInterrupt
+                        return observe()
+                    guard=patch.object(k,'observe',side_effect=interrupt_after_trace)
+                with guard,self.assertRaises(KeyboardInterrupt):
+                    k.sample_region(WorkRequest(k.regions[0],2))
+                self.assertEqual(k.observe(),before)
+                self.assertFalse(k.work_known)
+                self.assertEqual([r['status'] for r in k.trace],['committed','failed'])
+                self.assertEqual(k.trace[-1]['error_type'],'KeyboardInterrupt')
+                calls=len(backend.calls)
+                with self.assertRaises(ValueError): k.sample_region(WorkRequest(k.regions[0],1))
+                with self.assertRaises(ValueError): k.image()
+                self.assertEqual(len(backend.calls),calls)
+
+    def test_native_interruption_retains_failure_and_blocks_reuse(self):
+        qualified=Path(__file__).resolve().parents[2]/'research/tc-r1/e3/build-manifest.json'
+        manifest=json.loads(qualified.read_text())
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            binary=root/'mock-binary'
+            scene=root/'mock-scene'
+            binary.write_bytes(b'synthetic executable identity; never executed')
+            scene.write_bytes(b'synthetic admitted fixture identity')
+            manifest['binary_sha256']=hashlib.sha256(binary.read_bytes()).hexdigest()
+            build=root/'build.json'
+            build.write_text(json.dumps(manifest))
+            scene_hash=hashlib.sha256(scene.read_bytes()).hexdigest()
+            backend=PbrtBatchBackend(binary,build,scene,scene_hash,
+                                     ('diffuse-01','f0',0,'production'),root/'evidence',
+                                     admitted_scenes={scene_hash})
+            with patch('pbrt_batch_backend.subprocess.run',side_effect=KeyboardInterrupt) as dispatch:
+                with self.assertRaises(KeyboardInterrupt): backend.render(Region(0,1,0,1),0,1)
+                record=json.loads((root/'evidence/batch-00000000.json').read_text())
+                self.assertEqual(record['status'],'failed')
+                self.assertFalse(record['work_known'])
+                self.assertEqual(record['error_type'],'KeyboardInterrupt')
+                with self.assertRaises(ValueError): backend.render(Region(0,1,0,1),0,1)
+                self.assertEqual(dispatch.call_count,1)
 
     def test_stream_derivation_and_collision_fail_closed(self):
         identity=('diffuse-01','f0',0,'production')

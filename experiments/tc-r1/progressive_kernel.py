@@ -113,7 +113,7 @@ def pbrt_seed_map(identities):
 
 
 class ProgressiveKernel:
-    """One frame, one stream, immutable region partition; synchronous requests only.
+    """One frame, one stream, immutable region partition; exclusive single owner.
 
     Backend.render(region, begin, end) returns complete validated native samples.
     It must independently validate class ledgers/Film and retain its diagnostics.
@@ -182,6 +182,7 @@ class ProgressiveKernel:
         self._busy=True
         previous_moments={p:self._moments[p] for p in region.pixels()}
         previous=(self._charges[region],self._cost[region],self._improvement[region],self._version)
+        previous_trace_length=len(self._trace)
         try:
             started=self._clock()
             samples=list(self._backend.render(region,begin,end))
@@ -214,12 +215,15 @@ class ProgressiveKernel:
                                     begin=begin,end=end,version=self._version,charged_rays=charged,
                                     elapsed_ns=elapsed,status='committed'))
             return self.observe()[self.regions.index(region)]
-        except Exception as error:
+        except BaseException as error:
+            # Also contain interruptions; propagate them after invalidating work.
             self._moments.update(previous_moments)
             self._charges[region],self._cost[region],self._improvement[region],self._version=previous
             self._failed=self._stopped=True
+            del self._trace[previous_trace_length:]
             self._trace.append(dict(action='SampleRegion',region=(region.x0,region.x1,region.y0,region.y1),
-                                    begin=begin,end=end,status='failed',work_known=False,error=str(error)))
+                                    begin=begin,end=end,status='failed',work_known=False,
+                                    error_type=type(error).__name__,error=str(error)))
             raise
         finally:
             self._busy=False

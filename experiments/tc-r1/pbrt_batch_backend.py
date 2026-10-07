@@ -59,6 +59,7 @@ def load_batch(prefix, region, begin, end):
 
 
 class PbrtBatchBackend:
+    """Exclusive single-owner backend; failed dispatches invalidate the instance."""
     def __init__(self, binary, build_manifest, scene, scene_sha256, identity, output, threads=1,
                  admitted_scenes=None):
         self.binary=Path(binary).resolve()
@@ -82,9 +83,11 @@ class PbrtBatchBackend:
         self._scene_sha256=scene_sha256
         self._binary_sha256=manifest['binary_sha256']
         self._calls=0
+        self._failed=False
         self.output.mkdir(parents=True,exist_ok=True)
 
     def render(self, region, begin, end):
+        require(not self._failed,'backend failed; uncertain work cannot be retried')
         # Detect changed inputs before every dispatch; never silently bind new bytes.
         require(hashlib.sha256(self.binary.read_bytes()).hexdigest()==self._binary_sha256,'binary changed')
         require(hashlib.sha256(self.scene.read_bytes()).hexdigest()==self._scene_sha256,'scene changed')
@@ -113,7 +116,9 @@ class PbrtBatchBackend:
             metadata.update(status='validated',camera_samples=len(samples),charged_rays=sum(s.charged_rays for s in samples))
             record.write_text(json.dumps(metadata,indent=2)+'\n')
             return samples
-        except Exception as error:
-            metadata.update(status='failed',work_known=False,error=str(error))
+        except BaseException as error:
+            # A caught interruption must not make an uncertain dispatch reusable.
+            self._failed=True
+            metadata.update(status='failed',work_known=False,error_type=type(error).__name__,error=str(error))
             record.write_text(json.dumps(metadata,indent=2)+'\n')
             raise
