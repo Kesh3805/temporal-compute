@@ -15,9 +15,9 @@ def report(a_path, b_path, a_sha256, b_sha256, weights_directory):
         'schema': 'tc-r1-reference-metrics-v1',
         'bindings': {'a_sha256': a_sha256, 'b_sha256': b_sha256,
                      'implementation_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-                     'core_metrics_sha256': hashlib.sha256(Path(__file__).with_name('metrics.py').read_bytes()).hexdigest(),
-                     'model_sha256': {'alexnet': WEIGHTS['alexnet-owt-7be5be79.pth'], 'lpips': WEIGHTS['alex.pth']},
-                     'packages': PACKAGES},
+                     'model_sha256': {'alexnet': WEIGHTS['alexnet-owt-7be5be79.pth'], 'lpips': WEIGHTS['alex.pth']}},
+        'provenance': {'core_metrics_sha256': hashlib.sha256(Path(__file__).with_name('metrics.py').read_bytes()).hexdigest(),
+                       'packages': PACKAGES},
         'metrics': {'relative_mse_ab': relative_mse(a, b), 'relative_mse_ba': relative_mse(b, a),
                     'ssim': ssim(da, db), 'lpips': perceptual.score(da, db)},
     }

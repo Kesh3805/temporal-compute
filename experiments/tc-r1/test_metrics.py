@@ -1,5 +1,6 @@
 """Synthetic known answers only; no primary corpus or policy rendering."""
 import hashlib
+import io
 import os
 import tempfile
 import unittest
@@ -11,6 +12,27 @@ from metrics import Perceptual, display, load_image, regional_mse, relative_mse,
 
 
 class Metrics(unittest.TestCase):
+    def test_model_provisioning_timeout_stream_hash_and_failure(self):
+        from unittest.mock import patch
+        from prepare_metric_models import prepare
+        payload = b'synthetic backbone bytes'
+        digest = hashlib.sha256(payload).hexdigest()
+        # The real packaged calibration remains checked against its frozen
+        # digest. Substitute only the synthetic backbone and response.
+        with tempfile.TemporaryDirectory() as directory:
+            with patch('prepare_metric_models.WEIGHTS', {'alexnet-owt-7be5be79.pth': digest,
+                       'alex.pth': 'df73285e35b22355a2df87cdb6b70b343713b667eddbda73e1977e0c860835c0'}), \
+                    patch('prepare_metric_models.urllib.request.urlopen', return_value=io.BytesIO(payload)) as opener:
+                prepare(directory)
+                opener.assert_called_once_with('https://download.pytorch.org/models/alexnet-owt-7be5be79.pth', timeout=30)
+                self.assertEqual((Path(directory)/'alexnet-owt-7be5be79.pth').read_bytes(), payload)
+            # A provisioning timeout never publishes an unverified backbone.
+            (Path(directory)/'alexnet-owt-7be5be79.pth').unlink()
+            with patch('prepare_metric_models.urllib.request.urlopen', side_effect=TimeoutError('fixture')):
+                with self.assertRaises(TimeoutError):
+                    prepare(directory)
+            self.assertFalse((Path(directory)/'alexnet-owt-7be5be79.pth').exists())
+
     def test_mse_known_answers_floor_only_denominator(self):
         a = np.full((16, 16, 3), 2.)
         b = np.ones_like(a)
@@ -108,6 +130,21 @@ class OfficialPerceptual(unittest.TestCase):
                                       torch.from_numpy(b.transpose(2, 0, 1).copy()).float()[None]*2-1).item())
         self.assertGreater(expected, 0)
         self.assertAlmostEqual(self.metric.score(a, b), expected, places=7)
+
+    def test_reference_producer_bindings_reconcile_with_f_contract(self):
+        from reference_metrics import report
+        with tempfile.TemporaryDirectory() as directory:
+            a, b = Path(directory)/'a.npy', Path(directory)/'b.npy'
+            np.save(a, np.ones((64, 64, 3), dtype='<f8'))
+            np.save(b, np.ones((64, 64, 3), dtype='<f8'))
+            a_sha, b_sha = (hashlib.sha256(p.read_bytes()).hexdigest() for p in (a, b))
+            result = report(a, b, a_sha, b_sha, os.environ['TC_R1_METRIC_MODELS'])
+            self.assertEqual(set(result['bindings']), {'a_sha256', 'b_sha256', 'implementation_sha256', 'model_sha256'})
+            self.assertEqual(set(result['bindings']['model_sha256']), {'alexnet', 'lpips'})
+            self.assertEqual(result['bindings']['a_sha256'], a_sha)
+            self.assertEqual(result['bindings']['b_sha256'], b_sha)
+            self.assertEqual(set(result['provenance']), {'core_metrics_sha256', 'packages'})
+            self.assertEqual(result['metrics'], {'relative_mse_ab': 0., 'relative_mse_ba': 0., 'ssim': 1., 'lpips': 0.})
 
 
 if __name__ == '__main__':

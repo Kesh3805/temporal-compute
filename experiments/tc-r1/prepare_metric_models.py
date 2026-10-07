@@ -14,7 +14,9 @@ def prepare(directory):
     backbone = directory/'alexnet-owt-7be5be79.pth'
     if not backbone.exists():
         temporary = directory/'alexnet-download.tmp'
-        urllib.request.urlretrieve('https://download.pytorch.org/models/alexnet-owt-7be5be79.pth', temporary)
+        with urllib.request.urlopen('https://download.pytorch.org/models/alexnet-owt-7be5be79.pth', timeout=30) as response:
+            with temporary.open('wb') as destination:
+                shutil.copyfileobj(response, destination)
         verify_hash(temporary, WEIGHTS[backbone.name])
         temporary.replace(backbone)
     verify_hash(backbone, WEIGHTS[backbone.name])
