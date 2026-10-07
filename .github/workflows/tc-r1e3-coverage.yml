@@ -16,6 +16,10 @@ jobs:
           fetch-depth: 0
       - name: Check first execution marker introduction
         run: |
+          if [ "${GITHUB_RUN_ATTEMPT:-}" != '1' ]; then
+            echo 'Only the first workflow attempt is permitted; refusing a scientific re-run'
+            exit 1
+          fi
           if git cat-file -e HEAD^:research/tc-r1/e3/execute-once.json 2>/dev/null; then
             echo 'Execution marker already exists; refusing another scientific attempt'
             exit 1

@@ -12,6 +12,8 @@ Both fixtures passed 26 evaluated calls each: exact keyed sample identity, one-s
 
 Raw source fixtures, samples, Film records, transmission observations, class events, logs, images and build artifacts are retained in deterministic `research/tc-r1/e3/raw-artifacts.tar.gz`, with per-file and archive hashes in `artifact-hashes.json`. The report deliberately keeps E2's inherited diagnostic metadata rather than rewriting old evidence.
 
+Review remediation adds a first-attempt guard before build/probe steps, alongside the existing marker-introduction guard. No scientific workflow was rerun. Historical Actions runs retain their original workflow definition: this patch cannot retrofit the retained run at `b680605`, and rerunning that run remains prohibited. The single retained execution and its evidence are unchanged.
+
 Kernel selection: PBRT-v4 at the exact pinned source, CPU float native path and frozen surface-only feature envelope, with the qualified experiment instrumentation. Subsequent production work must preserve those semantics or use an explicit pre-outcome decision. No media/subsurface/specialized integrator/GPU/texture/reconstruction extensions are selected.
 
 No TC-vs-baseline outcomes, controller/baseline comparisons, registered assets, final references or execution-freeze tag were produced. Generation I and the TC-R1 hypothesis/gates are unchanged. Next work is the authorized independent execution-freeze tracks; no additional renderer gate. Issue #9 remains open.
