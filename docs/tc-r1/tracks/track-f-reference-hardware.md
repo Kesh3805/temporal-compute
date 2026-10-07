@@ -1,9 +1,11 @@
 # Track F preparation: reference and hardware pipeline
 
-**Draft preparation only.** No reference generation, render, installation,
-hardware selection, timing result or outcome is part of this PR. Implementation
-depends on the reviewed [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14) and reviewed shared
-interfaces. E2's incomplete-evidence result is preserved. Related research issue:
+**Contract and pipeline work; execution not frozen.** PBRT selection
+[PR #14](https://github.com/Kesh3805/temporal-compute/pull/14) is merged at
+`3c4a1990f4a80e8f12f6fbf10bca81fdb22cf3ed`. No reference generation, render,
+installation, hardware selection, timing result or outcome is part of this PR.
+The pipeline validates supplied artifacts and plans; it does not invoke a renderer.
+E2's incomplete-evidence result is preserved. Related research issue:
 #9; keep it open until the separate research decision/execution work is complete.
 
 The [original protocol](../preregistration.md) remains authoritative. This plan
@@ -60,8 +62,8 @@ freeze a sufficient auditable retention format and measure its actual size.
 Before execution freeze, retain a manifest with CPU model/backend, core/thread
 counts, RAM, free storage, OS/compiler/build flags, PBRT upstream and patch hashes,
 floating-point settings, library/metric/model revisions and executable hashes.
-PBRT-v4 CPU at `b4ce9687e6c695f5582997c61b0c66cf064bdb4a` is the pending E3
-selection dependency; no GPU migration or Mitsuba reopening belongs in this track.
+PBRT-v4 CPU at `b4ce9687e6c695f5582997c61b0c66cf064bdb4a` is selected by E3;
+no GPU migration or Mitsuba reopening belongs in this track.
 
 Measure synthetic, non-primary throughput, peak memory, image/trace sizes and
 analysis throughput on the proposed execution host before declaring feasibility.
@@ -98,3 +100,41 @@ fields and separation of analysis references from legal controller observations.
 No production references or final hardware promises are claimed by these tests
 until they actually run. Corpus freeze, converged references, metrics, algorithms,
 hardware and analysis must all be bound before `tc-r1-execution-preregistered`.
+
+## Concrete Track F interface v1 (before implementation)
+
+`research/tc-r1/reference-hardware-contract.json` defines the pipeline interface.
+The corpus supplies exactly ten distinct scene IDs and three distinct frame IDs
+per scene; every pair binds a PBRT asset SHA-256. Reference replicate is **0**
+with the separately named `reference-a` and `reference-b` streams, derived by the
+original SHA-256 rule. Each escalation regenerates the complete deterministic
+prefix `[0,spp)`; previous levels and failure records remain immutable. This
+choice concerns reference execution, not changing A's production stream mapping.
+
+Canonical analysis images are `.npy`, C-order H×W×3 little-endian float64 linear
+RGB, finite, preserving negative finite radiance. EXR-to-canonical conversion
+must be tested by the eventual renderer adapter; this utility consumes canonical
+files and cannot certify that absent conversion. A/B convergence uses the maximum
+of both directional registered relative MSE values, with the unchanged SSIM and
+LPIPS bars. Proposed scoring image is `(A+B)/2`; **that original-registration
+clarification requires explicit pre-outcome maintainer approval**. The pipeline
+does not produce a scoring image or claim its construction is approved.
+
+Records bind scene/frame, corpus and asset hashes, level, stream IDs, completed
+sample ranges, both image hashes, metric implementation and model-weight hashes,
+three convergence metrics, and a decision: `converged`, `escalate`, `halt`, or
+`failed`. A failure remains a durable row, blocks continuation and cannot be
+silently retried. Escalation is allowed only after a valid nonconverged pair;
+32768 nonconvergence halts. Hashes are checked against files, not accepted as
+unchecked declarations. Synthetic records are expressly marked synthetic.
+
+The host utility records observed CPU/platform/logical threads/RAM/free storage
+and binary hashes without installing dependencies or claiming this is the
+execution host. Physical-core count, compiler/build flags, pinned thread count,
+warmup, common time cap, final storage location and metric package/model hashes
+must be supplied and independently validated at integration. Missing fields
+cannot pass readiness. Use synchronized completed CPU work and monotonic
+nanoseconds; three repeated timings and paired policy-order permutations derive
+from the registered timing-order seed. Registered ray checkpoints are mandatory;
+time-cap completion/nonattainment retention and early ray-cap censoring require
+Track E's separately tested agreement. No time cap is guessed before host choice.
