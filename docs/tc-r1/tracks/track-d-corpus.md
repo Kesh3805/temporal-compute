@@ -1,10 +1,12 @@
 # Track D — registered corpus asset preparation
 
-Status: draft preparation only. This document scopes later asset construction; no scene files, images, references or comparative outcomes are produced here. It depends on the pending [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14), whose PASS is retained in scientific [run 37578416061](https://github.com/Kesh3805/temporal-compute/actions/runs/37578416061). Production integration waits for its reviewed selection record on main. E2 remains FAIL TO QUALIFY due to incomplete evidence, not an observed PBRT failure.
+Status: active asset construction, following merged [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14). PBRT CPU is selected; its PASS is retained in scientific [run 37578416061](https://github.com/Kesh3805/temporal-compute/actions/runs/37578416061). This track produces original scene definitions and manifests without rendering. E2 remains FAIL TO QUALIFY due to incomplete evidence, not an observed PBRT failure.
 
 Related research issue: [#9](https://github.com/Kesh3805/temporal-compute/issues/9), which remains open. Preserve the [original protocol](../preregistration.md), original research gates and historical evidence. Asset-manifest acceptance is a prerequisite to the separate execution freeze, not a substitute for it.
 
 ## Corpus contract to implement
+
+The preimplementation [corpus schema v1](../../../research/tc-r1/corpus/schema.json) binds concrete IDs, frame times, strict manifest fields, feature envelope, hash rules and stream/reference join keys before authoring assets. Tracks A/F must freeze production sample mapping and reference evidence separately. Scene family labels describe intended challenges; they are not measured classifications.
 
 Construct ten independently specified variants: two each in uniformly noisy, highly specular, simple diffuse, motion-heavy and adaptive-sampling-friendly families. Give every scene a stable scene identifier and three stable frame identifiers, at registered resolution 256x256. The eight paired seeds per scene give 80 scene/seed units and 240 frame renders per policy once execution is authorized. This is a planned corpus size, not existing data.
 
