@@ -17,7 +17,7 @@ ENVELOPE = dict(backend='cpu-float', integrator='path', maxdepth=8, regularize=F
                 geometry=['sphere', 'trianglemesh'], materials=['diffuse', 'conductor', 'dielectric'],
                 lights=['point', 'area', 'uniform-environment'], no_clamping=True,
                 no_media_textures_splats_denoising_temporal_reuse=True)
-STREAMS = dict(master_seed=20261007, replicates=list(range(8)),
+STREAMS = dict(master_seed=20261007, replicates=list(range(8)), reference_replicate=0,
                names=['allocation', 'production', 'reference-a', 'reference-b', 'timing-order'],
                derivation='first eight big-endian SHA-256 bytes of UTF-8 tc-r1-v1|20261007|scene_id|frame_id|replicate|stream',
                sample_mapping='Track A production interface; seed derivation alone does not freeze sampler dimensions')
@@ -282,7 +282,13 @@ def verify(root=ROOT):
     actual = load(path)
     require(actual == manifest, 'manifest/source/hash mismatch')
     require(path.read_bytes() == canonical(manifest), 'noncanonical manifest bytes')
-    present = {(p.relative_to(root)).as_posix() for p in (root / DIRECTORY / 'scenes').rglob('*') if p.is_file()}
+    scene_root = root / DIRECTORY / 'scenes'
+    require(all(not p.is_symlink() for p in [root / 'research', root / 'research/tc-r1',
+                                            root / DIRECTORY, scene_root]), 'symlinked scene parent')
+    entries = list(scene_root.rglob('*'))
+    require(all(not p.is_symlink() and (p.is_file() or p.is_dir()) for p in entries),
+            'symlinked or non-regular scene entry')
+    present = {p.relative_to(root).as_posix() for p in entries if p.is_file()}
     require(present == set(files), 'missing or additional scene assets')
     for name, data in files.items():
         pure = PurePosixPath(name)

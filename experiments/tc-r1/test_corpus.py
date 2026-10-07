@@ -2,6 +2,7 @@
 import copy
 import importlib.util
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -128,6 +129,7 @@ class CorpusTests(unittest.TestCase):
         for mutate in [
             lambda schema: schema['envelope'].update(integrator='volpath'),
             lambda schema: schema['streams'].update(master_seed=123),
+            lambda schema: schema['streams'].update(reference_replicate=1),
             lambda schema: schema.update(resolution=[512, 512]),
         ]:
             with self.subTest(mutation=mutate):
@@ -137,6 +139,34 @@ class CorpusTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'frozen schema identities/envelope'):
                     corpus.expected(self.root)
         path.write_bytes(original)
+
+    def test_in_repository_file_and_directory_symlinks_rejected(self):
+        corpus.write(self.root)
+        scene_root = self.root / 'research/tc-r1/corpus/scenes'
+        asset = scene_root / 'uniform-01/f0.pbrt'
+        duplicate = self.root / 'identical.pbrt'
+        duplicate.write_bytes(asset.read_bytes())
+        asset.unlink()
+        try:
+            asset.symlink_to(duplicate)
+        except OSError as error:
+            self.skipTest('Host cannot create symlinks: ' + str(error))
+        with self.assertRaisesRegex(ValueError, 'symlinked or non-regular'):
+            corpus.verify(self.root)
+        asset.unlink()
+        asset.write_bytes(duplicate.read_bytes())
+        moved = self.root / 'moved-scenes'
+        scene_root.rename(moved)
+        scene_root.symlink_to(moved, target_is_directory=True)
+        with self.assertRaisesRegex(ValueError, 'symlinked scene parent'):
+            corpus.verify(self.root)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX named pipe fixture')
+    def test_non_regular_scene_entry_rejected(self):
+        corpus.write(self.root)
+        os.mkfifo(self.root / 'research/tc-r1/corpus/scenes/extra.pipe')
+        with self.assertRaisesRegex(ValueError, 'non-regular'):
+            corpus.verify(self.root)
 
 
 if __name__ == '__main__':

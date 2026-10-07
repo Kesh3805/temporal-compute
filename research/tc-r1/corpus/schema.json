@@ -13,6 +13,7 @@
   "streams": {
     "master_seed": 20261007,
     "replicates": [0, 1, 2, 3, 4, 5, 6, 7],
+    "reference_replicate": 0,
     "names": ["allocation", "production", "reference-a", "reference-b", "timing-order"],
     "derivation": "first eight big-endian SHA-256 bytes of UTF-8 tc-r1-v1|20261007|scene_id|frame_id|replicate|stream",
     "sample_mapping": "Track A production interface; seed derivation alone does not freeze sampler dimensions"
