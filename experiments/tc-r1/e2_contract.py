@@ -77,7 +77,7 @@ def evaluate(binary,output):
             require(sum(ledger.values())==sum(v[6] for v in records.values()),'ledger extra events')
             final={}
             for row in csv.reader(film.read_text().splitlines()):
-                require(len(row)>=3,'Film record shape')
+                require(len(row)==6,'Film record shape')
                 if int(row[2])==end-1:
                     final[tuple(map(int,row[:2]))]=tuple(map(float,row[3:]))
             require(set(final)=={k[:2] for k in expected},'Film pixel domain')
