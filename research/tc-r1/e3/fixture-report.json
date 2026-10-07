@@ -1,0 +1,384 @@
+{
+  "gate": "TC-R1E3",
+  "status": "PASS",
+  "coverage": {
+    "dielectric": {
+      "status": "PASS",
+      "evaluations": 26,
+      "transmission_events_by_evaluation": [
+        1952,
+        1952,
+        482,
+        494,
+        484,
+        492,
+        492,
+        484,
+        494,
+        482,
+        118,
+        128,
+        126,
+        120,
+        124,
+        114,
+        124,
+        122,
+        120,
+        122,
+        128,
+        124,
+        124,
+        116,
+        120,
+        122
+      ],
+      "charges": [
+        {
+          "camera": 1024,
+          "continuation": 2052,
+          "visibility": 0,
+          "total": 3076
+        },
+        {
+          "camera": 1024,
+          "continuation": 2052,
+          "visibility": 0,
+          "total": 3076
+        },
+        {
+          "camera": 256,
+          "continuation": 511,
+          "visibility": 0,
+          "total": 767
+        },
+        {
+          "camera": 256,
+          "continuation": 512,
+          "visibility": 0,
+          "total": 768
+        },
+        {
+          "camera": 256,
+          "continuation": 509,
+          "visibility": 0,
+          "total": 765
+        },
+        {
+          "camera": 256,
+          "continuation": 520,
+          "visibility": 0,
+          "total": 776
+        },
+        {
+          "camera": 256,
+          "continuation": 520,
+          "visibility": 0,
+          "total": 776
+        },
+        {
+          "camera": 256,
+          "continuation": 509,
+          "visibility": 0,
+          "total": 765
+        },
+        {
+          "camera": 256,
+          "continuation": 512,
+          "visibility": 0,
+          "total": 768
+        },
+        {
+          "camera": 256,
+          "continuation": 511,
+          "visibility": 0,
+          "total": 767
+        },
+        {
+          "camera": 64,
+          "continuation": 128,
+          "visibility": 0,
+          "total": 192
+        },
+        {
+          "camera": 64,
+          "continuation": 133,
+          "visibility": 0,
+          "total": 197
+        },
+        {
+          "camera": 64,
+          "continuation": 130,
+          "visibility": 0,
+          "total": 194
+        },
+        {
+          "camera": 64,
+          "continuation": 129,
+          "visibility": 0,
+          "total": 193
+        },
+        {
+          "camera": 64,
+          "continuation": 127,
+          "visibility": 0,
+          "total": 191
+        },
+        {
+          "camera": 64,
+          "continuation": 125,
+          "visibility": 0,
+          "total": 189
+        },
+        {
+          "camera": 64,
+          "continuation": 128,
+          "visibility": 0,
+          "total": 192
+        },
+        {
+          "camera": 64,
+          "continuation": 129,
+          "visibility": 0,
+          "total": 193
+        },
+        {
+          "camera": 64,
+          "continuation": 124,
+          "visibility": 0,
+          "total": 188
+        },
+        {
+          "camera": 64,
+          "continuation": 127,
+          "visibility": 0,
+          "total": 191
+        },
+        {
+          "camera": 64,
+          "continuation": 131,
+          "visibility": 0,
+          "total": 195
+        },
+        {
+          "camera": 64,
+          "continuation": 130,
+          "visibility": 0,
+          "total": 194
+        },
+        {
+          "camera": 64,
+          "continuation": 129,
+          "visibility": 0,
+          "total": 193
+        },
+        {
+          "camera": 64,
+          "continuation": 126,
+          "visibility": 0,
+          "total": 190
+        },
+        {
+          "camera": 64,
+          "continuation": 130,
+          "visibility": 0,
+          "total": 194
+        },
+        {
+          "camera": 64,
+          "continuation": 126,
+          "visibility": 0,
+          "total": 190
+        }
+      ],
+      "scene_sha256": "81c09fefd3ecec0de5cf99bd27aedc5b688f6fd763427a248be951cce398023c"
+    },
+    "trianglemesh": {
+      "status": "PASS",
+      "evaluations": 26,
+      "transmission_events_by_evaluation": [],
+      "charges": [
+        {
+          "camera": 1024,
+          "continuation": 1024,
+          "visibility": 501,
+          "total": 2549
+        },
+        {
+          "camera": 1024,
+          "continuation": 1024,
+          "visibility": 501,
+          "total": 2549
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 120,
+          "total": 632
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 126,
+          "total": 638
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 137,
+          "total": 649
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 118,
+          "total": 630
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 118,
+          "total": 630
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 137,
+          "total": 649
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 126,
+          "total": 638
+        },
+        {
+          "camera": 256,
+          "continuation": 256,
+          "visibility": 120,
+          "total": 632
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 29,
+          "total": 157
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 34,
+          "total": 162
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 24,
+          "total": 152
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 31,
+          "total": 159
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 33,
+          "total": 161
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 26,
+          "total": 154
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 36,
+          "total": 164
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 42,
+          "total": 170
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 30,
+          "total": 158
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 32,
+          "total": 160
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 32,
+          "total": 160
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 32,
+          "total": 160
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 33,
+          "total": 161
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 27,
+          "total": 155
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 31,
+          "total": 159
+        },
+        {
+          "camera": 64,
+          "continuation": 64,
+          "visibility": 29,
+          "total": 157
+        }
+      ],
+      "scene_sha256": "7a790a4c7ed318c39c313c9e421a688c0e163f7b59a7acf6489feae5ef68f091"
+    }
+  },
+  "inherited_estimator_accounting": {
+    "status": "PASS",
+    "fixtures": {
+      "dielectric": {
+        "status": "PASS",
+        "samples": 1024
+      },
+      "trianglemesh": {
+        "status": "PASS",
+        "samples": 1024
+      }
+    },
+    "failed_fixtures": [],
+    "comparative_outcomes": "None generated",
+    "preregistration": "7f610be4eb137aae85c3fe97721a2a3ae5366ca3",
+    "source_audit_required": true,
+    "selection": "not selected until independent source audit and both contracts complete"
+  },
+  "preregistration": "b8b63e22f4b8b47267eeb8a281e8c980c68b2197",
+  "kernel_decision": "PBRT SELECTED",
+  "comparative_outcomes": "None generated",
+  "e2_changed": false,
+  "binary_sha256": "f9c585583302e0175b8e65dd81f302aa6746c3fd7c1450f51372ea2bfc7a024c"
+}
