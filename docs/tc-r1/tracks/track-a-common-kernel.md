@@ -1,6 +1,8 @@
 # Track A preparation: common progressive kernel
 
-Status: draft planning only. Depends on the pending [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14) on `research/tc-r1e3-pbrt-coverage`, evidence commit `9984fd2`, scientific run `37578416061`. E3's retained PASS must be reviewed and merged before this becomes implementation work. This document neither changes E2's FAIL TO QUALIFY nor freezes the TC-R1 experiment.
+Status: concrete interface review. [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14) merged unchanged at `3c4a1990f4a80e8f12f6fbf10bca81fdb22cf3ed`; scientific run `37578416061` remains its sole authoritative execution. This document neither changes E2's FAIL TO QUALIFY nor freezes the TC-R1 experiment.
+
+The versioned [kernel contract](../../../research/tc-r1/kernel-contract.json) is committed before implementation. It fixes rectangular regions, a two-action policy boundary, sufficient statistics, observations, sample ownership, native stream mapping and failure semantics. Shared final image encoding is C-order little-endian float64 `H,W,RGB` NumPy arrays; policies see immutable numeric state only. There is no generic runtime or plugin layer. Integration still must settle actual hardware, checkpoints/overshoot and estimator/stopping limitations before execution freeze.
 
 The implementation will expose one TC-R1-specific adapter over PBRT-v4 CPU float path integration at upstream `b4ce9687e6c695f5582997c61b0c66cf064bdb4a`, preserving the selected surface-only envelope, sampler, Film, filter and charged-ray definitions. It will reuse the qualified mechanisms rather than introduce a renderer or cross-domain runtime. No implementation or rendering occurs in this preparation PR.
 
