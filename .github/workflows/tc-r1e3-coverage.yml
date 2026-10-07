@@ -20,8 +20,13 @@ jobs:
             echo 'Only the first workflow attempt is permitted; refusing a scientific re-run'
             exit 1
           fi
-          if git cat-file -e HEAD^:research/tc-r1/e3/execute-once.json 2>/dev/null; then
-            echo 'Execution marker already exists; refusing another scientific attempt'
+          # Walk every parent, including merged history where the marker was deleted.
+          if ! marker_history=$(git rev-list --full-history HEAD^@ -- research/tc-r1/e3/execute-once.json); then
+            echo 'Cannot verify prior marker history; refusing a scientific attempt'
+            exit 1
+          fi
+          if [ -n "$marker_history" ]; then
+            echo 'Execution marker exists in prior history; refusing another scientific attempt'
             exit 1
           fi
       - name: Retain runner identity
