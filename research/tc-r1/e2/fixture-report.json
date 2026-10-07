@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "fixtures": {
+    "empty-environment": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "diffuse-sphere": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "specular-sphere": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "pointlit-sphere": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "dielectric": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "area": {
+      "status": "PASS",
+      "samples": 1024
+    },
+    "roulette": {
+      "status": "PASS",
+      "samples": 1024
+    }
+  },
+  "failed_fixtures": [],
+  "comparative_outcomes": "None generated",
+  "preregistration": "7f610be4eb137aae85c3fe97721a2a3ae5366ca3",
+  "source_audit_required": true,
+  "selection": "not selected until independent source audit and both contracts complete",
+  "binary_sha256": "82ebba3bb5b23ce0f8b778860f02fe571481d205ff7aa738d024e32ca7be53e2"
+}

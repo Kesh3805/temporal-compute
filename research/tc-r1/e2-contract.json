@@ -1,0 +1,15 @@
+{
+  "gate": "TC-R1E2",
+  "status": "preregistered; not evaluated",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "absolute_tolerance": 0.000001,
+  "relative_tolerance": 0.00001,
+  "comparison": "every finite linear RGB channel per pixel; no aggregate hiding",
+  "sample_identity": "exact pixel/sample-index/value equality",
+  "one_shot": [0, 16],
+  "batches": [[0, 4], [4, 8], [8, 12], [12, 16]],
+  "threads": [1, 2],
+  "attempt_limit": 1,
+  "fallback_renderer": null,
+  "comparative_outcomes": false
+}
