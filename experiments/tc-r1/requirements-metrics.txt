@@ -1,0 +1,8 @@
+# Direct numerical/model dependencies; CPU wheels supplied explicitly in CI.
+numpy==2.4.6
+torch==2.8.0
+torchvision==0.23.0
+lpips==0.1.4
+scipy==1.15.2
+pillow==10.4.0
+tqdm==4.67.1

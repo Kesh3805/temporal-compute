@@ -51,8 +51,13 @@
     "architecture": "official AlexNet",
     "version": "0.1",
     "input": "fixed display RGB in [-1,1]",
-    "weights": "must verify complete SHA-256 before scoring; no implicit download during scoring"
+    "weights": {
+      "alexnet-owt-7be5be79.pth": "7be5be791159472b1fbf3c69796f7cb30dca7ad8466c2df70058c37116cdee02",
+      "alex.pth": "df73285e35b22355a2df87cdb6b70b343713b667eddbda73e1977e0c860835c0"
+    },
+    "provisioning": "explicit official-source download/copy with complete SHA-256 verification; scoring is offline"
   },
   "guard": "no primary rendering or comparative analysis before tc-r1-execution-preregistered",
-  "review": "Independent maintainer-agent review before implementation; original protocol preserved"
+  "review": "Independent maintainer-agent review before implementation; original protocol preserved",
+  "censoring_correctness": "Early ray-cap or failure censoring is potentially informative. Primary time gate remains INCONCLUSIVE without independently justified censoring design; KM identifiability alone does not establish independent censoring. Never fabricate follow-up."
 }
