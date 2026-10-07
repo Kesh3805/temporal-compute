@@ -116,9 +116,10 @@ RGB, finite, preserving negative finite radiance. EXR-to-canonical conversion
 must be tested by the eventual renderer adapter; this utility consumes canonical
 files and cannot certify that absent conversion. A/B convergence uses the maximum
 of both directional registered relative MSE values, with the unchanged SSIM and
-LPIPS bars. Proposed scoring image is `(A+B)/2`; **that original-registration
-clarification requires explicit pre-outcome maintainer approval**. The pipeline
-does not produce a scoring image or claim its construction is approved.
+LPIPS bars. Scoring image is `(A+B)/2`, approved in the root agent's independent
+engineering review before outcomes. This concretizes the unspecified scoring
+construction and preserves the original registration. The pipeline can validate
+the construction on synthetic arrays; it generates no final reference image.
 
 Records bind scene/frame, corpus and asset hashes, level, stream IDs, completed
 sample ranges, both image hashes, metric implementation and model-weight hashes,
@@ -138,3 +139,41 @@ nanoseconds; three repeated timings and paired policy-order permutations derive
 from the registered timing-order seed. Registered ray checkpoints are mandatory;
 time-cap completion/nonattainment retention and early ray-cap censoring require
 Track E's separately tested agreement. No time cap is guessed before host choice.
+The user selected pipeline preparation with **host selection pending**. Final
+references, actual-host feasibility renders and expensive production remain
+unauthorized. Seed hashes alone cannot prove native sampler/dimension conformance;
+Track A must demonstrate it before references are execution-ready.
+
+Timing rows explicitly retain event/censor time and reason. Common-cap
+administrative censoring is permitted. Early data-dependent ray-cap censoring
+makes the primary time gate INCONCLUSIVE without independent-censoring
+justification; never fabricate follow-up, extend one policy's cap or drop units.
+Track E owns repeat aggregation: each event gives [t,t], each censor gives
+[c,infinity]; equal finite median bounds identify an event, infinite upper bound
+right-censors at the lower median, unequal finite bounds remain INCONCLUSIVE.
+
+## Implemented preparation utilities
+
+`experiments/tc-r1/reference_pipeline.py` provides a verified 30-pair corpus plan,
+registered seed identities, prefix/escalation ledger, canonical-image checks,
+actual artifact/metric-code/AlexNet-backbone/LPIPS-calibration weight bindings,
+independent directional-MSE recomputation, scoring-reference mean, paired timing
+orders, synchronized CPU timing wrapper and event/censor rows. Perceptual scores
+come from Track E's separately validated metric producer; a hash-bound report
+alone is not proof that its producer computed SSIM/LPIPS correctly. The reference
+ledger is single-writer, rejects retries/identity changes and retains artifact
+validation failures without silently escalating them. Cross-process locking and
+EXR conversion remain integration responsibilities.
+
+Read-only host inspection and corpus planning examples (outputs are ignored):
+
+```powershell
+python experiments/tc-r1/reference_pipeline.py inspect-host --storage C:/ --output results/local/host-observation.json
+python experiments/tc-r1/reference_pipeline.py plan-corpus --repository-root . --manifest research/tc-r1/corpus/manifest.json --output results/local/reference-plan.json
+```
+
+The second command is usable after Track D's corpus is present. Plans explicitly
+say final generation is unauthorized and native stream conformance unverified.
+Tests use invented arrays/files/clock values, never scene rendering, reference
+generation, model inference or TC-vs-baseline primary outcomes. Dedicated CI runs
+these synthetic tests on Linux and Windows, in normal and optimized Python modes.
