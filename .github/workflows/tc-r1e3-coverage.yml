@@ -1,0 +1,68 @@
+name: TC-R1E3 final PBRT coverage
+on:
+  push:
+    branches: [research/tc-r1e3-pbrt-coverage]
+    paths: ['research/tc-r1/e3/execute-once.json']
+permissions:
+  contents: read
+jobs:
+  pbrt-cpu-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Check first execution marker introduction
+        run: |
+          if git cat-file -e HEAD^:research/tc-r1/e3/execute-once.json 2>/dev/null; then
+            echo 'Execution marker already exists; refusing another scientific attempt'
+            exit 1
+          fi
+      - name: Retain runner identity
+        run: |
+          mkdir -p results/local/tc-r1e3-pbrt
+          lscpu > results/local/tc-r1e3-pbrt/cpu.txt
+          free -b > results/local/tc-r1e3-pbrt/memory.txt
+          df -B1 > results/local/tc-r1e3-pbrt/storage.txt
+          cmake --version > results/local/tc-r1e3-pbrt/toolchain.txt
+          c++ --version >> results/local/tc-r1e3-pbrt/toolchain.txt
+      - name: Install upstream build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Fetch immutable PBRT source
+        run: |
+          git clone https://github.com/mmp/pbrt-v4.git target/pbrt
+          git -C target/pbrt checkout b4ce9687e6c695f5582997c61b0c66cf064bdb4a
+          git -C target/pbrt submodule update --init --recursive
+          git -C target/pbrt submodule status --recursive > results/local/tc-r1e3-pbrt/dependencies.txt
+      - name: Minimal CPU instrumentation
+        run: python experiments/tc-r1/e3_instrument.py --source target/pbrt --manifest results/local/tc-r1e3-pbrt/instrumentation.json
+      - name: Build CPU renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmake -S target/pbrt -B target/pbrt-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tee results/local/tc-r1e3-pbrt/configure.log
+          /usr/bin/time -v cmake --build target/pbrt-build --target pbrt_exe --parallel 2 2>&1 | tee results/local/tc-r1e3-pbrt/build.log
+      - name: Bind actual build provenance
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('results/local/tc-r1e3-pbrt')
+          value=json.loads((root/'instrumentation.json').read_text())
+          value['binary_sha256']=hashlib.sha256(pathlib.Path('target/pbrt-build/pbrt').read_bytes()).hexdigest()
+          value['build_flags']='Release; Ninja; CPU; GLFW_BUILD_WAYLAND=OFF; parallel=2'
+          value['dependency_revisions']=(root/'dependencies.txt').read_text()
+          value['toolchain']=(root/'toolchain.txt').read_text()
+          (root/'build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')
+          PY
+      - name: Synthetic probe only
+        run: /usr/bin/time -v python experiments/tc-r1/e3_coverage.py --pbrt target/pbrt-build/pbrt --output results/local/tc-r1e3-pbrt --manifest results/local/tc-r1e3-pbrt/build-manifest.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: tc-r1e3-pbrt-synthetic-qualification
+          path: results/local/tc-r1e3-pbrt
+          retention-days: 30
