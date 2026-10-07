@@ -97,7 +97,7 @@ class ReferencePipelineTests(unittest.TestCase):
             produce.assert_not_called()
             record = ref.recover_interrupted_attempt(root, self.plan(), 'reviewed synthetic interrupted write')
             self.assertEqual(record['decision'], 'failed')
-            self.assertEqual(record['interrupted_evidence']['sha256'], ref.sha256(pending))
+            self.assertEqual(record['interrupted_evidence'][0]['sha256'], ref.sha256(pending))
             self.assertEqual(pending.read_bytes(), b'{"interrupted":')
             self.assertEqual(json.loads(path.read_text()), record)
             with self.assertRaises(ValueError):
@@ -105,6 +105,41 @@ class ReferencePipelineTests(unittest.TestCase):
             produce.assert_not_called()
             with self.assertRaises(ValueError):
                 ref.recover_interrupted_attempt(root, self.plan(), 'no second recovery')
+
+    def test_callback_interrupt_is_reserved_retained_rethrown_and_not_retried(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            def interrupted():
+                reservation = root / 'diffuse-01-f0-8192.json.attempt'
+                self.assertEqual(json.loads(reservation.read_text())['plan'], self.plan())
+                raise KeyboardInterrupt('synthetic interruption')
+            with self.assertRaises(KeyboardInterrupt):
+                ref.retain_attempt(root, self.plan(), interrupted)
+            row = json.loads((root / 'diffuse-01-f0-8192.json').read_text())
+            self.assertEqual(row['decision'], 'failed')
+            self.assertIn('KeyboardInterrupt', row['error'])
+            producer = unittest.mock.Mock()
+            with self.assertRaises(ValueError):
+                ref.retain_attempt(root, self.plan(), producer)
+            producer.assert_not_called()
+
+    def test_unrecorded_reserved_callback_requires_explicit_failure_recovery(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            reservation = root / 'diffuse-01-f0-8192.json.attempt'
+            ref.retain_record(reservation, dict(plan=self.plan(), status='started'))
+            producer = unittest.mock.Mock()
+            with self.assertRaises(ValueError):
+                ref.retain_attempt(root, self.plan(), producer)
+            producer.assert_not_called()
+            before = reservation.read_bytes()
+            row = ref.recover_interrupted_attempt(root, self.plan(), 'reviewed synthetic process loss')
+            self.assertEqual(row['decision'], 'failed')
+            self.assertEqual(row['interrupted_evidence'][0]['sha256'], ref.sha256(reservation))
+            self.assertEqual(reservation.read_bytes(), before)
+            with self.assertRaises(ValueError):
+                ref.retain_attempt(root, self.plan(16384), producer)
+            producer.assert_not_called()
 
     def test_canonical_image_corruption_dtype_shape_and_nonfinite(self):
         with tempfile.TemporaryDirectory() as directory:

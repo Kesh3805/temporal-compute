@@ -167,11 +167,17 @@ same-directory exclusive `.pending` file, then atomically publishes complete
 bytes using a no-overwrite hard link. Hard-link support is an integration storage
 prerequisite; publication failure preserves pending evidence and blocks producer
 retry. A human may explicitly call `recover_interrupted_attempt` with the reviewed
-plan/reason to retain a terminal failed row plus the original pending bytes/hash;
+plan/reason to retain a terminal failed row plus the original pending/reservation bytes/hashes;
 this never retries or permits escalation. An interrupted recovery requires human
 inspection too. This establishes interruption-safe visibility, not a guarantee
 against every filesystem/power-loss failure. Cross-process locking and EXR
 conversion remain integration responsibilities.
+Before invoking a producer callback, the ledger publishes a durable exclusive
+`.attempt` reservation. Callback interrupts retain a terminal failure and rethrow;
+process loss leaves the reservation requiring explicit terminal recovery. Neither
+case can silently retry work. Reservations remain as evidence after completion.
+This narrowly establishes local per-attempt ownership, not distributed scheduling
+or full production coordination. The pipeline still never invokes a renderer.
 
 Read-only host inspection and corpus planning examples (outputs are ignored):
 

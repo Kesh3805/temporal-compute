@@ -209,10 +209,13 @@ def recover_interrupted_attempt(directory, plan, reason):
     require(plan == expected, 'reference plan differs from registered construction')
     path = Path(directory) / f'{plan["scene_id"]}-{plan["frame_id"]}-{plan["spp"]}.json'
     pending = path.with_name(path.name + '.pending')
-    require(pending.is_file() and not path.exists(), 'no unpublished interrupted attempt')
+    reservation = path.with_name(path.name + '.attempt')
+    reservation_pending = reservation.with_name(reservation.name + '.pending')
+    evidence = [item for item in (pending, reservation, reservation_pending) if item.is_file()]
+    require(evidence and not path.exists(), 'no unpublished interrupted attempt')
     record = failure_record(plan, 'interrupted-record', reason)
-    record['interrupted_evidence'] = dict(path=pending.name, sha256=sha256(pending),
-                                           bytes=pending.stat().st_size)
+    record['interrupted_evidence'] = [dict(path=item.name, sha256=sha256(item), bytes=item.stat().st_size)
+                                      for item in evidence]
     _publish_record(path, record, '.recovery-pending')
     return record
 
@@ -241,20 +244,33 @@ def retain_attempt(directory, plan, produce_record):
                 'interrupted reference record requires explicit terminal recovery')
         require(not path.with_name(path.name + '.recovery-pending').exists(),
                 'interrupted recovery requires human inspection')
+        reservation = path.with_name(path.name + '.attempt')
+        require(path.exists() or not (reservation.exists() or
+                reservation.with_name(reservation.name + '.pending').exists()),
+                'interrupted reference producer requires explicit terminal recovery')
         if path.exists():
             prior.append(json.loads(path.read_text(encoding='utf-8')))
     validate_progression(prior, plan)
+    path = directory / f'{plan["scene_id"]}-{plan["frame_id"]}-{plan["spp"]}.json'
+    reservation = path.with_name(path.name + '.attempt')
+    # Reserve ownership before calling any producer. An interrupted reservation
+    # or callback remains durable and cannot silently launch the work again.
+    retain_record(reservation, dict(plan=plan, status='started'))
+    interrupted = None
     try:
         record = produce_record()
         require(record['plan'] == plan, 'producer changed reference identity')
         require(record['decision'] == convergence_decision(plan['spp'], record['metrics']),
                 'producer convergence decision mismatch')
-    except Exception as error:
+    except BaseException as error:
         # Any producer defect blocks this pair and must survive in evidence.
-        # Process interrupts (BaseException) remain interrupts, never successes.
+        # Process interrupts remain interrupts after terminal evidence retention.
         record = failure_record(plan, 'artifact-validation', f'{type(error).__name__}: {error}')
-    path = directory / f'{plan["scene_id"]}-{plan["frame_id"]}-{plan["spp"]}.json'
+        if not isinstance(error, Exception):
+            interrupted = error
     retain_record(path, record)
+    if interrupted is not None:
+        raise interrupted
     return record
 
 
