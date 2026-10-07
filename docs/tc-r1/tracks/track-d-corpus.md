@@ -4,9 +4,23 @@ Status: active asset construction, following merged [TC-R1E3 selection PR #14](h
 
 Related research issue: [#9](https://github.com/Kesh3805/temporal-compute/issues/9), which remains open. Preserve the [original protocol](../preregistration.md), original research gates and historical evidence. Asset-manifest acceptance is a prerequisite to the separate execution freeze, not a substitute for it.
 
-## Corpus contract to implement
+## Authored corpus contract
 
 The preimplementation [corpus schema v1](../../../research/tc-r1/corpus/schema.json) binds concrete IDs, frame times, strict manifest fields, feature envelope, hash rules and stream/reference join keys before authoring assets. Tracks A/F must freeze production sample mapping and reference evidence separately. Scene family labels describe intended challenges; they are not measured classifications.
+
+The [complete manifest](../../../research/tc-r1/corpus/manifest.json) now contains ten original procedural scenes and thirty fixed frame definitions. [Source specifications](../../../research/tc-r1/corpus/specifications.json) bind the full camera, materials, lights and geometry. `python experiments/tc-r1/corpus.py` verifies all exact input/asset hashes and reconstructs every PBRT file in memory without rendering. First authoring used `--write`; it refuses existing assets, so verification cannot silently regenerate them. Actual PBRT parser/runtime feasibility is separate later work; this track verifies the deliberately restricted serializer and asset provenance without claiming renderer execution.
+
+| Scene IDs | Independent design rationale |
+| --- | --- |
+| `uniform-01`, `uniform-02` | Repeated diffuse geometry across the view with compact emitters; equal versus staggered layouts |
+| `specular-01`, `specular-02` | Smooth glass/metals with small emitters; separate central and offset multilayer arrangements |
+| `diffuse-01`, `diffuse-02` | Diffuse spheres versus original tetrahedral meshes under simple illumination |
+| `motion-01`, `motion-02` | A crossing occluder versus independently moving glass/metal/diffuse geometry |
+| `adaptive-01`, `adaptive-02` | Quiet diffuse surfaces beside localized difficult transport; independent clustered versus isolated layouts |
+
+Units are metres; frames `f0`, `f1`, `f2` are at times 0, 0.5 and 1. Static geometry repeats byte-for-byte with distinct stream identifiers. Motion geometry is fully enumerated at each time, with neither interpolation nor temporal reuse. Every scene is 256×256. The nominal independent-sampler startup value of 16 spp is an asset parser setting, not a reference effort or production sample cap: Track A must bind sample-index mapping and execution configuration before the execution freeze.
+
+Original scene definitions are licensed under the repository's MIT OR Apache-2.0 terms, with both complete existing license files hashed in the manifest. No imported geometry, textures, third-party asset license claim or reference image is included. The serializer's conductor/dielectric parameter names were checked against [the pinned PBRT material implementation](https://github.com/mmp/pbrt-v4/blob/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/materials.cpp).
 
 Construct ten independently specified variants: two each in uniformly noisy, highly specular, simple diffuse, motion-heavy and adaptive-sampling-friendly families. Give every scene a stable scene identifier and three stable frame identifiers, at registered resolution 256x256. The eight paired seeds per scene give 80 scene/seed units and 240 frame renders per policy once execution is authorized. This is a planned corpus size, not existing data.
 

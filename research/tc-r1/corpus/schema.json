@@ -17,7 +17,8 @@
     "derivation": "first eight big-endian SHA-256 bytes of UTF-8 tc-r1-v1|20261007|scene_id|frame_id|replicate|stream",
     "sample_mapping": "Track A production interface; seed derivation alone does not freeze sampler dimensions"
   },
-  "reference_join": ["scene_id", "frame_id", "sha256"],
+  "reference_join": ["scene_id", "frame_id", "scene_sha256"],
+  "reference_hash_definition": "scene_sha256 is frame.sha256 of the exact PBRT asset bytes, not a reference image hash",
   "outcome_join": ["scene_id", "frame_id", "replicate"],
   "reference_images": "Not present in asset manifest; Track F must bind independent A/B image hashes and convergence before execution freeze",
   "envelope": {

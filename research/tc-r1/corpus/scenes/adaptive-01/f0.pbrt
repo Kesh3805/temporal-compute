@@ -1,0 +1,45 @@
+# Original TC-R1 procedural asset; SPDX-License-Identifier: MIT OR Apache-2.0
+# No policy outcomes used in authoring; no temporal reuse or motion blur.
+LookAt 0 1.1 -6 0 0 1 0 1 0
+Camera "perspective" "float fov" [45] "float lensradius" [0]
+Film "rgb" "integer xresolution" [256] "integer yresolution" [256]
+# Nominal startup 16 spp; Track A must bind execution sample-index mapping separately.
+Sampler "independent" "integer pixelsamples" [16]
+Integrator "path" "integer maxdepth" [8] "bool regularize" [false]
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5]
+WorldBegin
+LightSource "infinite" "rgb L" [0.2 0.2 0.2]
+AttributeBegin
+AreaLightSource "diffuse" "rgb L" [400 350 300] "bool twosided" [true]
+Material "diffuse" "rgb reflectance" [0 0 0]
+Translate 1.5 2 -0.3
+Shape "sphere" "float radius" [0.07]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.55 0.55 0.55]
+Shape "trianglemesh" "point3 P" [-8 -1 -6 -8 -1 8 8 -1 8 8 -1 -6] "integer indices" [0 1 2 0 2 3]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.55 0.55 0.55]
+Shape "trianglemesh" "point3 P" [-8 -1 5 8 -1 5 8 7 5 -8 7 5] "integer indices" [0 1 2 0 2 3]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.55 0.55 0.55]
+Translate -1.5 0 1.5
+Shape "sphere" "float radius" [1]
+AttributeEnd
+AttributeBegin
+Material "dielectric" "float eta" [1.5] "float roughness" [0] "bool remaproughness" [true]
+Translate 1.2 -0.4 0.3
+Shape "sphere" "float radius" [0.6]
+AttributeEnd
+AttributeBegin
+Material "conductor" "rgb reflectance" [0.9 0.8 0.65] "float roughness" [0.015] "bool remaproughness" [true]
+Translate 1.9 -0.5 1.7
+Shape "sphere" "float radius" [0.5]
+AttributeEnd
+AttributeBegin
+Material "dielectric" "float eta" [1.5] "float roughness" [0] "bool remaproughness" [true]
+Translate 0.8 -0.65 2.1
+Shape "sphere" "float radius" [0.35]
+AttributeEnd
