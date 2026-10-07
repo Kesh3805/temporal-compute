@@ -9,7 +9,7 @@
   "bootstrap": {"replicates": 10000, "seed": 734922, "generator": "Python random.Random MT19937", "percentiles": "linear interpolation at (N-1)*p", "strata": "scene", "unit": "paired scene/seed, retaining all frames and budgets", "comparator": "selected on original aggregate and fixed in bootstrap"},
   "time": {"estimator": "Kaplan-Meier RMST", "tied_events": "events before censor removal", "cap": "required positive finite execution-manifest value", "unsupported_tail": "INCONCLUSIVE; never extrapolate positive survival beyond last observed follow-up", "repeat_aggregation": "median of three durations only when all three attainment flags agree; otherwise INCONCLUSIVE"},
   "case_ties": "exact numeric equality",
-  "dependencies": {"numpy": "2.5.3", "torch": "2.8.0", "torchvision": "0.23.0", "lpips": "0.1.4"},
+  "dependencies": {"numpy": "2.4.6", "torch": "2.8.0", "torchvision": "0.23.0", "lpips": "0.1.4"},
   "lpips": {"architecture": "official AlexNet", "version": "0.1", "input": "fixed display RGB in [-1,1]", "weights": "must verify complete SHA-256 before scoring; no implicit download during scoring"},
   "guard": "no primary rendering or comparative analysis before tc-r1-execution-preregistered"
 }
