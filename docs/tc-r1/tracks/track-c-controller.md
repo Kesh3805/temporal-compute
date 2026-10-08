@@ -1,6 +1,11 @@
 # Track C — minimal TC controller freeze candidate
 
-Status: draft preparation only. This document scopes later implementation; it does not implement or freeze a controller. It depends on the pending [TC-R1E3 selection PR #14](https://github.com/Kesh3805/temporal-compute/pull/14). That change retains a PASS in scientific [run 37578416061](https://github.com/Kesh3805/temporal-compute/actions/runs/37578416061); merge/review completion must establish its selection record on main before production integration. E2 remains FAIL TO QUALIFY due to incomplete evidence, not an observed PBRT failure.
+Status: minimal controller contract and implementation work; not execution frozen.
+PBRT selection [PR #14](https://github.com/Kesh3805/temporal-compute/pull/14)
+and the deliberately small shared kernel interface [PR #15](https://github.com/Kesh3805/temporal-compute/pull/15)
+are merged. E3 retains PASS in scientific
+[run 37578416061](https://github.com/Kesh3805/temporal-compute/actions/runs/37578416061).
+E2 remains FAIL TO QUALIFY due to incomplete evidence, not an observed PBRT failure.
 
 Related research issue: [#9](https://github.com/Kesh3805/temporal-compute/issues/9), which remains open. The [original protocol](../preregistration.md), [comparator amendment](../amendments/0001-comparator-selection.md) and historical evidence remain unchanged. No execution freeze or TC-vs-baseline outcome is created here.
 
@@ -29,3 +34,44 @@ Reference streams/images, production-reference errors and future samples are ina
 - Traces retain state, candidate estimates/actions, chosen action, observed update and actual charged work/runtime; the execution freeze binds the final implementation hashes.
 
 Missing prerequisites block freeze readiness. They do not authorize tuning on the registered corpus, widening the action space or another renderer gate. Review remediation addresses implementation/reproducibility defects within scope. A material research change requires an explicit pre-outcome decision preserving the existing protocol and evidence.
+
+## Concrete candidate v1, committed before implementation
+
+`research/tc-r1/controller-contract.json` freezes the candidate settings. All
+policies initialize every region to at least 16 samples/pixel using four-sample
+requests, then use four-sample batches and geometry ties `(y0,x0,y1,x1)`. Track B
+owns the same minimal paired harness: each chosen request executes on independent
+allocation and production kernels, charging both; policy observation contains
+only allocation state. There is no controller-only probe or production feedback.
+
+For region area A and count n, define `Q=A²*sum(SE[c]²)`. This converts the shared
+regional-mean standard error to integrated descriptive pixel uncertainty. The
+constant-variance reduction heuristic is `model=Q*4/(n+4)`. Recent improvement
+predicts `recent=max(A²*recent_improvement,0)*(n-4)/(n+4)`, falling back to model
+when unavailable. Worsening signed improvement is clamped to zero, never rewarded.
+Gain is `0.5*model+0.5*recent` with a fixed uncertainty bonus `0.25*model`.
+Score divides their sum by `estimated_sample_cost*A*4`. That denominator predicts
+the latest **allocation** request cost; it is not actual paired runtime. The
+caller retains all paired work, overhead and timing independently.
+
+Every 16th post-initialization choice explores the least-covered region, with the
+same geometry ties. Other choices maximize exact finite score. Missing/invalid
+counts, uncertainty or cost block scoring rather than invoking reference data.
+The bonus and exploration period are engineering choices frozen before tests and
+outcomes, without claiming calibrated confidence or optimality.
+
+Equal-cost ranking replaces only the denominator by one. Under equal predicted
+request costs it must select the same actions as the full candidate; that
+equivalence is retained, including synthetic cases where it equals conventional
+variance-guided allocation. No-feedback freezes the initial uncertainty/recent
+coefficients and allocation costs, then decreases gain algebraically with its
+own chosen sample counts. Later radiance/uncertainty/cost observations cannot
+change its ranking; live counts only validate administrative action completion.
+Both ablations retain the same coverage, batch size, exploration and action space.
+
+The policy records snapshots, all candidate gain/bonus/cost/score values, reason
+and choice. Subsequent observations and actual paired charged work belong to the
+caller trace. Prototype stopping is an external fixed decision horizon, not an
+experimental target/ray/time gate. Finite-budget stopping, estimator correctness,
+common overshoot, references and execution resources remain integration blockers.
+No scientific render, comparison or final execution tag belongs in this PR.
