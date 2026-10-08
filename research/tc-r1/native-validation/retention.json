@@ -1,0 +1,15 @@
+{
+  "conclusion": "success",
+  "created_at": "2026-10-08T09:24:16Z",
+  "event": "push",
+  "head_sha": "4f9eb2fab2e8587b58cfe75827944494bad80e32",
+  "html_url": "https://github.com/Kesh3805/temporal-compute/actions/runs/37756401842",
+  "id": 37756401842,
+  "run_attempt": 1,
+  "status": "completed",
+  "updated_at": "2026-10-08T09:30:30Z",
+  "archive_sha256": "03f586c198fd993d0796f3360aee4a5c92cd6dab4cc7d16abcf57ef8189217d0",
+  "archive_bytes": 17246563,
+  "archive_file_count": 3957,
+  "artifact_hash_manifest_sha256": "1b4ebc812af43dcda3efb806f725d6aa2476c6c12e1700b1a22dd9f4a7883331"
+}

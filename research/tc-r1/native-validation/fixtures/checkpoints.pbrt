@@ -1,0 +1,9 @@
+# Original non-primary correctness fixture; SPDX-License-Identifier: MIT OR Apache-2.0
+LookAt 0 0 -5 0 0 0 0 1 0
+Camera "perspective" "float fov" [45] "float lensradius" [0]
+Film "rgb" "integer xresolution" [8] "integer yresolution" [8]
+Sampler "independent" "integer pixelsamples" [16]
+Integrator "path" "integer maxdepth" [8] "bool regularize" [false]
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5]
+WorldBegin
+LightSource "infinite" "rgb L" [0.7 0.5 0.3]

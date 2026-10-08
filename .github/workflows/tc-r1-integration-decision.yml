@@ -21,6 +21,10 @@ jobs:
           python-version: '3.12'
       - run: python -m unittest discover -s experiments/tc-r1 -p test_integration_budget.py
       - run: python -O -m unittest discover -s experiments/tc-r1 -p test_integration_budget.py
+      - run: python -m unittest discover -s experiments/tc-r1 -p test_native_validation.py
+      - run: python -O -m unittest discover -s experiments/tc-r1 -p test_native_validation.py
+      - run: python -m unittest discover -s experiments/tc-r1 -p test_retained_native_validation.py
+      - run: python -O -m unittest discover -s experiments/tc-r1 -p test_retained_native_validation.py
       - run: python experiments/tc-r1/integration_budget.py
       - run: python scripts/tc_s1_freeze.py
       - run: python scripts/tc_r1_protocol.py

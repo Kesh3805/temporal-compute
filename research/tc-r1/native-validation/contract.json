@@ -1,0 +1,63 @@
+{
+  "schema": "tc-r1-native-validation-v1",
+  "purpose": "non-primary correctness only; amendment 0002 inactive",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "qualified_source_sha256": "ace0c1f22909415c049f4e3632befa3c3d73a78117f5bc0c2e4042b7e9aba10d",
+  "fixtures": {
+    "checkpoints.pbrt": "e56d81a553d3ba29b712996b5efea4a67f1230d9c9934dd0faef951b6a5ad275",
+    "diffuse.pbrt": "901b529e415bd7dbda57985218ac11147f097cf3c5f25687541107b47997f431",
+    "environment.pbrt": "9aea49d180766d2b864699d5b7d932415d50cb7199eff26d3e160d97e50ce124",
+    "surface-paths.pbrt": "1b60e415e5296b236d5463c9037b26a09336fca7344e79f7fee1bf815b42c303"
+  },
+  "inputs": {
+    "experiments/tc-r1/progressive_kernel.py": "6a228826ed30dcbd193d5c75af2606cea517899c8a5e95731d128be6de8a6a8d",
+    "experiments/tc-r1/pbrt_batch_backend.py": "d788e5cedae192588b9f7c8c38eb5b491d89f19f6a700baf28d0a9c99b4bd7a6",
+    "experiments/tc-r1/paired_policy_runner.py": "62a32768d9b7a7a82d83b0186a6f16460e2a856271451388de239d92ff9bda08",
+    "experiments/tc-r1/baselines.py": "026fa01570bccb7267b4f26db8a9bede24c5ef1ebbc1c6b235c627640cde6843",
+    "experiments/tc-r1/tc_controller.py": "5e670070afdb63360dd2452fb00d5106ffee09fe5cfd85b4ba0cad24bfd10fbd",
+    "experiments/tc-r1/corpus.py": "d50e023352b1e7ed5cb0986546c2fd67a0e00b81dd4b32aaff3fd902d4748da2",
+    "experiments/tc-r1/instrument_pbrt.py": "6624a738a802e72f7ced8a4c67c303359cd38619b8d80ba1d8003e8c94bc7250",
+    "experiments/tc-r1/e2_instrument.py": "92bdc7d2f1be5bc44d4a48b6062c677eb3297d995dbfbc5db39edc317a4f263e",
+    "experiments/tc-r1/e3_instrument.py": "6219bd8ad4ed9ace9689677f5a804930c5233ec7cdd01c8b4371cdd9f5bdd730",
+    "experiments/tc-r1/integration_budget.py": "ef48fa14015f71e813644e9c263b4219666b8e11d79492b23494c9d8a492c62b",
+    "research/tc-r1/integration/checkpoint-proposal.json": "27876cb722af9a86c317ca38e4bdf5f0f36817863f31adf58ed7c135bcfb54a2",
+    "research/tc-r1/corpus/manifest.json": "f9b094765daea47d0ebb6f05fd891a6de505d14a611df3d28aca88019f8b628f",
+    "docs/tc-r1/native-validation.md": "2b03fc0837f3fc1c289322aa34a21746e814a3d652aabfd7b9bc1992bd96bd8c"
+  },
+  "tolerance": {
+    "absolute": 1e-06,
+    "relative": 1e-05
+  },
+  "class_bounds": {
+    "camera": 1,
+    "continuation": 8,
+    "visibility": 8
+  },
+  "matrix": [
+    "one-shot",
+    "ordered-batches",
+    "reversed-batches",
+    "two-threads",
+    "reversed-quadrants"
+  ],
+  "paired_policies": [
+    "uniform",
+    "adaptive-mc-ucb-region",
+    "variance-guided",
+    "tc-full",
+    "tc-equal-cost",
+    "tc-no-feedback"
+  ],
+  "paired_decisions": 10,
+  "checkpoint_fixture": "checkpoints.pbrt",
+  "synthetic_thresholds": [
+    38912,
+    51200
+  ],
+  "maximum_native_commands": 800,
+  "dispatch_timeout_seconds": 600,
+  "scientific_host_selected": false,
+  "amendment_adopted": false,
+  "reference_generation_authorized": false,
+  "comparative_execution_authorized": false
+}

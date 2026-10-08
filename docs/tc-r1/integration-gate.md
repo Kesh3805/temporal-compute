@@ -51,14 +51,17 @@ flags are not defaults that an execution runner may silently fill.
 
 | Gate | Required evidence | Current state |
 | --- | --- | --- |
-| Checkpoints | Approved amendment; pinned source argument; actual class limits; complete paired initialization; threshold/overshoot tests | Proposed arithmetic/source argument only |
+| Checkpoints | Approved amendment; pinned source argument; actual class limits; complete paired initialization; threshold/overshoot tests | Non-primary native mechanics pass; amendment inactive and host-dependent validation pending |
 | Host/build | Selected dedicated CPU manifest, toolchain/submodules/flags/binary hashes, isolation and capacity | Pending maintainer selection |
-| All 30 assets parse | Pinned PBRT parser invoked for every exact-hashed asset; command/stdout/stderr/status retained per asset; failures retained | Not executed |
-| Production bridge | Non-primary native fixtures verify records/Film estimator, batching, thread/region order, fresh evidence and failure containment | Retained-parser tests alone; live check pending |
-| Paired streams | All scene/frame/replicate stream identities reconcile; native projected seeds and actual per-pixel/index identities agree; both streams fully charged | Offline identity tests pass; native reconciliation pending |
+| All 30 assets parse | Pinned PBRT parser invoked for every exact-hashed asset; command/stdout/stderr/status retained per asset; failures retained | All 30 exact assets pass syntax parsing; primary runtime construction unverified |
+| Production bridge | Non-primary native fixtures verify records/Film estimator, batching, thread/region order, fresh evidence and failure containment | Frozen native matrix passes; selected-host checks pending |
+| Paired streams | All scene/frame/replicate stream identities reconcile; native projected seeds and actual per-pixel/index identities agree; both streams fully charged | 1,200 identities reconcile offline; tested non-primary native pairs pass; selected-host validation pending |
 | Strong baseline | Published-method mapping/deviations and fixed beta; independent scale/rare-event/applicability validation without TC results | Prototype equations tested; production competence unproven |
 | Stopping/censoring | Complete paths/paired work, common cap/cadence, retained failures, identifiable medians and justified time estimand | Requires integration decision and non-primary fixtures |
-| Integrated dry-run | All policies/ablations on unrelated synthetic fixtures, common runner/evidence joins, accounting/timing/error assertions | Small numeric joins pass; full native dry-run pending |
+| Integrated dry-run | All policies/ablations on unrelated synthetic fixtures, common runner/evidence joins, accounting/timing/error assertions | All six candidates pass native correctness boundary checks; full selected-host execution/stopping/timing dry-run pending |
+
+See the [bounded native validation result](native-validation-result.md) and retained
+Actions run 37756401842. That PASS does not adopt the proposal or qualify a host.
 
 Parser acceptance is distinct from runtime construction and native rendering.
 The pinned CLI's formatting path can parse syntax without a render; it cannot

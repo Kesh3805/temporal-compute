@@ -1,0 +1,82 @@
+name: TC-R1 bounded native integration validation
+on:
+  push:
+    branches: [research/tc-r1-native-validation]
+    paths: ['research/tc-r1/native-validation/execute-validation.json']
+permissions:
+  contents: read
+jobs:
+  native-correctness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Refuse another bounded validation attempt before external work
+        run: python experiments/tc-r1/native_validation.py --guard-only
+      - name: Offline validation and historical locks
+        run: |
+          python -m unittest discover -s experiments/tc-r1 -p test_native_validation.py
+          python -O -m unittest discover -s experiments/tc-r1 -p test_native_validation.py
+          python scripts/tc_s1_freeze.py
+          python scripts/tc_r1_protocol.py
+      - name: Retain validation-only runner identity
+        run: |
+          mkdir -p results/local/tc-r1-native-validation
+          lscpu > results/local/tc-r1-native-validation/cpu.txt
+          free -b > results/local/tc-r1-native-validation/memory.txt
+          df -B1 > results/local/tc-r1-native-validation/storage.txt
+          cmake --version > results/local/tc-r1-native-validation/toolchain.txt
+          c++ --version >> results/local/tc-r1-native-validation/toolchain.txt
+      - name: Install upstream CPU build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Fetch pinned selected substrate
+        run: |
+          git clone https://github.com/mmp/pbrt-v4.git target/pbrt
+          git -C target/pbrt checkout b4ce9687e6c695f5582997c61b0c66cf064bdb4a
+          git -C target/pbrt submodule update --init --recursive
+          git -C target/pbrt submodule status --recursive > results/local/tc-r1-native-validation/dependencies.txt
+      - name: Reuse unchanged qualified instrumentation
+        run: python experiments/tc-r1/e3_instrument.py --source target/pbrt --manifest results/local/tc-r1-native-validation/instrumentation.json
+      - name: Build selected CPU kernel for correctness only
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmake -S target/pbrt -B target/pbrt-build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_FLOAT_AS_DOUBLE=OFF -DPBRT_OPTIX_PATH:PATH= -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tee results/local/tc-r1-native-validation/configure.log
+          cmake --build target/pbrt-build --target pbrt_exe --parallel 2 2>&1 | tee results/local/tc-r1-native-validation/build.log
+          cp target/pbrt-build/CMakeCache.txt results/local/tc-r1-native-validation/CMakeCache.txt
+      - name: Bind actual validation build provenance
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          root=pathlib.Path('results/local/tc-r1-native-validation')
+          value=json.loads((root/'instrumentation.json').read_text())
+          value['binary_sha256']=hashlib.sha256(pathlib.Path('target/pbrt-build/pbrt').read_bytes()).hexdigest()
+          value['build_flags']='Release; Ninja; CPU; PBRT_FLOAT_AS_DOUBLE=OFF; PBRT_OPTIX_PATH=; GLFW_BUILD_WAYLAND=OFF; parallel=2'
+          cache=(root/'CMakeCache.txt').read_text()
+          if 'PBRT_FLOAT_AS_DOUBLE:BOOL=OFF' not in cache or 'PBRT_OPTIX_PATH:PATH=\n' not in cache:
+              raise ValueError('CPU-float build configuration not verified')
+          value['cmake_cache_sha256']=hashlib.sha256((root/'CMakeCache.txt').read_bytes()).hexdigest()
+          value['cpu_float_build_verified']=True
+          value['sampler_source_sha256']=hashlib.sha256(pathlib.Path('target/pbrt/src/pbrt/samplers.h').read_bytes()).hexdigest()
+          value['dependency_revisions']=(root/'dependencies.txt').read_text()
+          value['toolchain']=(root/'toolchain.txt').read_text()
+          value['repository_head']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          value['scientific_host_selected']=False
+          (root/'build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')
+          PY
+      - name: Frozen non-primary correctness matrix and primary parsing only
+        run: python experiments/tc-r1/native_validation.py --pbrt target/pbrt-build/pbrt --manifest results/local/tc-r1-native-validation/build-manifest.json --output results/local/tc-r1-native-validation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tc-r1-native-correctness-evidence
+          path: results/local/tc-r1-native-validation
+          retention-days: 30

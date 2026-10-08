@@ -1,0 +1,5 @@
+{
+  "contract_commit": "0da7a7f33a52815773f32eb01710f3eae74eb366",
+  "contract_sha256": "de19b570cfeb8b90bb1e7d8d4eadb4679b0fadeec3249e7a14599c8233c1b3f8",
+  "purpose": "One bounded non-primary native integration correctness validation; not E3 or scientific comparison"
+}

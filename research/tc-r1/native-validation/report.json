@@ -1,0 +1,150 @@
+{
+  "gate": "TC-R1 native integration validation",
+  "status": "PASS",
+  "contract_commit": "0da7a7f33a52815773f32eb01710f3eae74eb366",
+  "contract_sha256": "de19b570cfeb8b90bb1e7d8d4eadb4679b0fadeec3249e7a14599c8233c1b3f8",
+  "implementation_sha256": "b507044c0073d72972b902cd6f8537f1944e11012eba6f88d70104ebb83584e7",
+  "binary_sha256": "2687c8ec77f9e899739f885c25c8cb7052471510d4177bbb17da4931964c8b92",
+  "build_manifest_sha256": "c759e242d6252b2826b6b4de9800fbb1268f06d3fab34cd64c1a838036462afa",
+  "fixtures": {
+    "checkpoints.pbrt": "e56d81a553d3ba29b712996b5efea4a67f1230d9c9934dd0faef951b6a5ad275",
+    "diffuse.pbrt": "901b529e415bd7dbda57985218ac11147f097cf3c5f25687541107b47997f431",
+    "environment.pbrt": "9aea49d180766d2b864699d5b7d932415d50cb7199eff26d3e160d97e50ce124",
+    "surface-paths.pbrt": "1b60e415e5296b236d5463c9037b26a09336fca7344e79f7fee1bf815b42c303"
+  },
+  "host": "validation only; scientific host unselected",
+  "amendment_0002": "inactive",
+  "comparative_outcomes": 0,
+  "references_produced": 0,
+  "checks": {
+    "corpus_parser": {
+      "status": "PASS",
+      "assets": 30,
+      "rendering": false,
+      "stream_identities": 1200
+    },
+    "progressive_bridge": {
+      "environment": {
+        "status": "PASS",
+        "variants": [
+          "one-shot",
+          "ordered-batches",
+          "reversed-batches",
+          "two-threads",
+          "reversed-quadrants"
+        ],
+        "camera_samples_per_variant": 4096
+      },
+      "diffuse": {
+        "status": "PASS",
+        "variants": [
+          "one-shot",
+          "ordered-batches",
+          "reversed-batches",
+          "two-threads",
+          "reversed-quadrants"
+        ],
+        "camera_samples_per_variant": 4096
+      },
+      "surface-paths": {
+        "status": "PASS",
+        "variants": [
+          "one-shot",
+          "ordered-batches",
+          "reversed-batches",
+          "two-threads",
+          "reversed-quadrants"
+        ],
+        "camera_samples_per_variant": 4096
+      }
+    },
+    "paired_streams_and_policy_boundary": {
+      "uniform": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      },
+      "adaptive-mc-ucb-region": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      },
+      "variance-guided": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      },
+      "tc-full": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      },
+      "tc-equal-cost": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      },
+      "tc-no-feedback": {
+        "status": "PASS",
+        "decisions": 10,
+        "initialization_decisions": 8,
+        "independent_seeds": [
+          1181957442,
+          194344007
+        ]
+      }
+    },
+    "checkpoint_mechanics": {
+      "status": "PASS",
+      "synthetic_only": true,
+      "actual_initialization_rays": 2048,
+      "initialization_upper_bound": 34816,
+      "paired_request_upper_bound": 8704,
+      "checkpoints": [
+        {
+          "threshold": 38912,
+          "actual_charged_rays": 39168,
+          "overshoot": 256,
+          "allocation_rays": 19584,
+          "production_rays": 19584
+        },
+        {
+          "threshold": 51200,
+          "actual_charged_rays": 51328,
+          "overshoot": 128,
+          "allocation_rays": 25664,
+          "production_rays": 25664
+        }
+      ]
+    },
+    "failure_containment": {
+      "status": "PASS",
+      "faults": [
+        "terminated-process",
+        "truncated-log",
+        "second-stream-interruption"
+      ]
+    }
+  },
+  "native_commands": 580
+}
