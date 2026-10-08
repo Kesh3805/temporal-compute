@@ -11,7 +11,15 @@ Related research issue: [#9](https://github.com/Kesh3805/temporal-compute/issues
 
 ## Dependency and interface acceptance
 
-Track A must review and freeze the concrete action/state schema, stream mapping, estimator, stopping and charged-work semantics before Track C implementation consumes them. Track B must use that same reviewed interface. Shared information consists of sample count, mean, variance, standard error, region aggregates, recent observed improvement, measured sample cost and charged rays. Definitions, units, update cadence, unavailable-value handling and stream provenance must be explicit; an unavailable observation cannot be replaced with reference error or a controller-only probe. Every policy receives identical legal information and accounting opportunities.
+Track A's merged action/state schema supplies the reviewed prototype boundary
+consumed here and by Track B. Final estimator, stopping, budget/overshoot and
+stream conformance remain execution-integration prerequisites. Shared information
+consists of sample count, mean, variance, standard error, region aggregates,
+recent observed improvement, measured sample cost and charged rays. Definitions,
+units, update cadence, unavailable-value handling and stream provenance are
+explicit; unavailable observations cannot be replaced with reference error or a
+controller-only probe. Every policy receives identical legal information and
+accounting opportunities.
 
 The minimal action space is `SampleRegion(region, additional_samples)` and `Stop`. A region names image-space work, not transport internals. `SplitRegion` is excluded from the initial candidate; any later inclusion requires a justified, reviewed pre-outcome decision and symmetric availability to all policies. No bounce control, denoising, reconstruction change, reuse, path guiding, material approximation, GPU migration or generic cross-domain runtime belongs in this track.
 
@@ -19,9 +27,16 @@ All sampling uses the selected pinned PBRT `b4ce9687e6c695f5582997c61b0c66cf064b
 
 ## Candidate and correctness requirements
 
-Later code must define one executable marginal gain/cost heuristic, with equations, uncertainty handling, exploration, initialization, minimum coverage, batch size bounds, predictor state, measured-cost treatment, ties and deterministic ordering. Local ranking is a candidate heuristic with no claim of optimal marginal value. Constant-cost equivalence to conventional allocation must remain visible rather than creating an artificial distinction.
+The executable candidate below defines equations, uncertainty handling,
+exploration, initialization, minimum coverage, batch bounds, predictor state,
+measured-cost treatment and deterministic ties. Local ranking is a candidate
+heuristic with no claim of optimal marginal value. Constant-cost equivalence to
+conventional allocation remains visible rather than creating an artificial distinction.
 
-Freeze the two required ablations with the candidate: no state feedback after initial observations and equal-cost ranking. All candidate and ablation settings must be declared before comparative outcomes. Their purpose is to test feedback/cost contributions; this draft supplies no results or parameter choices.
+The contract declares two controller ablations: **no state feedback after initial
+observations**, and **equal-cost ranking**. Their fixed settings were independently
+reviewed and committed before implementation. Their purpose is to test
+feedback/cost contributions; no comparative results are supplied here.
 
 Reference streams/images, production-reference errors and future samples are inaccessible to allocation. Any pilot/probe rays, including discarded probes, are charged and included in runtime under the same rules as baselines. Allocation/production stream independence, estimator weights and optional-stopping limitations need an explicit reviewed correctness argument. `Stop` follows a common registered rule and cannot use hidden reference access or censor long paths to fit a budget. No unbiasedness or convergence claim is accepted merely because a synthetic test is green.
 
