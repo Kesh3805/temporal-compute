@@ -1,0 +1,26 @@
+{
+  "schema": "tc-r1-integration-checkpoints-v1",
+  "status": "proposed-pre-outcome-amendment; not active execution configuration",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "source_sha256": {
+    "src/pbrt/cpu/integrators.cpp": "c5f7c8dafb4dc44cac78ab969e34217c13358a5cea6a6d2052581d68c7bc762e",
+    "src/pbrt/cpu/integrators.h": "98068db62e6bbca119f45aea4e3d967edca46f6f975146bf1a785ad9c4d43a0c"
+  },
+  "corpus_manifest_sha256": "f9b094765daea47d0ebb6f05fd891a6de505d14a611df3d28aca88019f8b628f",
+  "width": 256,
+  "height": 256,
+  "paired_streams": 2,
+  "mandatory_spp_per_stream": 16,
+  "batch_spp_per_stream": 4,
+  "maximum_region_pixels": 256,
+  "maximum_path_depth": 8,
+  "per_camera_charge_bound": {"camera": 1, "continuation": 8, "visibility": 8},
+  "original_checkpoints": [1048576, 4194304, 16777216, 67108864],
+  "derivation": "initialization_upper_bound = paired_streams*width*height*mandatory_spp_per_stream*(1+2*maximum_path_depth); proposed_total_checkpoints = initialization_upper_bound + original_checkpoints",
+  "proposed_total_checkpoints": [36700160, 39845888, 52428800, 102760448],
+  "completion_rule": "Complete each paired four-spp request without truncation; capture the first completed pair whose actual cumulative charged rays reach each checkpoint; disclose actual overshoot separately",
+  "scope": "Pinned CPU PathIntegrator, pinhole RGB box Film, immutable 16x16 partition, no media/null boundaries/subsurface/extra ray-producing features; count generated roulette-discarded continuations",
+  "validation": "Source-reviewed conditional upper bound; selected-host native bridge, per-sample class limits, exact mandatory initialization and actual checkpoint behavior remain unverified",
+  "policy_performance_observed": false
+}

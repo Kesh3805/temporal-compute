@@ -1,0 +1,45 @@
+{
+  "schema": "tc-r1-selected-cpu-host-v1",
+  "status": "unfilled template; not selected or execution-authorized",
+  "host_identity": null,
+  "host_kind": null,
+  "github_actions_is_scientific_host": false,
+  "cpu": {"model": null, "physical_cores": null, "logical_processors": null},
+  "memory_bytes": null,
+  "storage": {"filesystem": null, "capacity_bytes": null, "reserved_free_bytes": null, "evidence_directory": null},
+  "os": {"name": null, "version": null},
+  "pbrt": {
+    "upstream_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+    "qualified_e3_source_sha256": "ace0c1f22909415c049f4e3632befa3c3d73a78117f5bc0c2e4042b7e9aba10d",
+    "actual_binary_sha256": null,
+    "submodule_revisions": null,
+    "compiler": null,
+    "cmake": null,
+    "build_tool": null,
+    "flags": null,
+    "cpu_float_build_verified": false
+  },
+  "execution": {
+    "concurrent_scientific_workers": null,
+    "pbrt_threads": null,
+    "cpu_affinity_ids": null,
+    "torch_threads": null,
+    "blas_threads": null,
+    "exclusive_ownership_and_recovery_protocol": null,
+    "power_frequency_policy": null
+  },
+  "timing": {
+    "clock": null,
+    "warmup": null,
+    "start_stop_boundaries": null,
+    "paired_order_manifest_sha256": null,
+    "metric_evaluation_cadence": null,
+    "common_time_cap_seconds": null,
+    "repeat_count": 3,
+    "censoring_estimand_and_failure_rules": null
+  },
+  "resource_authorization": null,
+  "native_validation_evidence_sha256": null,
+  "reference_generation_authorized": false,
+  "comparative_execution_authorized": false
+}
