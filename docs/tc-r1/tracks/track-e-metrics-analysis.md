@@ -39,6 +39,10 @@ References A/B are separately retained; their arithmetic mean is the scoring
 target only after symmetric convergence checks. Actual official AlexNet and
 LPIPS calibration files have separately verified full hashes. Scoring never
 downloads models implicitly.
+Image decoding and both model-state loaders consume the exact immutable bytes
+whose hashes were checked, rather than rereading a filesystem path. Synthetic
+replacement-after-verification fixtures verify this identity boundary without
+changing metric equations or the model weights.
 
 The whole experimental interface remains subject to integration freeze.
 Image layout, serialization, cap, checkpoint cadence, tie rules for case-level

@@ -1,6 +1,7 @@
 """Registered numeric metrics. No rendering, policy selection or implicit downloads."""
 import hashlib
 import importlib.metadata
+import io
 from pathlib import Path
 
 import numpy as np
@@ -27,18 +28,22 @@ def pair(a, b):
 
 
 def load_image(path, expected_sha256):
-    path = Path(path)
-    verify_hash(path, expected_sha256)
-    a = np.load(path, allow_pickle=False)
+    with io.BytesIO(verify_hash(path, expected_sha256)) as source:
+        a = np.load(source, allow_pickle=False)
+        if not isinstance(a, np.ndarray) or source.read(1):
+            raise ValueError('one canonical NPY array without trailing data required')
     if a.dtype != np.dtype('<f8') or not a.flags.c_contiguous:
         raise ValueError('canonical little-endian float64 C-order image required')
     return image(a)
 
 
 def verify_hash(path, expected):
-    digest = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    """Return the immutable bytes whose digest was checked; never reread a path."""
+    raw = Path(path).read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
     if digest != expected:
         raise ValueError(f'content hash mismatch: {Path(path).name}')
+    return raw
 
 
 def relative_mse(a, reference):
@@ -99,14 +104,14 @@ class Perceptual:
             if actual != expected:
                 raise ValueError(f'package revision mismatch: {package} {actual}')
         directory = Path(weights_directory)
-        for name, digest in WEIGHTS.items():
-            verify_hash(directory/name, digest)
+        verified = {name: verify_hash(directory/name, digest) for name, digest in WEIGHTS.items()}
         # pnet_rand avoids torchvision's implicit pretrained download. Replace
         # every feature tensor with the verified official ImageNet state below.
         self.model = lpips.LPIPS(net='alex', version='0.1', pnet_rand=True,
-                                 model_path=str(directory/'alex.pth'), verbose=False)
+                                 pretrained=False, verbose=False)
+        self.model.load_state_dict(torch.load(io.BytesIO(verified['alex.pth']), map_location='cpu', weights_only=True), strict=False)
         backbone = torchvision.models.alexnet(weights=None)
-        backbone.load_state_dict(torch.load(directory/'alexnet-owt-7be5be79.pth', map_location='cpu', weights_only=True))
+        backbone.load_state_dict(torch.load(io.BytesIO(verified['alexnet-owt-7be5be79.pth']), map_location='cpu', weights_only=True))
         features = list(backbone.features.children())
         offsets = (0, 2, 5, 8, 10, 12)
         for i in range(5):

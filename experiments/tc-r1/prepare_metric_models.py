@@ -21,8 +21,8 @@ def prepare(directory):
         temporary.replace(backbone)
     verify_hash(backbone, WEIGHTS[backbone.name])
     calibration = Path(lpips.__file__).parent/'weights/v0.1/alex.pth'
-    verify_hash(calibration, WEIGHTS['alex.pth'])
-    shutil.copyfile(calibration, directory/'alex.pth')
+    calibration_bytes = verify_hash(calibration, WEIGHTS['alex.pth'])
+    (directory/'alex.pth').write_bytes(calibration_bytes)
     return {name: digest for name, digest in WEIGHTS.items()}
 
 

@@ -102,6 +102,22 @@ class Metrics(unittest.TestCase):
             with self.assertRaises(ValueError):
                 load_image(p, '0'*64)
 
+    def test_image_consumes_verified_snapshot_after_path_replacement(self):
+        from unittest.mock import patch
+        from metrics import verify_hash
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'image.npy'
+            original = np.ones((16, 16, 3), dtype='<f8')
+            np.save(path, original)
+            expected = hashlib.sha256(path.read_bytes()).hexdigest()
+            def replace_after_check(p, digest):
+                checked = verify_hash(p, digest)
+                np.save(p, np.zeros_like(original))
+                return checked
+            with patch('metrics.verify_hash', side_effect=replace_after_check):
+                np.testing.assert_array_equal(load_image(path, expected), original)
+            self.assertNotEqual(hashlib.sha256(path.read_bytes()).hexdigest(), expected)
+
 
 @unittest.skipUnless(os.environ.get('TC_R1_METRIC_MODELS'), 'explicit verified metric weights required')
 class OfficialPerceptual(unittest.TestCase):
@@ -145,6 +161,36 @@ class OfficialPerceptual(unittest.TestCase):
             self.assertEqual(result['bindings']['b_sha256'], b_sha)
             self.assertEqual(set(result['provenance']), {'core_metrics_sha256', 'packages'})
             self.assertEqual(result['metrics'], {'relative_mse_ab': 0., 'relative_mse_ba': 0., 'ssim': 1., 'lpips': 0.})
+
+    def test_both_models_consume_verified_snapshots_after_path_replacement(self):
+        import torch
+        from unittest.mock import patch
+        from metrics import WEIGHTS, verify_hash
+        source = Path(os.environ['TC_R1_METRIC_MODELS'])
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            for name in WEIGHTS:
+                # Replacing the test link's path leaves original verified files
+                # untouched and avoids copying a 244 MB backbone for this test.
+                os.link(source/name, directory/name)
+            def replace_after_check(path, digest):
+                checked = verify_hash(path, digest)
+                Path(path).unlink()
+                Path(path).write_bytes(b'replaced after digest verification')
+                return checked
+            consumed = []
+            original_load = torch.load
+            def capture(source, *args, **kwargs):
+                self.assertIsInstance(source, io.BytesIO)
+                consumed.append(hashlib.sha256(source.getvalue()).hexdigest())
+                self.assertIs(kwargs['weights_only'], True)
+                return original_load(source, *args, **kwargs)
+            with patch('metrics.verify_hash', side_effect=replace_after_check), patch('torch.load', side_effect=capture):
+                snapshot_model = Perceptual(directory)
+            self.assertEqual(set(consumed), set(WEIGHTS.values()))
+            a = np.arange(64*64*3, dtype=float).reshape(64, 64, 3)/(64*64*3)
+            b = a[::-1].copy()
+            self.assertAlmostEqual(snapshot_model.score(a, b), self.metric.score(a, b), places=7)
 
 
 if __name__ == '__main__':
