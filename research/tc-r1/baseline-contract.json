@@ -1,0 +1,31 @@
+{
+  "schema": "tc-r1-baselines-v1",
+  "status": "pre-implementation candidate; not execution preregistration",
+  "kernel_contract": "tc-r1-kernel-v1",
+  "policies": ["uniform", "adaptive-mc-ucb-region", "variance-guided"],
+  "minimum_coverage_spp": 16,
+  "batch_spp": 4,
+  "geometry_tie_order": ["y0", "x0", "y1", "x1"],
+  "initialization": "choose least samples_per_pixel, then geometry until every region has 16 spp; all methods use identical initialization",
+  "uniform": "choose least samples_per_pixel, then geometry; no uncertainty or cost advantage",
+  "variance": "V=mean RGB area-average within-pixel unbiased variance; index=V/(n*(n+4)); all-zero index falls back to least spp; no cost estimator or reference error",
+  "adaptive": {
+    "source": "https://www.jmlr.org/papers/volume16/carpentier15a/carpentier15a.pdf",
+    "source_equations": [7, 8],
+    "name": "explicit RGB/region batched MC-UCB adaptation; not an implementation of the full paper's scalar model",
+    "index": "(sqrt(V)+2*beta/sqrt(n))/n",
+    "beta": 1.0,
+    "beta_units": "linear RGB radiance; fixed prototype exploration scale, not an inferred tail bound",
+    "exploration": "strictly positive beta bonus; repeated updates after each request, no zero-variance convergence declaration",
+    "deviations": "RGB variance scalarization, uniform per-pixel region batches instead of scalar arm pulls, 16-spp minimum instead of two pulls, equal-camera-cost error allocation rather than a global scalar integral",
+    "confidence_limit": "published sub-Gaussian confidence/regret bounds do not transfer to unbounded path radiance, heterogeneous pixels or batched RGB adaptation. No nominal confidence coverage or optimality claim; independently validate scale/applicability/competence before execution freeze"
+  },
+  "information": "choose receives immutable allocation-only RegionState; no production image/error, reference, future sample, kernel or backend",
+  "streams": "distinct allocation/production identities with same scene/frame/replicate, identical partition and mirrored requests; projected seeds checked; all policies pay both actual charges and elapsed work; pilots excluded from final image",
+  "stopping": "fixed caller decision horizon only, at least four requests per region; never interpret as registered actual-ray checkpoint, target attainment or wall-time cap",
+  "estimator": "production per-pixel native sample means, no reweighting/clamping. Separate pilots hide production radiance from allocation; stopping at path-dependent actual rays/time can still bias means and is an unresolved integration gate",
+  "failure": "invalid or nonfinite state/config/request fails closed; incomplete paired work retained and marked unknown; no retry or scored image after failure",
+  "undefined": "mean null at zero; variance/SE null below two; common minimum coverage resolves uncertainty before ranking; undefined variance after coverage is invalid",
+  "integration_gates": ["competent adaptive scale/applicability validation", "live production-adapter validation", "actual-ray checkpoints and overshoot", "time cap and complete end-to-end timing", "optional-stopping estimator correctness", "full execution freeze"],
+  "comparative_outcomes": "None generated"
+}
