@@ -37,7 +37,7 @@ Exclude media, subsurface, null interfaces, thin lens, textures, splats, normal/
 ## Independence and acceptance
 
 - Freeze all ten scene definitions and three frames per scene, with complete stable identifiers, family rationale and manifest hashes/licenses.
-- Validate manifest completeness, reproducible scene generation, valid syntax and admitted features without policy performance data. Synthetic kernel correctness tests remain separate from this corpus.
+- Validate manifest completeness, reproducible restricted-serializer output and admitted features without policy performance data. PBRT parser acceptance remains deferred to later feasibility work. Synthetic kernel correctness tests remain separate from this corpus.
 - Do not select variants, move cameras, adjust light/material parameters, omit difficult cases or classify families using TC-versus-baseline quality/speed. No relative-performance pilot on primary scenes is permitted.
 - Any later hardware/reference feasibility check may assess technical validity only, cannot optimize allocation parameters, and must preserve all failures. Freeze the corpus before Track F generates final reference streams.
 - References and their convergence evidence remain Track F work: independently generated streams beginning at 8192 spp each, escalating to 16384 then 32768 as the original protocol requires. Corpus preparation cannot reduce those requirements to suit storage or runtime.
