@@ -70,7 +70,9 @@ change its ranking; live counts only validate administrative action completion.
 Both ablations retain the same coverage, batch size, exploration and action space.
 
 The policy records snapshots, all candidate gain/bonus/cost/score values, reason
-and choice. Subsequent observations and actual paired charged work belong to the
+and choice. `diagnostics` exposes only the current decision for caller retention;
+explicit `history` supplies the full local history, avoiding embedding every
+past decision again at each step. Subsequent observations and actual paired charged work belong to the
 caller trace. Prototype stopping is an external fixed decision horizon, not an
 experimental target/ray/time gate. Finite-budget stopping, estimator correctness,
 common overshoot, references and execution resources remain integration blockers.
