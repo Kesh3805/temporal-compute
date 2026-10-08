@@ -1,0 +1,35 @@
+# Original TC-R1 procedural asset; SPDX-License-Identifier: MIT OR Apache-2.0
+# No policy outcomes used in authoring; no temporal reuse or motion blur.
+LookAt 0 1.1 -6 0 0 1 0 1 0
+Camera "perspective" "float fov" [45] "float lensradius" [0]
+Film "rgb" "integer xresolution" [256] "integer yresolution" [256]
+# Nominal startup 16 spp; Track A must bind execution sample-index mapping separately.
+Sampler "independent" "integer pixelsamples" [16]
+Integrator "path" "integer maxdepth" [8] "bool regularize" [false]
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5]
+WorldBegin
+LightSource "infinite" "rgb L" [0.15 0.15 0.15]
+LightSource "point" "point3 from" [-2 4 -2] "rgb I" [90 90 90]
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.55 0.55 0.55]
+Shape "trianglemesh" "point3 P" [-8 -1 -6 -8 -1 8 8 -1 8 8 -1 -6] "integer indices" [0 1 2 0 2 3]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.55 0.55 0.55]
+Shape "trianglemesh" "point3 P" [-8 -1 5 8 -1 5 8 7 5 -8 7 5] "integer indices" [0 1 2 0 2 3]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.65 0.12 0.1]
+Translate -1.4 -0.3 0.9
+Shape "sphere" "float radius" [0.7]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.15 0.55 0.2]
+Translate 0 -0.2 1.8
+Shape "sphere" "float radius" [0.8]
+AttributeEnd
+AttributeBegin
+Material "diffuse" "rgb reflectance" [0.12 0.25 0.65]
+Translate 1.5 -0.5 0.6
+Shape "sphere" "float radius" [0.5]
+AttributeEnd
