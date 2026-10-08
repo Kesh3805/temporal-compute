@@ -1,0 +1,20 @@
+{
+  "schema": "tc-r1-kernel-v1",
+  "status": "pre-implementation interface; not execution preregistration",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "actions": ["SampleRegion", "Stop"],
+  "region": "integer half-open x0,x1,y0,y1 rectangle in an immutable non-overlapping full-image partition; default 16x16 tiles",
+  "work_request": {"region": "one partition member", "additional_samples": "integer 1..16 per pixel"},
+  "sample_ownership": "kernel owns next consecutive per-pixel sample index; no skip, replay, overlap or policy-supplied index",
+  "streams": {"identity": "scene_id,frame_id,replicate,stream", "master_seed": 20261007, "derivation": "first eight big-endian SHA256 bytes of UTF8 tc-r1-v1|20261007|scene_id|frame_id|replicate|stream", "pbrt_seed": "low 31 bits of full derived seed; reject projected collisions across frozen run identities", "sampler": "pinned native IndependentSampler PCG sequence Hash(pixel,seed), advance sample_index*65536+dimension; no samples-per-pixel-dependent permutation", "separation": "allocation and production use distinct identities; adapter does not claim independent optional stopping merely from distinct seeds"},
+  "state": {"sample_count": "total completed camera samples in region", "samples_per_pixel": "uniform committed per-pixel count in partition member", "mean": "RGB area-average per-pixel native sample means, null before any samples", "variance": "RGB area-average unbiased per-pixel sample variance, null below two samples", "standard_error": "RGB sqrt(sum(pixel_variance / pixel_count)) / region_area, null below two samples", "recent_improvement": "previous minus current sum of squared regional standard errors; signed, null if either snapshot undefined; uncertainty proxy, never reference error", "estimated_sample_cost": "seconds per completed camera sample for most recent committed request, measured around backend plus state/validation; null before work", "charged_rays": "sum of actual camera+generated continuation+visibility charges in region", "version": "monotonic committed request number"},
+  "accumulation": "per-pixel count, RGB mean and second central moment via Welford; native box Film channel means checked with 1e-6+1e-5*maxabs tolerance; final image uses per-pixel means, no denoising/reweighting",
+  "accounting": "verify independent per-sample class ledger and native query deltas; generated roulette-discarded continuations charged; no spp-derived ray estimates",
+  "failure": "fail closed and stop; retain request/error/backend evidence; unknown unvalidated work explicitly marked unknown and never treated as zero or retried",
+  "stop": "no rendering; immutable committed checkpoint with reason; no actions after stop",
+  "timing": "end-to-end runner must additionally include observation/policy/dispatch/stopping/metric work; estimated_sample_cost is not the primary timed outcome",
+  "budget": "complete requested native paths without truncation; return actual batch charges; common checkpoint/overshoot/time-cap enforcement remains integration-freeze prerequisite",
+  "estimator_limitation": "native sample averages and SE are descriptive; data-dependent selection/stopping may bias finite-budget means and invalidate nominal SE coverage. This API does not establish unbiasedness; integration must bind estimator/stopping justification or limitations and independent correctness evidence before execution freeze",
+  "reference_access": "no reference image, offline metric or future sample is part of requests or policy observations",
+  "non_goals": ["generic runtime", "plugins", "distributed scheduling", "SplitRegion", "policy comparison", "execution freeze"]
+}
