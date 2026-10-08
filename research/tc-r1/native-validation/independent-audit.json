@@ -1,0 +1,19 @@
+{
+  "artifact_hashes_verified": 3956,
+  "validated_batches": 547,
+  "deliberate_failed_batches": 3,
+  "complete_film_rows_rechecked": 236672,
+  "charged_class_sums": {
+    "camera": 236672,
+    "continuation": 161144,
+    "visibility": 72761
+  },
+  "observed_class_maxima": {
+    "camera": 1,
+    "continuation": 8,
+    "visibility": 5,
+    "total": 13
+  },
+  "report_sha256": "5c3fe3f52c53e69f4a1a1c5248a5e8566ad503c986ded03c6f2b4865602fef6f",
+  "build_manifest_sha256": "c759e242d6252b2826b6b4de9800fbb1268f06d3fab34cd64c1a838036462afa"
+}
