@@ -1,0 +1,16 @@
+{
+  "schema": "tc-r1-reference-hardware-v1",
+  "status": "pre-outcome interface; not execution freeze",
+  "master_seed": 20261007,
+  "reference_replicate": 0,
+  "reference_streams": ["reference-a", "reference-b"],
+  "pbrt_seed_projection": "low 31 bits; full 64-bit identity retained; reject collisions across reference plans and all frozen run identities at integration",
+  "reference_spp_levels": [8192, 16384, 32768],
+  "escalation": "regenerate complete deterministic prefix; retain all prior levels",
+  "image": {"format": "npy", "dtype": "<f8", "order": "C", "layout": "H,W,RGB", "height": 256, "width": 256, "finite": true},
+  "convergence": {"relative_linear_mse_max_directional": 0.0001, "display_ssim_min": 0.995, "lpips_max": 0.01},
+  "scoring_reference": {"construction": "arithmetic mean of converged A and B", "approval": "root independent engineering review before outcomes; original registration preserved"},
+  "timing": {"repetitions": 3, "clock": "perf_counter_ns", "completion": "synchronized CPU work", "ray_checkpoints": [1048576, 4194304, 16777216, 67108864], "time_cap_seconds": null},
+  "execution_host": null,
+  "final_reference_generation_authorized": false
+}
