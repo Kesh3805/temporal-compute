@@ -1,0 +1,25 @@
+# Original non-primary correctness fixture; SPDX-License-Identifier: MIT OR Apache-2.0
+LookAt 0 0 -5 0 0 0 0 1 0
+Camera "perspective" "float fov" [45] "float lensradius" [0]
+Film "rgb" "integer xresolution" [16] "integer yresolution" [16]
+Sampler "independent" "integer pixelsamples" [16]
+Integrator "path" "integer maxdepth" [8] "bool regularize" [false]
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5]
+WorldBegin
+LightSource "infinite" "rgb L" [0.4 0.6 0.8]
+LightSource "point" "point3 from" [-2 3 -3] "rgb I" [20 30 40]
+AttributeBegin
+Material "dielectric" "float eta" [1.45] "float roughness" [0.08]
+Translate -0.6 0 -0.5
+Shape "sphere" "float radius" [0.8]
+AttributeEnd
+AttributeBegin
+Material "conductor" "rgb reflectance" [0.6 0.7 0.8] "float roughness" [0.2]
+Translate 0.9 -0.3 0
+Shape "sphere" "float radius" [0.6]
+AttributeEnd
+AttributeBegin
+AreaLightSource "diffuse" "rgb L" [0.8 0.6 0.4] "bool twosided" [true]
+Material "diffuse" "rgb reflectance" [0 0 0]
+Shape "trianglemesh" "point3 P" [-3 -3 1.5  3 3 1.5  3 -3 1.5  -3 3 1.5] "integer indices" [0 1 2 0 3 1]
+AttributeEnd
