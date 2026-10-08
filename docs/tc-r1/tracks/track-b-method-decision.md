@@ -1,0 +1,25 @@
+# Track B method decision, before implementation
+
+Date: 2026-10-08. The [baseline contract](../../../research/tc-r1/baseline-contract.json) is committed before policy implementation or synthetic tests. PBRT selection and the merged common kernel interface are prerequisites already satisfied. This is a prototype method decision, not certification of baseline competence or an execution freeze.
+
+## Independent source and explicit mapping
+
+The conventional adaptive candidate follows the standard-deviation exploration index in Carpentier, Munos and Antos, [Adaptive Strategy for Stratified Monte Carlo Sampling, JMLR 2015](https://www.jmlr.org/papers/volume16/carpentier15a/carpentier15a.pdf), equations 7/8 and Figure 1. Their scalar-arm index combines empirical standard deviation, an uncertainty bonus and inverse observation count. This motivates repeated uncertainty-aware allocation independently of TC. Their sub-Gaussian assumptions and scalar model do not establish guarantees for the candidate below.
+
+For region `r`, let `n` be its committed allocation samples per pixel and `V` the mean of its three area-average within-pixel unbiased variance channels. Use `(sqrt(V) + 2*beta/sqrt(n))/n`, with **beta=1.0 linear RGB radiance units**, fixed before tests. This is labeled **RGB/region batched MC-UCB adaptation**, not the published algorithm or its theorem. Pixel heterogeneity, RGB scalarization, fixed four-spp region batches and minimum sixteen-spp coverage are explicit changes. Before execution freeze, independently establish suitable scale/applicability and competent conventional behavior. Synthetic equation agreement cannot satisfy that gate alone; beta is not a proved radiance tail bound.
+
+Uniform chooses the least sampled region. Variance-guided chooses `V/(n*(n+4))`, the predicted within-pixel mean-variance reduction per additional camera sample under a locally constant variance model; this is a conventional variance heuristic, with no true-error guarantee. All-zero variance falls back to least coverage. Exact ties use `(y0,x0,y1,x1)`. All methods first give every region sixteen spp, via the same four-spp batches. No scene-specific or controller-outcome tuning occurs.
+
+## One shared pairing and stopping boundary
+
+Each method sees only immutable observations from an allocation kernel. A common harness mirrors every request to an independently seeded production kernel with the same immutable partition. Both sets of actual rays are charged; neither discarded pilots nor uniform's pilots are free. Final Film means use production samples only. The policy receives no production statistics, reference, future sample or renderer object.
+
+The prototype runs a caller-declared fixed decision horizon long enough for coverage, then stops both kernels. It does not implement registered actual-ray checkpoints, wall-time censoring or quality stopping. Independent seeds and hidden production values do not prove correctness when stopping depends on realized path length/time. A bias/stopping argument, independently validated production bridge, actual-ray cap/overshoot, complete timing and adaptive competence remain explicit integration gates. Failed paired work is retained as unknown, never scored or retried.
+
+## Native eligibility inspection
+
+At pinned upstream `b4ce9687e6c695f5582997c61b0c66cf064bdb4a`, [Sampler::Create](https://github.com/mmp/pbrt-v4/blob/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/samplers.cpp#L378) admits zsobol, paddedsobol, halton, sobol, pmj02bn, independent and stratified. These define sample sequences, not an error/confidence-based image allocation policy. [ImageTileIntegrator::Render](https://github.com/mmp/pbrt-v4/blob/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/cpu/integrators.cpp#L60) uses fixed spp waves over every pixel; its optional external MSE reference is analysis and forbidden policy input. No compatible native adaptive allocation method was found in this selected CPU path. This finding is limited to the pinned admitted path, not a claim about all PBRT integrators or other renderers. Immutable source URLs and downloaded-file hashes are retained in `research/tc-r1/native-baseline-inspection.json`.
+
+## Required evidence
+
+Tests must independently compute index answers and tie/minimum behavior; exercise repeated updates, constant/heterogeneous/rare observations and finite/undefined failures; demonstrate deterministic identity/cost preservation and hidden production state; retain partial/unknown paired failures; and check analytic production means without any comparative policy-quality result. No primary scenes, references, TC comparison or E3 rerun. Every conventional policy remains separately reportable; amendment 0001 supplies global comparator selection later. Issue #9 remains open.

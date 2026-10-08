@@ -1,0 +1,20 @@
+{
+  "schema": "tc-r1-native-baseline-inspection-v1",
+  "upstream_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "scope": "selected CPU ImageTileIntegrator path and admitted IndependentSampler; no compatible native error-driven allocator found",
+  "eligible_native_baseline": false,
+  "files": {
+    "src/pbrt/samplers.cpp": {
+      "url": "https://raw.githubusercontent.com/mmp/pbrt-v4/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/samplers.cpp",
+      "sha256": "2d492ac7d3b0285cba639523b1179237817b77a5b9d0f533e4e4003dc193b3c3"
+    },
+    "src/pbrt/samplers.h": {
+      "url": "https://raw.githubusercontent.com/mmp/pbrt-v4/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/samplers.h",
+      "sha256": "587552689ff64f5966ad92ebe51c165f075fd9f6de19787e9fe9462365169875"
+    },
+    "src/pbrt/cpu/integrators.cpp": {
+      "url": "https://raw.githubusercontent.com/mmp/pbrt-v4/b4ce9687e6c695f5582997c61b0c66cf064bdb4a/src/pbrt/cpu/integrators.cpp",
+      "sha256": "c5f7c8dafb4dc44cac78ab969e34217c13358a5cea6a6d2052581d68c7bc762e"
+    }
+  }
+}
