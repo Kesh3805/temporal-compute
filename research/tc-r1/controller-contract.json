@@ -1,0 +1,28 @@
+{
+  "schema": "tc-r1-controller-v1",
+  "status": "pre-implementation candidate; not execution preregistration",
+  "kernel": "tc-r1-kernel-v1 from merged PR15",
+  "policy_interface": "TcPolicy.choose(tuple[RegionState]) -> WorkRequest; allocation-only state; caller executes matching allocation and production work and charges both",
+  "initialization": {"minimum_samples_per_pixel": 16, "batch_samples": 4, "coverage": "choose lexicographically first minimum-count region until all counts >=16"},
+  "region_tie_key": ["y0", "x0", "y1", "x1"],
+  "candidate": {
+    "Q": "area^2 * sum_c(standard_error[c]^2); integrated descriptive pixel uncertainty proxy",
+    "model_gain": "Q * 4/(n+4), n=current samples_per_pixel; constant-variance reduction heuristic",
+    "recent_gain": "max(area^2 * recent_improvement,0) * (n-4)/(n+4); if unavailable, use model_gain",
+    "gain": "0.5*model_gain + 0.5*recent_gain",
+    "uncertainty_bonus": "0.25*model_gain; fixed heuristic, not a statistical confidence bound",
+    "cost_predictor_seconds": "estimated_sample_cost * area * 4 from latest allocation request; not paired production cost or primary time",
+    "score": "(gain + uncertainty_bonus) / cost_predictor_seconds",
+    "exploration": "every 16th post-initialization decision choose least samples_per_pixel region, geometry tie key",
+    "tie": "greatest exact finite score then geometry tie key; no after-outcome tie tolerance"
+  },
+  "ablations": {
+    "equal-cost": "same full feedback/gain/exploration, replace cost denominator by1; constant-allocation-cost equivalence must remain visible",
+    "no-feedback": "after all regions reach16, freeze n0*Q0, recent coefficient=max(area^2*recent_improvement0,0)*n0*(n0-4)/4 or model coefficient if unavailable, and initial measured allocation cost; model/recent gain = frozen_coefficient*4/(n*(n+4)); track counts administratively from chosen work, validate caller count transitions, never use later means/variance/SE/improvement/cost for scores"
+  },
+  "information": "no reference, production state/error, future sample, scene-family label or model oracle; frozen no-feedback coefficients are allocation observations only",
+  "traces": "diagnostics exposes latest decision only: allocation state snapshot, candidates including predicted gain/bonus/cost/score, decision reason, chosen WorkRequest; explicit history property exposes full local history; caller supplies subsequent state, actual paired charged work and complete end-to-end timing",
+  "stopping": "policy never infers target/error or stops from these proxies; common caller fixed decision horizon in synthetic prototype only; final ray/time cap, overshoot and stopping semantics remain integration prerequisites",
+  "limitations": "descriptive SE/variance, signed observed improvements and allocation-cost proxies can be inaccurate, especially for rare paths; independent allocation/production streams alone do not prove finite-budget or optional-stopping unbiasedness; no optimality/performance claim",
+  "forbidden": ["renders", "comparative outcomes", "reference generation", "controller tuning after outcomes", "generic runtime", "kernel changes", "execution freeze"]
+}
