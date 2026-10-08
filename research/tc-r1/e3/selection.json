@@ -1,0 +1,12 @@
+{
+  "qualification": "PASS",
+  "renderer": "PBRT-v4",
+  "commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "backend": "CPU float Release native path",
+  "feature_envelope": "docs/tc-r1/tc-r1e2-contract.md",
+  "pre_e3_contract_sha": "b8b63e22f4b8b47267eeb8a281e8c980c68b2197",
+  "scientific_run": 37578416061,
+  "execution_freeze_created": false,
+  "comparative_outcomes": "None generated",
+  "e2_result_changed": false
+}

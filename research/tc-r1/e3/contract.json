@@ -1,0 +1,13 @@
+{
+  "gate": "TC-R1E3",
+  "attempt_limit": 1,
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "inherits": "docs/tc-r1/tc-r1e2-contract.md",
+  "absolute_tolerance": 0.000001,
+  "relative_tolerance": 0.00001,
+  "fixtures": ["dielectric-transmission", "trianglemesh"],
+  "transmission_evidence": "native BSDFSample.IsTransmission keyed to charged continuation ordinal",
+  "triangle_evidence": "only triangle geometry; nonzero continuation and visibility; preserved estimator/replay/accounting checks",
+  "comparative_outcomes": false,
+  "fail_action": "stop path-tracing qualification; no E4"
+}
