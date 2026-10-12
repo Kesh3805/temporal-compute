@@ -1,0 +1,65 @@
+{
+  "schema": "tc-r1-offline-gate-v1",
+  "status": "frozen before implementation or results; maintainer-approved 2026-10-12",
+  "purpose": "PBRT-free go/stop gate: conventional comparator competence and controller identifiability; no TC image-quality comparison",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "policies_under_test": {
+    "conventional": ["uniform", "adaptive-mc-ucb-region", "variance-guided"],
+    "controller": ["full", "equal-cost", "no-feedback"],
+    "source": "unchanged experiments/tc-r1/baselines.py and tc_controller.py; hashes recorded in the result"
+  },
+  "simulator": {
+    "frame": "32x32 pixels; 64 immutable 4x4 regions (8x8 grid); every pixel in a region shares one per-sample distribution",
+    "state": "RegionState fields computed with the progressive_kernel.py formulas: mean and variance are area means of per-pixel mean and unbiased variance; standard_error = sqrt(sum_p m2/((n-1)n))/area; recent_improvement = sum SE^2 before minus after for the last request on that region, None when before-n<2; estimated_sample_cost from the last request on that region, None before it; charged_rays cumulative int",
+    "deviation": "NumPy per-pixel moments replace ProgressiveKernel's Python per-pixel loop for speed; ProgressiveKernel correctness is established separately by PR #22",
+    "requests": "4 spp per request; mandatory 16-spp initialization by the policies' own coverage rule; channel factors (1.0, 0.7, 0.4) on one shared draw"
+  },
+  "fields": {
+    "gaussian": "mu_r ~ U(0.2,1); sigma_r = 0.5*exp(N(0,1)); sample = mu_r + sigma_r*Z",
+    "lognormal": "mu_r ~ U(0.2,1); s_r ~ U(0.25,1.75); sample = mu_r*exp(s_r*Z - s_r^2/2)",
+    "rare-spike": "mu_r ~ U(0.2,1); sample = mu_r + 0.05*Z + 200*Bernoulli(p_r); 8 of 64 regions (chosen by the seeded generator) have p_r ~ U(0.002,0.02), others p_r = 0",
+    "radiance_scales": [0.001, 0.01, 0.1, 1, 10, 100, 1000],
+    "scale_rule": "the same underlying draws are multiplied by the scale (common random numbers)",
+    "seeds": [0, 1, 2],
+    "seed_derivation": "first 8 big-endian bytes of SHA-256('tc-r1-offline-gate-v1|field|seed'); scale does not enter the seed"
+  },
+  "horizons_mean_spp": [64, 256],
+  "competence": {
+    "metric": "efficiency eta = E_oracle / E_policy, E = sum_r area*mean_c(sigma_rc^2)/n_r using TRUE per-sample variances and the final per-region allocation; E_oracle = continuous water-filling minimum with n_r >= 16 and equal total samples",
+    "aggregation": "mean eta over the three seeds for each method/field/scale/horizon",
+    "criteria": {
+      "C1": "gaussian and lognormal: eta_method >= 0.80 at every scale and horizon",
+      "C2": "gaussian and lognormal: eta_method >= eta_uniform - 0.01 at every scale and horizon",
+      "C3": "rare-spike: eta_method >= 0.90 * eta_uniform at every scale and horizon",
+      "C4": "every field and horizon: max over scales minus min over scales of eta_method <= 0.05"
+    },
+    "verdict": "COMPETENT for a method only if C1-C4 all hold; strong-baseline verdict is the MC-UCB verdict, variance-guided reported alongside"
+  },
+  "identifiability": {
+    "scope": "scale 1, horizon 256, all fields and seeds; decision agreement only, no image quality involving the controller is computed",
+    "ray_cost_fields": {
+      "homogeneous": "every region charges 2 rays per sample",
+      "heterogeneous": "rays per sample rho_r ~ integer U{1..17}, independent of noise, from the same seeded generator"
+    },
+    "cost_measures": {
+      "wall": "estimated_sample_cost = (0.3 + 1e-6*rays_in_request) * exp(N(0,0.1)) / samples_in_request; models per-request process launch plus per-ray work with 10% timing noise",
+      "deterministic": "estimated_sample_cost = rays_in_request / samples_in_request"
+    },
+    "shadow": "full and equal-cost TcPolicy instances receive every state of the variance-guided trajectory; d = fraction of post-initialization decisions whose region differs from variance-guided. d_eq_nonexplore excludes decisions the controller labels exploration",
+    "no_feedback": "reported only: total-variation distance between its own final allocation fractions and variance-guided's",
+    "levers": {
+      "cost": "delta_cost = d_full(deterministic, heterogeneous) - d_eq",
+      "recent": "d_eq_nonexplore",
+      "timing_noise": "delta_noise = d_full(wall, homogeneous) - d_eq"
+    },
+    "verdict": "DISTINCT if mean delta_cost >= 0.10 or mean d_eq_nonexplore >= 0.10; otherwise COLLAPSED. NOISE-DRIVEN flag if mean delta_noise >= 0.10"
+  },
+  "gate_verdict": {
+    "GO": "MC-UCB COMPETENT and controller DISTINCT",
+    "AMEND-BASELINE": "controller DISTINCT but MC-UCB not COMPETENT; a pre-outcome comparator amendment is required before GO",
+    "STOP-RETHINK": "controller COLLAPSED, regardless of baselines",
+    "noise_rule": "if NOISE-DRIVEN, replacing the wall-clock cost predictor is required before any execution freeze, whatever the verdict"
+  },
+  "limits": "one execution after this contract is committed; pure Python/NumPy; no PBRT, rendering, primary scene, reference or network; no policy parameter changes in response to results except through a separately registered amendment justified independently of them",
+  "interpretation_limits": "synthetic fields do not establish corpus behavior; DISTINCT means different decisions, not better ones; a GO authorizes only the next design amendment and bounded local measurement"
+}
