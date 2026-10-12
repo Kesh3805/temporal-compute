@@ -1,0 +1,31 @@
+{
+  "schema": "tc-r1-integration-checkpoints-v2",
+  "status": "adopted-pre-outcome-amendment; not active execution configuration until execution freeze",
+  "decision": "option D of docs/tc-r1/amendments/0002-decision-brief.md",
+  "decision_date": "2026-10-12",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "superseded_proposal": {
+    "path": "research/tc-r1/integration/checkpoint-proposal.json",
+    "sha256": "27876cb722af9a86c317ca38e4bdf5f0f36817863f31adf58ed7c135bcfb54a2",
+    "adopted": false
+  },
+  "checkpoint_kind": "post-initialization increments",
+  "post_initialization_increments": [1048576, 4194304, 16777216, 67108864],
+  "initialization_lower_bound": 2097152,
+  "initialization_upper_bound": 35651584,
+  "paired_request_upper_bound": 34816,
+  "maximum_integer_checkpoint_overshoot": 34815,
+  "derivation": "unit_total_checkpoint[k] = actual_initialization(unit) + post_initialization_increments[k]; actual_initialization is validated charged camera+continuation+visibility rays of the mandatory identical 16-spp initialization on both allocation and production streams",
+  "rules": {
+    "identical_initialization": "actual_initialization must be identical across all six policies for each scene/frame/replicate unit; a mismatch invalidates that unit as a retained correctness failure that blocks PASS and is never dropped",
+    "initialization_bound": "actual_initialization must be a positive int, at least initialization_lower_bound (one camera ray per mandatory camera sample) and no greater than initialization_upper_bound; a violation stops integration as a bound/envelope failure and never widens the schedule",
+    "completion": "dispatch complete paired requests only while actual cumulative charge is below the unit threshold; complete both streams and their paths; score the first committed pair reaching it; overshoot is at most maximum_integer_checkpoint_overshoot; never truncate",
+    "accounting": "never charge initialization_upper_bound as observed work, reset counters, or exclude pilots or initialization from actual charge",
+    "disclosure": "report each checkpoint as a post-initialization increment with nominal increment, per-unit actual_initialization, absolute nominal threshold, actual charge and overshoot",
+    "analysis_keys": "analysis checkpoint keys remain the increments 2^20, 2^22, 2^24, 2^26; totals differ by unit while within-unit paired comparisons stay at equal nominal totals",
+    "unchanged": "primary metric formula, thresholds, comparators, families and seeds are unchanged"
+  },
+  "validation": "Arithmetic and synthetic rule checks only; selected-host native validation of actual_initialization identity and bounds remains pending",
+  "policy_performance_observed": false
+}
