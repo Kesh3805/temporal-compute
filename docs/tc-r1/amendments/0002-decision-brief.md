@@ -1,6 +1,6 @@
 # Decision brief: amendment 0002 checkpoints
 
-Status: **maintainer decision pending; this brief adopts nothing.** Date: 2026-10-12.
+Status: **decided 2026-10-12: the maintainer chose option D, adopted as [amendment 0003](0003-actual-initialization-checkpoints.md).** This brief itself adopts nothing; it is preserved as the pre-decision analysis. Date: 2026-10-12.
 It supports decision 1 of the [integration gate](../integration-gate.md). The
 [proposal](0002-initialization-aware-checkpoints.md), its
 [source-bound arithmetic](../../../research/tc-r1/integration/checkpoint-proposal.json),
