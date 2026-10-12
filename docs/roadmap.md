@@ -1,6 +1,6 @@
 # Evidence-driven roadmap
 
-The active research direction is **Generation II — Adaptive Progressive Computation**. TC-R1 — Marginal Compute in Path Tracing is a separate protocol registration, with implementation/assets and an execution freeze still required before measurements. It tests state-aware allocation against competent domain-specific adaptivity. No new runtime or renderer is implemented, and no outcomes exist. See the [TC-R1 protocol](tc-r1/preregistration.md).
+The active research direction is **Generation II — Adaptive Progressive Computation**. TC-R1 — Marginal Compute in Path Tracing is a separate protocol registration. Its candidate implementation and corpus assets exist and pass non-primary validation; maintainer decisions, references and an execution freeze are still required before measurements (see the [integration gate](tc-r1/integration-gate.md)). It tests state-aware allocation against competent domain-specific adaptivity. No generic runtime is implemented, and no outcomes exist. See the [TC-R1 protocol](tc-r1/preregistration.md).
 
 ## Generation I record and parked roadmap
 
