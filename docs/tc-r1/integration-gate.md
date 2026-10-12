@@ -20,9 +20,13 @@ selected. Neither candidate policies nor authored assets certify the experiment.
 
 ## Two decisions before host-dependent work
 
-1. Review/adopt [proposed checkpoint amendment 0002](amendments/0002-initialization-aware-checkpoints.md).
-   Its common reserve is derived from the pinned path bound, not intuition or
-   observed comparative speed/quality. Actual accounting remains fully charged.
+1. **Resolved 2026-10-12, before outcomes, by
+   [amendment 0003](amendments/0003-actual-initialization-checkpoints.md)**
+   (option D of the [decision brief](amendments/0002-decision-brief.md)).
+   Checkpoints are post-initialization increments `2^20..2^26` above each unit's
+   actual, policy-identical initialization charge. Proposal 0002's common totals
+   are not adopted and remain preserved. Selected-host validation of the
+   initialization identity and bounds is still pending.
 2. Select the actual dedicated CPU host. The maintainer explicitly kept host
    selection pending on 2026-10-08. GitHub Actions is validation infrastructure
    only. No chosen host, worker configuration, cap or resource allocation is
@@ -51,7 +55,7 @@ flags are not defaults that an execution runner may silently fill.
 
 | Gate | Required evidence | Current state |
 | --- | --- | --- |
-| Checkpoints | Approved amendment; pinned source argument; actual class limits; complete paired initialization; threshold/overshoot tests | Non-primary native mechanics pass; amendment inactive and host-dependent validation pending |
+| Checkpoints | Approved amendment; pinned source argument; actual class limits; complete paired initialization; threshold/overshoot tests | Amendment 0003 adopted with arithmetic/synthetic rule tests; non-primary native mechanics pass; runner integration and selected-host validation of initialization identity/bounds pending |
 | Host/build | Selected dedicated CPU manifest, toolchain/submodules/flags/binary hashes, isolation and capacity | Pending maintainer selection |
 | All 30 assets parse | Pinned PBRT parser invoked for every exact-hashed asset; command/stdout/stderr/status retained per asset; failures retained | All 30 exact assets pass syntax parsing; primary runtime construction unverified |
 | Production bridge | Non-primary native fixtures verify records/Film estimator, batching, thread/region order, fresh evidence and failure containment | Frozen native matrix passes; selected-host checks pending |
@@ -61,7 +65,8 @@ flags are not defaults that an execution runner may silently fill.
 | Integrated dry-run | All policies/ablations on unrelated synthetic fixtures, common runner/evidence joins, accounting/timing/error assertions | All six candidates pass native correctness boundary checks; full selected-host execution/stopping/timing dry-run pending |
 
 See the [bounded native validation result](native-validation-result.md) and retained
-Actions run 37756401842. That PASS does not adopt the proposal or qualify a host.
+Actions run 37756401842. That PASS does not adopt proposal 0002, validate amendment
+0003 on a host, or qualify a host.
 
 Parser acceptance is distinct from runtime construction and native rendering.
 The pinned CLI's formatting path can parse syntax without a render; it cannot
