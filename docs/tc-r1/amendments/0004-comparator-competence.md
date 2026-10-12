@@ -1,7 +1,8 @@
 # Proposed amendment 0004: scale-equivariant MC-UCB and a defensive floor
 
-Status: **proposed, before outcomes; not adopted.** Date: 2026-10-12. Requires an
-explicit maintainer decision. The original protocol `99ad341`, amendments
+Status: **adopted by maintainer decision 2026-10-12, with symmetry option A, before
+outcomes; effective only if the v2 offline validation passes.** Proposed and
+adopted the same day. The original protocol `99ad341`, amendments
 0001–0003, the [baseline contract](../../../research/tc-r1/baseline-contract.json),
 the controller contract and all evidence, including the
 [offline gate result](../offline-gate-result.md), remain unchanged. Binding draft:
@@ -68,7 +69,7 @@ not fitted to the gate. Uniform is unchanged.
 Track B requires shared minimum-coverage mechanics across policies. The floor is
 an allocation constraint, not a ranking signal. Two defensible choices:
 
-- **A (recommended).** Apply the identical floor to the controller and both
+- **A (recommended; adopted).** Apply the identical floor to the controller and both
   ablations as a shared coverage rule. This keeps one coverage semantics and
   stops a comparator from receiving a protection the controller lacks, or the
   reverse. It amends the frozen controller contract, before outcomes.
