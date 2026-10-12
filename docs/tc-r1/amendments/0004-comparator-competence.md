@@ -1,7 +1,7 @@
 # Proposed amendment 0004: scale-equivariant MC-UCB and a defensive floor
 
 Status: **adopted by maintainer decision 2026-10-12, with symmetry option A, before
-outcomes; effective only if the v2 offline validation passes.** Proposed and
+outcomes; EFFECTIVE: the v2 offline validation passed on 2026-10-12 ([result](../offline-gate-v2-result.md)).** Proposed and
 adopted the same day. The original protocol `99ad341`, amendments
 0001–0003, the [baseline contract](../../../research/tc-r1/baseline-contract.json),
 the controller contract and all evidence, including the

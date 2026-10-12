@@ -1,6 +1,6 @@
 {
   "schema": "tc-r1-comparator-amendment-v1",
-  "status": "adopted pre-outcome amendment with symmetry option A; effective only if tc-r1-offline-gate-v2 passes",
+  "status": "adopted pre-outcome amendment with symmetry option A; EFFECTIVE after tc-r1-offline-gate-v2 PASS (GO) on 2026-10-12",
   "date": "2026-10-12",
   "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
   "amends": "research/tc-r1/baseline-contract.json (preserved unchanged)",
@@ -54,7 +54,8 @@
     "seed_derivation": "first 8 big-endian bytes of SHA-256('tc-r1-offline-gate-v2|field|seed')",
     "executions": 1,
     "on_pass": "amendment effective for the execution freeze",
-    "on_fail": "stop; record no competent strong conventional baseline under this design; maintainer decision; no further parameter round against the same criteria"
+    "on_fail": "stop; record no competent strong conventional baseline under this design; maintainer decision; no further parameter round against the same criteria",
+    "result": "research/tc-r1/offline-gate/result-v2.json"
   },
   "out_of_scope": [
     "controller cost predictor",
