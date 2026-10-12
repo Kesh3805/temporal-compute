@@ -1,0 +1,47 @@
+{
+  "schema": "tc-r1-execution-design-amendment-v1",
+  "date": "2026-10-12",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "preserved": ["kernel-contract.json", "baseline-contract.json", "controller-contract.json", "amendments 0001-0004", "all retained evidence"],
+  "sections": {
+    "deterministic_cost": {
+      "status": "adopted by maintainer decision 2026-10-12, before outcomes",
+      "applies_to": ["tc-full", "tc-equal-cost", "tc-no-feedback"],
+      "cost": "cumulative allocation-stream charged_rays / sample_count per region; undefined before the region's first sample",
+      "implementation": "experiments/tc-r1/ray_cost.py RayCostTcPolicy wrapping amended_policies.AmendedTcPolicy",
+      "unchanged": "kernel elapsed-time measurement retained for end-to-end accounting; equal-cost ablation unchanged",
+      "consequence": "all policies deterministic; three timing repeats must yield bit-identical images (determinism check)"
+    },
+    "time_estimand": {
+      "status": "proposed",
+      "run_end": "later of final quality checkpoint A_u + 2^26 committed and common wall cap C",
+      "snapshot_cadence": "every 2^20 charged rays after initialization; write time inside measured wall time",
+      "scoring": "offline after the run; no live metric stopping",
+      "attainment": "first snapshot meeting the joint target; sustained via later snapshots up to C",
+      "censoring": "nonattainment censored exactly at C",
+      "cap_rule": "C = 2 x projected uniform wall time to A_u + 2^26 on the slowest-calibrated non-primary fixture class, fixed before outcomes on the selected host"
+    },
+    "dispatch": {
+      "status": "proposed",
+      "persistent_worker": "one PBRT process per stream with a request loop; same qualified instrumentation; requires re-running the native-validation matrix under a new contract",
+      "vectorized_state": "NumPy sufficient statistics with exact-equivalence tests against hash-bound progressive_kernel.py",
+      "unchanged": ["4-spp requests", "256-pixel regions", "actions", "checkpoints"],
+      "alternatives_if_rejected": ["16-spp requests (amends action granularity)", "smaller corpus resolution (protocol amendment)"]
+    },
+    "retention": {
+      "status": "proposed",
+      "permanent": ["per-dispatch aggregate record with hashes of transient logs", "kernel and paired traces", "checkpoint crossings and overshoot", "checkpoint images and snapshot scores/hashes", "all failures with raw logs"],
+      "transient": "per-sample, event and Film CSVs after validation",
+      "audit_subset": "1 in 1024 dispatches selected by SHA-256(unit|policy|stream|dispatch), retained in full",
+      "streaming_validation": "line-by-line log validation"
+    }
+  },
+  "next_step_if_adopted": {
+    "requires": "separate resource authorization",
+    "limits": {"workers": 1, "process_memory_gib": 3, "new_disk_gib": 12, "measured_phase_minutes": 45, "session_minutes": 120},
+    "scope": "single-job PBRT build; native-validation fixtures with the persistent worker; non-primary throughput, dispatch latency, peak RSS, retained bytes per sample",
+    "excluded": ["primary scenes", "references", "policy comparison"]
+  },
+  "controller_quality_observed": false,
+  "primary_outcomes_observed": false
+}
