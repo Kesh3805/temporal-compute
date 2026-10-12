@@ -3,10 +3,13 @@
 Status, by section, dated 2026-10-12 and before outcomes:
 
 - Section 1 (deterministic cost): **adopted by maintainer decision.**
-- Sections 2–4: **proposed**, needing a maintainer decision.
+- Sections 2–4: **adopted by maintainer decision** (same day), each still
+  subject to its stated re-validation before use.
+- The bounded local measurement below: **authorized by the maintainer**, within
+  its stated limits only.
 
-Nothing here authorizes a host, a build, rendering, references or comparative
-runs. The original protocol `99ad341`, amendments 0001–0004, the kernel,
+Nothing here authorizes a host selection, rendering of primary scenes,
+references or comparative runs. The original protocol `99ad341`, amendments 0001–0004, the kernel,
 baseline and controller contracts, and all evidence remain unchanged. Binding
 draft: [execution-design-amendment-0005.json](../../../research/tc-r1/execution-design-amendment-0005.json).
 
