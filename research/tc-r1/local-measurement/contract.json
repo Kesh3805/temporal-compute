@@ -2,13 +2,17 @@
   "schema": "tc-r1-local-measurement-v1",
   "status": "frozen before build or measurement; authorized by maintainer 2026-10-12, executed under research ownership handoff 2026-10-25",
   "authority": "research/tc-r1/execution-design-amendment-0005.json next_step_if_adopted",
-  "host": "laptop i5-1135G7 via Docker Desktop Linux VM; container ubuntu:24.04 with --memory 3g --cpus 4",
-  "build": "pinned PBRT b4ce9687e6c695f5582997c61b0c66cf064bdb4a, unchanged e3_instrument.py, same CMake flags as tc-r1-native-validation.yml, one compile job",
+  "host": "GitHub-hosted ubuntu-24.04 runner (free for this public repository), one job",
+  "build": "pinned PBRT b4ce9687e6c695f5582997c61b0c66cf064bdb4a, unchanged e3_instrument.py, same CMake flags as tc-r1-native-validation.yml, parallel 4",
   "fixture": "research/tc-r1/local-measurement/fixtures/throughput-256.pbrt",
   "fixture_sha256": "b14c3311789fcf9363d46c7173148cb3e14fd6022fe3adf773e92031702dd832",
   "plan": {
     "repeats": 3,
-    "stock_threads": [1, 2, 4],
+    "stock_threads": [
+      1,
+      2,
+      4
+    ],
     "stock_spp": 16,
     "logged_spp": 16,
     "bridge_requests": 64
@@ -19,9 +23,20 @@
     "per-16x16-region charged rays per sample spread on the fixture (min, p5, median, p95, max, log sd)",
     "bridge dispatch seconds per 4-spp 16x16 request through unchanged PbrtBatchBackend + ProgressiveKernel, split into native process, log validation, provenance hashing, kernel observe, other"
   ],
-  "limits": {"session_minutes": 120, "measured_phase_minutes": 45, "new_disk_gib": 12, "container_memory_gib": 3, "workers": 1},
+  "limits": {
+    "job_timeout_minutes": 60,
+    "measured_phase_minutes": 45,
+    "workers": 1
+  },
   "stop_rule": "exceeding any limit, a native failure, or an out-of-memory kill stops the measurement; the result is recorded as INCOMPLETE with whatever was measured; no retry with changed settings",
-  "excluded": ["primary corpus scenes", "references", "policy comparison", "image-quality metrics"],
-  "single_execution": "local_measurement.py reserves its output with exclusive creation before any work",
-  "interpretation": "measurements of one non-primary fixture on this laptop VM; not corpus throughput and not a host qualification"
+  "excluded": [
+    "primary corpus scenes",
+    "references",
+    "policy comparison",
+    "image-quality metrics"
+  ],
+  "single_execution": "workflow triggers only on the first introduction of research/tc-r1/local-measurement/execute.json, attempt 1; local_measurement.py also reserves its output exclusively",
+  "interpretation": "measurements of one non-primary fixture on this laptop VM; not corpus throughput and not a host qualification",
+  "host_amendment": "Amended 2026-10-25 before any build or measurement: the laptop Docker engine was not running, and starting it reserves about 8 GiB of the 16 GiB laptop. The GitHub-hosted runner is the intended free execution host, so measuring there is more relevant. The runner identity (CPU, memory, storage) is retained in the report.",
+  "harness_defect_rule": "If the run fails before writing a report because of a harness defect (not a measured limit or native failure), at most one re-run is allowed under a new marker execute-2.json with identical plan, fixture and limits; the defect, fix and both runs are disclosed. This infrastructure measurement produces no scientific outcome, so a re-run cannot select a favourable result."
 }
