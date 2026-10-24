@@ -109,7 +109,17 @@ decision.** It needs no new resource authorization beyond the maintainer
 approving its frozen contract: pure Python/NumPy (present), under 1 GiB RAM,
 under one CPU-hour, no build, install, render, primary scene or reference.
 
-Commit a contract before running anything, then execute it once:
+Commit a contract before running anything, then execute it once. The contract
+must fix, before any execution:
+- decision counts and horizons;
+- field, timing-noise and stream seeds;
+- the material-difference thresholds and how they are aggregated over seeds;
+- the verdict rule;
+- a single-execution rule with no retries, early stopping or outcome-dependent
+  reruns.
+
+(As executed: `research/tc-r1/offline-gate/contract.json`, committed at
+`29bfb57` before any gate code; see PR #25.)
 
 Protocol basis: the preregistration permits synthetic tests before the
 execution freeze, and the [integration gate](integration-gate.md) and Track B
