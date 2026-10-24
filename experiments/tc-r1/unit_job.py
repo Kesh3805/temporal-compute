@@ -84,8 +84,9 @@ def load_reference(references, scene_id, frame_id):
     if key not in summary['converged']:
         raise ValueError(f'no converged reference for {key}')
     entry = summary['converged'][key]
-    a, a_evidence = image_evidence(Path(summary['directory'])/entry['a'])
-    b, b_evidence = image_evidence(Path(summary['directory'])/entry['b'])
+    base = Path(references).parent/summary['directory']
+    a, a_evidence = image_evidence(base/entry['a'])
+    b, b_evidence = image_evidence(base/entry['b'])
     if (a_evidence['sha256'], b_evidence['sha256']) != (entry['a_sha256'], entry['b_sha256']):
         raise ValueError('reference image hash mismatch')
     return scoring_reference(a, b), entry
