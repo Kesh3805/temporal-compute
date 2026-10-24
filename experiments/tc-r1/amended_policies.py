@@ -9,7 +9,7 @@ import statistics
 
 from baselines import (BATCH_SPP, MINIMUM_SPP, ConventionalPolicy, geometry, initial_request,
                        scalar_variance, validate_observations)
-from progressive_kernel import RegionState, WorkRequest, require
+from progressive_kernel import Region, RegionState, WorkRequest, require
 from tc_controller import TcPolicy
 
 ALPHA_NUMERATOR, ALPHA_DENOMINATOR = 1, 2   # alpha = 0.5, exact integer comparison
@@ -88,21 +88,31 @@ class AmendedTcPolicy(TcPolicy):
             raise
 
     def _floor(self, states):
+        # The same structural checks as TcPolicy._choose, before any floor decision,
+        # so both paths reject identical malformed inputs.
         require(isinstance(states, tuple) and states and all(isinstance(s, RegionState) for s in states),
                 'allocation state interface')
+        for state in states:
+            region = state.region
+            require(isinstance(region, Region) and
+                    all(type(v) is int for v in (region.x0, region.x1, region.y0, region.y1)) and
+                    0 <= region.x0 < region.x1 and 0 <= region.y0 < region.y1,
+                    'invalid observed region bounds')
+            require(type(state.version) is int and state.version >= 0, 'invalid allocation version')
         require(len({s.version for s in states}) == 1, 'mixed allocation observation versions')
         ordered = tuple(sorted(states, key=lambda s: geometry(s.region)))
+        regions = tuple(s.region for s in ordered)
+        require(len(set(regions)) == len(regions), 'duplicate observed region')
+        require(self._regions is None or regions == self._regions, 'allocation partition changed')
+        require(all(type(s.samples_per_pixel) is int and 0 <= s.samples_per_pixel <= 0x7fffffff - BATCH_SPP and
+                    type(s.sample_count) is int and s.sample_count == s.samples_per_pixel*s.region.area and
+                    type(s.charged_rays) is int and s.charged_rays >= s.sample_count for s in ordered),
+                'allocation count/area/charge identity')
         if min(s.samples_per_pixel for s in ordered) < MINIMUM_SPP:
             return None
         request = floor_request(ordered)
         if request is None:
             return None
-        regions = tuple(s.region for s in ordered)
-        require(len(set(regions)) == len(regions), 'duplicate observed region')
-        require(self._regions is None or regions == self._regions, 'allocation partition changed')
-        require(all(type(s.sample_count) is int and s.sample_count == s.samples_per_pixel*s.region.area and
-                    type(s.charged_rays) is int and s.charged_rays >= s.sample_count for s in ordered),
-                'allocation count/area/charge identity')
         counts = {s.region: s.samples_per_pixel for s in ordered}
         if self._expected_counts is not None:
             require(counts == self._expected_counts, 'no-feedback caller count transition mismatch')

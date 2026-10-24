@@ -14,6 +14,19 @@ class OfflineGateV2Tests(unittest.TestCase):
             self.assertFalse(np.allclose(v2.FieldV2(field, 3).mu, v1.Field(field, 3).mu))
         np.testing.assert_allclose(v2.FieldV2('gaussian', 4, 10).draw(2, 1), 10*v2.FieldV2('gaussian', 4).draw(2, 1))
 
+    def test_field_v2_matches_v1_construction_on_equal_raw_seeds(self):
+        # FieldV2 duplicates v1.Field.__init__ to keep offline_gate.py byte-frozen;
+        # with the seed function swapped back, every derived field must be identical.
+        from unittest import mock
+        with mock.patch.object(v2, 'field_seed', v1.field_seed):
+            for field in v1.FIELDS:
+                for rays in ('homogeneous', 'heterogeneous'):
+                    a, b = v2.FieldV2(field, 3, 10.0, rays), v1.Field(field, 3, 10.0, rays)
+                    self.assertEqual(a.seed, b.seed)
+                    for attr in ('mu', 'param', 'variance', 'rays'):
+                        np.testing.assert_array_equal(getattr(a, attr), getattr(b, attr), err_msg=attr)
+                    np.testing.assert_array_equal(a.draw(5, 2), b.draw(5, 2))
+
     def test_verdict_logic_on_fabricated_rows(self):
         def rows(amended):
             return [dict(method=m, field=f, scale=s, seed=3,
