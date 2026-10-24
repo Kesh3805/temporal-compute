@@ -73,7 +73,7 @@ class IntegrationBudgetTests(unittest.TestCase):
             with self.subTest(name=name), self.assertRaises(ValueError): derive(changed)
 
 
-POLICIES = ('uniform', 'adaptive', 'variance', 'controller', 'no-feedback', 'equal-cost')
+POLICIES = ('uniform', 'adaptive-mc-ucb-region', 'variance-guided', 'tc-full', 'tc-equal-cost', 'tc-no-feedback')
 
 
 class AmendmentThreeTests(unittest.TestCase):
@@ -114,7 +114,7 @@ class AmendmentThreeTests(unittest.TestCase):
     def test_initialization_must_be_identical_across_six_policies(self):
         self.assertEqual(require_identical_initialization(dict.fromkeys(POLICIES, 4173069)), 4173069)
         mismatched = dict.fromkeys(POLICIES, 4173069)
-        mismatched['controller'] = 4173070
+        mismatched['tc-full'] = 4173070
         with self.assertRaises(InitializationMismatch):
             require_identical_initialization(mismatched)
         for charges in ({p: 4173069 for p in POLICIES[:5]}, {**dict.fromkeys(POLICIES, 4173069), 'extra': 4173069},
@@ -122,6 +122,30 @@ class AmendmentThreeTests(unittest.TestCase):
                         {**dict.fromkeys(POLICIES, True)}, list(POLICIES)):
             with self.subTest(charges=charges), self.assertRaises(ValueError):
                 require_identical_initialization(charges)
+
+    def test_policy_substitution_with_equal_count_rejected(self):
+        substituted = dict.fromkeys(POLICIES, 4173069)
+        del substituted['tc-no-feedback']
+        substituted['tc-full-copy'] = 4173069
+        self.assertEqual(len(substituted), 6)
+        with self.assertRaises(ValueError):
+            require_identical_initialization(substituted)
+        with self.assertRaises(ValueError):
+            require_identical_initialization(dict.fromkeys(POLICIES, 4173069), frozenset(POLICIES[:5]))
+        native = frozenset(POLICIES) | {'pbrt-native-adaptive'}
+        self.assertEqual(require_identical_initialization(dict.fromkeys(native, 4173069), native), 4173069)
+
+    def test_rule_meaning_change_rejected(self):
+        for key in ('completion', 'accounting', 'identical_initialization'):
+            changed = deepcopy(self.contract)
+            changed['rules'][key] += ' (except when convenient)'
+            with self.subTest(rule=key):
+                with self.assertRaises(ValueError): validate_amendment(changed, self.raw)
+                with self.assertRaises(ValueError): unit_checkpoints(4173069, changed)
+        changed = deepcopy(self.contract)
+        changed['derivation'] = changed['derivation'].replace('actual_initialization(unit) +', 'IMAX +')
+        with self.assertRaises(ValueError):
+            validate_amendment(changed, self.raw)
 
     def test_contract_drift_rejected(self):
         for name, value in (('schema', 'tc-r1-integration-checkpoints-v1'), ('status', 'execution-ready'),

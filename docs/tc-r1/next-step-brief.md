@@ -72,6 +72,15 @@ candidates are not validated comparators.
      into memory, so it cannot handle reference-scale batches.
    - Kernel ray throughput alone is small by comparison: roughly 27–42
      thread-hours per pass, projected from 2-thread synthetic runner figures.
+   - Sources. Dispatch latency: `paired/uniform/paired-trace.json` inside
+     `research/tc-r1/native-validation/raw-artifacts.tar.gz` (archive SHA-256
+     `03f586c1…`, Actions run 37756401842): 10 paired steps, 20 launches,
+     6.02 s. Bytes per sample: that archive's `*.samples.csv`, `*.film.csv` and
+     `*.events.csv` sizes divided by 236,672 validated samples and 470,577
+     charged rays. Kernel throughput: `research/tc-r1/qualification/pbrt-probe.json`.
+     Projection inputs: 256² pixels, 2 streams, 16-spp initialization,
+     increments up to 2^26 rays, 2–5 rays per sample, 1,440 policy-frames,
+     1,024 samples per dispatch.
 7. **Memory.** The 8 GiB figure was an attempt-specific admission rule, not a
    requirement derived from evidence. Corpus scenes are 4–15 KB of procedural
    spheres and small meshes. Projected (unmeasured) peak: about 0.2–0.5 GB per
@@ -102,6 +111,13 @@ under one CPU-hour, no build, install, render, primary scene or reference.
 
 Commit a contract before running anything, then execute it once:
 
+Protocol basis: the preregistration permits synthetic tests before the
+execution freeze, and the [integration gate](integration-gate.md) and Track B
+require independent scale, rare-event and applicability validation of the
+conventional methods **without TC results**. This gate stays inside that
+permission. It computes no controller image quality, no primary-scene or
+reference result, and no TC-versus-baseline outcome.
+
 1. **Comparator competence (baselines only, no TC).** Synthetic 256-region
    fields with known per-region variance from Gaussian, lognormal and rare
    Bernoulli-spike distributions, across radiance scales 1e-3 to 1e3. Run the
@@ -113,9 +129,13 @@ Commit a contract before running anything, then execute it once:
 2. **Identifiability (decision agreement only, no quality).** On the same
    fields, plus fields with heterogeneous per-region rays per sample, record the
    fraction of decisions where the controller, its two ablations and
-   variance-guided choose different regions, under (a) the current
-   wall-clock cost and (b) a deterministic charged-rays-per-sample cost. No
-   image-quality comparison involving the controller is computed or retained.
+   variance-guided choose different regions, under (a) a **synthetic**
+   wall-clock cost model (fixed launch overhead plus per-ray time with timing
+   noise) and (b) a deterministic charged-rays-per-sample cost. Condition (a)
+   models the launch-dominated shape of the current PBRT cost; it does not
+   replay PBRT cost observations and cannot by itself establish production-cost
+   identifiability. No image-quality comparison involving the controller is
+   computed or retained.
 
 What it resolves: whether the strong baseline is defensible or needs a frozen
 β normalization; whether the controller is a materially distinct method, and
