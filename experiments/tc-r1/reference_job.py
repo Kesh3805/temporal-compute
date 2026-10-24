@@ -14,6 +14,7 @@ from reference_producer import produce  # noqa: E402
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', required=True)
+    parser.add_argument('--manifest', required=True)
     parser.add_argument('--index', type=int, required=True)
     parser.add_argument('--stream', choices=('reference-a', 'reference-b'), required=True)
     parser.add_argument('--spp', type=int, required=True)
@@ -31,7 +32,7 @@ def main():
     path = next(f['path'] for s in manifest['scenes'] if s['scene_id'] == plan['scene_id']
                 for f in s['frames'] if f['frame_id'] == plan['frame_id'])
     stem = f"{plan['scene_id']}-{plan['frame_id']}-{args.stream}-{args.spp}"
-    record = produce(args.binary, ROOT/path, plan['scene_id'], plan['frame_id'], plan['asset_sha256'],
+    record = produce(args.binary, args.manifest, ROOT/path, plan['scene_id'], plan['frame_id'], plan['asset_sha256'],
                      plans['corpus_sha256'], args.spp, args.stream, args.threads, Path(args.output)/f'{stem}.npy')
     print(json.dumps(dict(frame=key, stream=args.stream, spp=args.spp, sha256=record['sha256'],
                           seconds=record['elapsed_ns']/1e9)))

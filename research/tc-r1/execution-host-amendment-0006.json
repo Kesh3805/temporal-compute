@@ -6,12 +6,19 @@
   "evidence": {
     "measurement_run": 40123453245,
     "worker_validation_run": 40124315189,
-    "nonreproducible_build_hashes": ["2687c8ec77f9", "078378a4bc62", "713ec162aa30"]
+    "nonreproducible_build_hashes": [
+      "2687c8ec77f9",
+      "078378a4bc62",
+      "713ec162aa30"
+    ]
   },
   "binary": {
-    "build": "one job builds the qualified e3 and the worker binary, reruns worker-validation contract and reference_validation.py on those exact bytes, then publishes the worker binary as a 90-day Actions artifact with manifest and reports",
+    "build": "one job builds the qualified e3 and the worker binary, reruns worker-validation contract v2 and reference_validation.py on those exact bytes, then publishes the worker binary as a 90-day Actions artifact with manifest and reports",
     "use": "every reference and execution job downloads it and verifies SHA-256; execution freeze binds the hash",
-    "roles": {"policy_runs": "worker mode (TC_R1W_WORKER)", "references": "batch mode, log-identical to qualified e3"}
+    "roles": {
+      "policy_runs": "worker mode (TC_R1W_WORKER)",
+      "references": "worker DUMP request (Film GetPixelRGB, full float precision, no per-sample logs)"
+    }
   },
   "host": "GitHub-hosted ubuntu-24.04 standard runners (public repository, free)",
   "job_layout": {
@@ -25,12 +32,13 @@
     "hardware_disclosure": "lscpu per job; report units whose repeats span CPU models and a single-model sensitivity (reported, not gating)"
   },
   "references": {
-    "producer": "reference_producer.py: worker binary batch mode, 4 threads, registered seed, full prefix [0,spp), float32 PFM converted exactly to canonical float64 npy",
+    "producer": "reference_producer.py: worker DUMP request (Film GetPixelRGB at full float precision, no per-sample logs), 4 threads, registered stream identity and seed, full prefix [0,spp), converted exactly to canonical float64 npy",
     "producer_validation": "reference_validation.py on non-primary fixtures at 1 and 4 threads, per-pixel equality with per-sample means within the frozen E2 tolerance",
     "matrix": "30 frames x 2 streams at 8192 spp; corpus verified by reference_pipeline.corpus_plans in every job",
     "convergence": "reference_convergence.py using reference_metrics.report and reference_pipeline.pair_record",
     "escalation": "8192 -> 16384 -> 32768, regenerate full prefix, retain every level; halt at 32768 per protocol",
-    "precision_disclosure": "float32 PFM path, relative rounding about 6e-8 per value"
+    "precision_disclosure": "Film float32 values, relative rounding about 6e-8",
+    "revision": "2026-10-25 before any reference: PFM path replaced after producer validation run 40125241618 failed (PBRT RGB film image output is half precision); worker-validation contract v2 adds exact DUMP equivalence"
   },
   "cap": {
     "calibration": "uniform policy, worker + cached kernel, non-primary throughput-256 fixture, hosted runner, to A_u + 2^26, three repeats",
@@ -38,6 +46,13 @@
   },
   "per_job_scoring": "offline after each policy run: snapshots scored against the frame scoring reference (relative MSE, SSIM, LPIPS, worst 16x16 region) with the pinned metric stack; keep four checkpoint images, scores, hashes, run record and decision trace; discard snapshot images",
   "determinism_check": "checkpoint image hashes identical across a unit's three repeats; mismatch is a correctness failure blocking PASS",
-  "unchanged": ["corpus", "policies", "thresholds", "metrics", "statistical plan", "amendments 0001-0005"],
+  "unchanged": [
+    "corpus",
+    "policies",
+    "thresholds",
+    "metrics",
+    "statistical plan",
+    "amendments 0001-0005"
+  ],
   "comparative_outcomes_observed": false
 }

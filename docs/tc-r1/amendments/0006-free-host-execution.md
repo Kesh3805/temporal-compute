@@ -53,10 +53,17 @@ log-identical to the qualified binary).
 
 ## 3. Reference production
 
-- **Producer.** The worker binary in batch mode, 4 threads, renders the full
-  frame with the stream's registered PBRT seed and the complete prefix
-  `[0, spp)`. PBRT's float32 PFM output is converted exactly to canonical
-  float64 `.npy` (`reference_producer.py`).
+- **Producer (revised 2026-10-25, before any reference existed).** The worker
+  binary's DUMP request, 4 threads, renders the full frame for the stream's
+  registered identity (which fixes the PBRT seed) over the complete prefix
+  `[0, spp)`, without per-sample logs. It writes the Film's own `GetPixelRGB` at
+  full float precision, converted exactly to canonical float64 `.npy`
+  (`reference_producer.py`). The first design used PBRT's PFM image output; the
+  producer validation in run 40125241618 failed because PBRT's RGB film image
+  output is half precision by default (for example `0.7841796875`, against the
+  per-sample mean `0.78424…`), and the frozen corpus cannot be edited to change
+  it. The worker gained DUMP under worker-validation contract v2, which also
+  requires DUMP values to equal the logged Film rows exactly.
 - **Producer validation.** On non-primary fixtures at 1 and 4 threads, the
   producer image must equal the per-pixel mean of the per-sample records within
   the frozen E2 tolerance. This checks orientation, seed and Film estimator
@@ -70,8 +77,8 @@ log-identical to the qualified binary).
   as registered.
 - **Retention.** Images and records are retained as Actions artifacts and
   hashed in the repository; frames' scoring references are fixed before
-  execution. The float32 PFM path is disclosed: a relative rounding of about
-  6e-8 per value, far below the 1e-4 convergence bar.
+  execution. Film values are float32 (relative rounding about 6e-8), far below
+  the 1e-4 convergence bar.
 
 ## 4. Common cap C
 

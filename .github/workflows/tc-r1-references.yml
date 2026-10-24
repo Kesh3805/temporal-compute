@@ -76,11 +76,11 @@ jobs:
               (root/f'{name}-build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')
           PY
       - name: Worker equivalence on these exact bytes
-        run: python experiments/tc-r1/worker_validation.py --e3 out/bin/pbrt-e3 --e3-manifest out/e3-build-manifest.json --worker out/bin/pbrt-worker --worker-manifest out/worker-build-manifest.json --output out/worker-validation.json
+        run: python experiments/tc-r1/worker_validation.py --e3 out/bin/pbrt-e3 --e3-manifest out/e3-build-manifest.json --worker out/bin/pbrt-worker --worker-manifest out/worker-build-manifest.json --contract research/tc-r1/worker-validation/contract-v2.json --output out/worker-validation.json
       - name: Require worker equivalence PASS
         run: python -c "import json,sys; sys.exit(0 if json.load(open('out/worker-validation.json'))['verdict']=='PASS' else 1)"
       - name: Reference producer validation on these exact bytes
-        run: python experiments/tc-r1/reference_validation.py --binary out/bin/pbrt-worker --output out/reference-validation.json
+        run: python experiments/tc-r1/reference_validation.py --binary out/bin/pbrt-worker --manifest out/worker-build-manifest.json --output out/reference-validation.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -150,7 +150,7 @@ jobs:
           frames=$(python -c "import json; print(json.load(open('$marker'))['frames'])")
           mkdir -p refs
           lscpu > refs/cpu-${{ matrix.index }}-${{ matrix.stream }}.txt
-          python experiments/tc-r1/reference_job.py --binary out/bin/pbrt-worker --index ${{ matrix.index }} --stream ${{ matrix.stream }} --spp "$spp" --frames "$frames" --output refs
+          python experiments/tc-r1/reference_job.py --binary out/bin/pbrt-worker --manifest out/worker-build-manifest.json --index ${{ matrix.index }} --stream ${{ matrix.stream }} --spp "$spp" --frames "$frames" --output refs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: tc-r1-ref-${{ matrix.index }}-${{ matrix.stream }}

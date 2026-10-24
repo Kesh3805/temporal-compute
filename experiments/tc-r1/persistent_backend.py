@@ -18,7 +18,7 @@ from pathlib import Path
 from pbrt_batch_backend import PbrtBatchBackend, load_batch
 from progressive_kernel import require
 
-WORKER_SOURCE_SHA256 = '7223b0177b4233476fc71e4e1821e07f92e51b9669edd52709df85e45c561529'
+WORKER_SOURCE_SHA256 = '2e0902b75de0a87a498e8a7bcd8a08a1edc4b6be6d98521d2a3660f113262c70'   # v2: adds DUMP
 WORKER_SPP = 1 << 30   # sample-index capacity; the independent sampler allocates nothing per spp
 
 
@@ -107,6 +107,34 @@ class PersistentPbrtBackend(PbrtBatchBackend):
             self._fail()
             metadata.update(status='failed', work_known=False, error_type=type(error).__name__, error=str(error))
             record.write_text(json.dumps(metadata, indent=2)+'\n')
+            raise
+
+    def dump(self, region, begin, end):
+        """Render [begin, end) for the region without per-sample logs; return its Film RGB (exact float32 values)."""
+        import numpy as np
+        require(not self._failed, 'backend failed; uncertain work cannot be retried')
+        require(type(begin) is int and type(end) is int and 0 <= begin < end <= WORKER_SPP, 'invalid sample range')
+        path = self.output/f'dump-{self._calls:08d}.csv'
+        self._calls += 1
+        require(not path.exists() and ' ' not in str(path), 'dump evidence already exists or path has spaces')
+        try:
+            self._proc.stdin.write(f'DUMP {region.x0} {region.x1} {region.y0} {region.y1} {begin} {end} {path}\n')
+            self._proc.stdin.flush()
+            self._expect(f'TCR1W DUMPED {region.x0} {region.x1} {region.y0} {region.y1} {begin} {end}')
+            raw = path.read_bytes()
+            image = np.full((region.y1-region.y0, region.x1-region.x0, 3), np.nan)
+            seen = set()
+            for row in raw.decode('ascii').splitlines():
+                x, y, r, g, b = row.split(',')
+                key = (int(x), int(y))
+                require(key not in seen and region.x0 <= key[0] < region.x1 and region.y0 <= key[1] < region.y1,
+                        'dump pixel identity')
+                seen.add(key)
+                image[key[1]-region.y0, key[0]-region.x0] = [float(np.float32(v)) for v in (r, g, b)]
+            require(len(seen) == region.area and np.isfinite(image).all(), 'incomplete or nonfinite Film dump')
+            return image, hashlib.sha256(raw).hexdigest()
+        except BaseException:
+            self._fail()
             raise
 
     def close(self):

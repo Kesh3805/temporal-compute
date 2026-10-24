@@ -137,6 +137,42 @@ def kernel_run(bench):
     return dict(decisions=spec['decisions'], problems=problems)
 
 
+def dump_equivalence(bench):
+    """Worker DUMP Film values must equal, exactly as float32, the logged path's final Film rows."""
+    import numpy as np
+    rows = []
+    for fixture in bench.contract['fixtures']:
+        requests = bench.contract['requests']['big' if fixture == 'throughput-256.pbrt' else 'small']
+        scene, digest = bench.scene(fixture)
+        for threads in (1, 2):
+            logged_out, dump_out = bench.out(f'dumpref-t{threads}-{fixture}'), bench.out(f'dump-t{threads}-{fixture}')
+            logged = PersistentPbrtBackend(bench.worker, bench.worker_manifest, scene, digest, bench.identity(fixture),
+                                           logged_out, threads=threads, admitted_scenes=bench.admitted)
+            dumper = PersistentPbrtBackend(bench.worker, bench.worker_manifest, scene, digest, bench.identity(fixture),
+                                           dump_out, threads=threads, admitted_scenes=bench.admitted)
+            mismatches = []
+            for i, (r, b, e) in enumerate(requests):
+                region = Region(*r)
+                logged.render(region, b, e)
+                final = {}
+                for row in (logged_out/f'batch-{i:08d}.film.csv').read_text().splitlines():
+                    x, y, index, *rgb = row.split(',')
+                    if int(index) == e-1:
+                        final[(int(x), int(y))] = [np.float32(v) for v in rgb]
+                image, _ = dumper.dump(region, b, e)
+                for (x, y), rgb in final.items():
+                    dumped = [np.float32(v) for v in image[y-region.y0, x-region.x0]]
+                    if dumped != rgb and len(mismatches) < 5:
+                        mismatches.append(dict(request=i, pixel=(x, y), logged=[float(v) for v in rgb],
+                                               dumped=[float(v) for v in dumped]))
+                if len(final) != region.area:
+                    mismatches.append(dict(request=i, issue='incomplete logged Film rows'))
+            logged.close()
+            dumper.close()
+            rows.append(dict(fixture=fixture, threads=threads, requests=len(requests), mismatches=mismatches))
+    return rows
+
+
 def failure(bench):
     scene, digest = bench.scene('diffuse.pbrt')
     backend = PersistentPbrtBackend(bench.worker, bench.worker_manifest, scene, digest, bench.identity('diffuse.pbrt'),
@@ -185,9 +221,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('e3', 'e3-manifest', 'worker', 'worker-manifest', 'output'):
         parser.add_argument('--'+name, required=True)
+    parser.add_argument('--contract', default=str(CONTRACT))
     args = parser.parse_args()
-    contract = json.loads(CONTRACT.read_text(encoding='utf-8'))
-    if contract['schema'] != 'tc-r1-worker-validation-v1':
+    contract_path = Path(args.contract)
+    contract = json.loads(contract_path.read_text(encoding='utf-8'))
+    if contract['schema'] not in ('tc-r1-worker-validation-v1', 'tc-r1-worker-validation-v2'):
         raise ValueError('wrong worker validation contract')
     worker_manifest = json.loads(Path(args.worker_manifest).read_text())
     if worker_manifest['worker_source_sha256'] != contract['worker_source_sha256']:
@@ -197,11 +235,15 @@ def main():
     with tempfile.TemporaryDirectory() as scratch:
         bench = Bench(contract, args.e3, args.e3_manifest, args.worker, args.worker_manifest, scratch)
         checks = dict(equivalence=equivalence(bench), kernel_run=kernel_run(bench), failure=failure(bench))
+        if contract['schema'] == 'tc-r1-worker-validation-v2':
+            checks['dump_equivalence'] = dump_equivalence(bench)
         speed = timing(bench)
     passed = (all(not row['mismatches'] for row in checks['equivalence']) and
-              not checks['kernel_run']['problems'] and checks['failure']['passed'])
+              not checks['kernel_run']['problems'] and checks['failure']['passed'] and
+              all(not row['mismatches'] for row in checks.get('dump_equivalence', [])))
     report = dict(schema='tc-r1-worker-validation-report-v1', verdict='PASS' if passed else 'FAIL',
-                  contract_sha256=sha(CONTRACT), e3_binary_sha256=sha(args.e3), worker_binary_sha256=sha(args.worker),
+                  contract_sha256=sha(contract_path), e3_binary_sha256=sha(args.e3),
+                  worker_binary_sha256=sha(args.worker),
                   source_sha256={n: sha(HERE/n) for n in ('worker_validation.py', 'worker_instrument.py',
                                                           'persistent_backend.py', 'cached_kernel.py',
                                                           'pbrt_batch_backend.py', 'progressive_kernel.py')},

@@ -55,19 +55,30 @@ WORKER = '''
         std::fflush(stdout);
         std::string line;
         while (std::getline(std::cin, line)) {
+            // Logged request: x0 x1 y0 y1 begin end samples events film.
+            // DUMP request: DUMP x0 x1 y0 y1 begin end path -- no per-sample logs; after
+            // rendering, write the region's Film GetPixelRGB at full float precision.
             std::istringstream request(line);
+            const bool dump = line.rfind("DUMP ", 0) == 0;
+            if (dump) {
+                std::string keyword;
+                request >> keyword;
+            }
             int x0, x1, y0, y1, begin, end;
-            std::string samplesPath, eventsPath, filmPath;
-            if (!(request >> x0 >> x1 >> y0 >> y1 >> begin >> end >> samplesPath >> eventsPath >> filmPath))
+            std::string samplesPath, eventsPath, filmPath, dumpPath;
+            if (dump ? !(request >> x0 >> x1 >> y0 >> y1 >> begin >> end >> dumpPath)
+                     : !(request >> x0 >> x1 >> y0 >> y1 >> begin >> end >> samplesPath >> eventsPath >> filmPath))
                 ErrorExit("TC-R1 worker: malformed request");
             Bounds2i region(Point2i(x0, y0), Point2i(x1, y1));
             if (x0 < filmBounds.pMin.x || y0 < filmBounds.pMin.y || x1 > filmBounds.pMax.x ||
                 y1 > filmBounds.pMax.y || x0 >= x1 || y0 >= y1 || begin < 0 || begin >= end ||
                 end > samplerPrototype.SamplesPerPixel())
                 ErrorExit("TC-R1 worker: invalid request bounds");
-            setenv("TC_R1E_SAMPLE_LOG", samplesPath.c_str(), 1);
-            setenv("TC_R1E2_EVENTS", eventsPath.c_str(), 1);
-            setenv("TC_R1E2_FILM", filmPath.c_str(), 1);
+            if (!dump) {
+                setenv("TC_R1E_SAMPLE_LOG", samplesPath.c_str(), 1);
+                setenv("TC_R1E2_EVENTS", eventsPath.c_str(), 1);
+                setenv("TC_R1E2_FILM", filmPath.c_str(), 1);
+            }
             for (Point2i p : region)
                 camera.GetFilm().ResetPixel(p);
             int waveStart = begin, waveEnd = begin + 1, nextWaveSize = 1;
@@ -90,7 +101,17 @@ WORKER = '''
             unsetenv("TC_R1E_SAMPLE_LOG");
             unsetenv("TC_R1E2_EVENTS");
             unsetenv("TC_R1E2_FILM");
-            std::printf("TCR1W DONE %d %d %d %d %d %d\\n", x0, x1, y0, y1, begin, end);
+            if (dump) {
+                std::ofstream out(dumpPath);
+                out << std::setprecision(9);
+                for (Point2i p : region) {
+                    RGB rgb = camera.GetFilm().GetPixelRGB(p);
+                    out << p.x << ',' << p.y << ',' << rgb.r << ',' << rgb.g << ',' << rgb.b << '\\n';
+                }
+                out.close();
+                if (!out) ErrorExit("TC-R1 worker: Film dump failed");
+            }
+            std::printf("TCR1W %s %d %d %d %d %d %d\\n", dump ? "DUMPED" : "DONE", x0, x1, y0, y1, begin, end);
             std::fflush(stdout);
         }
         return;

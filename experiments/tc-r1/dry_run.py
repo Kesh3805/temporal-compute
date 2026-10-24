@@ -37,9 +37,11 @@ def main():
     args = parser.parse_args()
     digest = hashlib.sha256(FIXTURE.read_bytes()).hexdigest()
     with tempfile.TemporaryDirectory() as tmp:
-        a = render(args.binary, FIXTURE, 900001, 1024, 4, tmp)[0]
+        a = render(args.binary, args.manifest, FIXTURE, digest, ('dry-run-reference', 'f0', 0, 'reference-a'), 1024, 4,
+                   tmp)[0]
     with tempfile.TemporaryDirectory() as tmp:
-        b = render(args.binary, FIXTURE, 900002, 1024, 4, tmp)[0]
+        b = render(args.binary, args.manifest, FIXTURE, digest, ('dry-run-reference', 'f0', 0, 'reference-b'), 1024, 4,
+                   tmp)[0]
     reference = scoring_reference(a, b)
     perceptual = metrics.Perceptual(args.weights)
     out = Path(args.output)

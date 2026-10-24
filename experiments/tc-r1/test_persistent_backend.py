@@ -19,6 +19,16 @@ FAKE = textwrap.dedent('''
     count = 0
     for line in sys.stdin:
         count += 1
+        if line.startswith('DUMP '):
+            _, x0, x1, y0, y1, begin, end, path = line.split()
+            x0, x1, y0, y1, begin, end = map(int, (x0, x1, y0, y1, begin, end))
+            with open(path, 'w') as d:
+                for y in range(y0, y1):
+                    for x in range(x0, x1):
+                        m = sum(((x*7 + y*13 + i*3) % 11)/10.0 for i in range(begin, end))/(end - begin)
+                        d.write(f'{x},{y},{m:.9g},{m:.9g},{m:.9g}\\n')
+            print(f'TCR1W DUMPED {x0} {x1} {y0} {y1} {begin} {end}', flush=True)
+            continue
         x0, x1, y0, y1, begin, end, sp, ep, fp = line.split()
         x0, x1, y0, y1, begin, end = map(int, (x0, x1, y0, y1, begin, end))
         if mode == 'crash' and count == 2:
@@ -132,6 +142,17 @@ class PersistentBackendTests(unittest.TestCase):
         self.manifest.write_text(json.dumps(value))
         with self.assertRaisesRegex(ValueError, 'unqualified worker'):
             self.backend()
+
+    def test_dump_returns_exact_float32_region_film(self):
+        import numpy as np
+        backend = self.backend()
+        image, digest = backend.dump(Region(1, 4, 2, 4), 0, 8)
+        self.assertEqual(image.shape, (2, 3, 3))
+        expected = sum(((3*7 + 3*13 + i*3) % 11)/10.0 for i in range(8))/8
+        self.assertEqual(image[1, 2, 0], float(np.float32(float(f'{expected:.9g}'))))
+        self.assertEqual(len(digest), 64)
+        backend.render(Region(0, 2, 0, 2), 0, 4)   # logged requests still work after a dump
+        backend.close()
 
     def test_scene_change_detected_at_close(self):
         backend = self.backend()

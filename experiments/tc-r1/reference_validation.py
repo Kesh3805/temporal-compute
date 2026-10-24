@@ -19,11 +19,13 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
+import hashlib  # noqa: E402
+from progressive_kernel import stream_seed  # noqa: E402
 from reference_producer import render  # noqa: E402
 
 FIXTURES = {'surface-paths.pbrt': ROOT/'research/tc-r1/native-validation/fixtures/surface-paths.pbrt',
             'throughput-256.pbrt': ROOT/'research/tc-r1/local-measurement/fixtures/throughput-256.pbrt'}
-SEED, SPP = 123457, 64
+SPP = 64
 
 
 def close(a, b):
@@ -53,14 +55,20 @@ def logged_means(binary, scene, seed, spp, threads, workdir):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', required=True)
+    parser.add_argument('--manifest', required=True)
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
     rows = []
     for name, scene in FIXTURES.items():
         for threads in (1, 4):
+            digest = hashlib.sha256(scene.read_bytes()).hexdigest()
+            identity = ('reference-validation', name.removesuffix('.pbrt'), 0, 'reference-a')
+            seed = stream_seed(*identity) & 0x7fffffff
             with tempfile.TemporaryDirectory() as tmp:
-                image, _, _, _ = render(args.binary, scene, SEED, SPP, threads, tmp)
-                means, counts = logged_means(args.binary, scene, SEED, SPP, 1, tmp)
+                image, info = render(args.binary, args.manifest, scene, digest, identity, SPP, threads, tmp)
+                if info['seed'] != seed:
+                    raise ValueError('producer seed differs from identity projection')
+                means, counts = logged_means(args.binary, scene, seed, SPP, 1, tmp)
             height, width = image.shape[:2]
             problems = []
             if set(counts) != {(x, y) for y in range(height) for x in range(width)} or set(counts.values()) != {SPP}:
@@ -76,8 +84,8 @@ def main():
             rows.append(dict(fixture=name, threads=threads, spp=SPP, pixels=len(means),
                              worst_tolerance_fraction=worst, problems=problems))
     verdict = 'PASS' if all(not r['problems'] for r in rows) else 'FAIL'
-    Path(args.output).write_text(json.dumps(dict(schema='tc-r1-reference-producer-validation-v1', verdict=verdict,
-                                                 seed=SEED, rows=rows), indent=1)+'\n', encoding='utf-8')
+    Path(args.output).write_text(json.dumps(dict(schema='tc-r1-reference-producer-validation-v2', verdict=verdict,
+                                                 spp=SPP, rows=rows), indent=1)+'\n', encoding='utf-8')
     print(verdict)
     if verdict != 'PASS':
         sys.exit(1)
