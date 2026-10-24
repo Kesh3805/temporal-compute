@@ -68,6 +68,20 @@ class AmendedPolicyTests(unittest.TestCase):
             self.assertEqual(policy._post_initialization,
                              sum(r in ('marginal-score', 'exploration') for r in reasons), mode)
 
+    def test_floor_path_rejects_inputs_the_ranking_path_rejects(self):
+        from dataclasses import replace
+        # A floor-triggering post-initialization snapshot.
+        good = (state(REGIONS[0], 20), state(REGIONS[1], 16), state(REGIONS[2], 60), state(REGIONS[3], 60))
+        self.assertEqual(AmendedTcPolicy('full').choose(good).region, REGIONS[1])
+        bad = [replace(good[0], version=-1) if i == 0 else replace(s, version=-1) for i, s in enumerate(good)]
+        huge = (replace(good[0], samples_per_pixel=0x7fffffff, sample_count=0x7fffffff,
+                        charged_rays=2*0x7fffffff),) + good[1:]
+        flipped = (replace(good[0], region=Region(1, 0, 0, 1)),) + good[1:]
+        floaty = (replace(good[0], samples_per_pixel=20.0),) + good[1:]
+        for case in (tuple(bad), huge, flipped, floaty):
+            with self.assertRaises(ValueError):
+                AmendedTcPolicy('full').choose(case)
+
     def test_floor_never_preempts_initialization(self):
         policy = AmendedTcPolicy('full')
         states = (state(REGIONS[0], 0, cost=None),) + tuple(state(r, 16) for r in REGIONS[1:])

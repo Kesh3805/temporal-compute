@@ -14,6 +14,16 @@ reference or controller image-quality score.
 the execution freeze. Amended variance-guided also COMPETENT. Controller
 DISTINCT; not NOISE-DRIVEN.
 
+## Post-result source changes
+
+`experiments/tc-r1/amended_policies.py` was later changed after review (PR #26).
+The defensive-floor path now runs the same structural input validation as the
+controller's ranking path. That change rejects malformed states only;
+decisions on valid states are unchanged, and the gate supplies only valid
+states. The result's recorded hash therefore refers to the file at `16c5ce3`,
+not the current one. `offline_gate.py` and `offline_gate_v2.py` are unchanged and
+still match the recorded hashes. Nothing was re-run.
+
 ## Comparator competence
 
 Mean oracle efficiency over seeds 3–5; scales 1e-3 → 1e3.
