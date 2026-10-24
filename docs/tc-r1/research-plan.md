@@ -32,13 +32,15 @@ new algorithm. This was computed analytically, with no data, on 2026-10-25.
 
 | # | Phase | Output | Status |
 | --- | --- | --- | --- |
-| 1 | Merge PR stack #23–#27 | Amendments 0003–0005 on main | In review |
-| 2 | Hosted-runner measurement (non-primary) | Dispatch-latency breakdown, throughput, RSS, bytes per sample, per-region ray spread | Running |
-| 3 | Dispatch engineering | Cached kernel observation (done); persistent PBRT worker if native launch dominates; aggregate retention; re-validation contract | Started |
-| 4 | Host amendment 0006 | Hosted runners as execution host; all six policies of a unit inside one job; paired order; calibrated cap `C` | Planned |
-| 5 | References | 30 frames × 2 independent streams, 8192→16384→32768 spp escalation, sharded across free runners, convergence evidence | Planned |
-| 6 | Execution freeze | One manifest binding everything; tag `tc-r1-execution-preregistered` | Planned |
-| 7 | The run | One comparative execution; analysis; PASS / FAIL / INCONCLUSIVE report | Planned |
+| 1 | Merge PR stack #23–#27 | Amendments 0003–0005 on main | In review; CodeRabbit free-tier rate limits are the blocker |
+| 2 | Hosted-runner measurement (non-primary) | Dispatch-latency breakdown, throughput, RSS, bytes per sample, per-region ray spread | **Done** (run 40123453245) |
+| 3 | Dispatch engineering | Cached kernel; persistent PBRT worker; per-dispatch retention | **Done**: worker byte-equivalent, 12.1× faster (run 40124315189) |
+| 4 | Host amendment 0006 | Free hosted runners; single validated binary; unit × repeat jobs; cap calibration | **Adopted** 2026-10-25 |
+| 5 | References | 8192 spp, 60 streams, sharded; convergence; escalation | Running (run 40125241618) |
+| 6 | Integrated dry run | Exact execution path on the non-primary fixture, two repeats, determinism | Ready to trigger once the binary is published |
+| 7 | Execution freeze | `execution_freeze.py build`, then tag `tc-r1-execution-preregistered` | Tooling done; waiting on references, `C` and the dry run |
+| 8 | The run | Three workflow runs (one per repeat) × 240 units; then `analysis_adapter.py` | Workflow ready |
+| 9 | Report | PASS / FAIL / INCONCLUSIVE with full evidence | — |
 
 ## Decisions taken under ownership
 
