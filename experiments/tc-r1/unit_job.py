@@ -105,28 +105,18 @@ def attainment(scores, cap):
                                                                                        default=0.0))
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    for name in ('binary', 'manifest', 'scene-id', 'frame-id', 'references', 'weights', 'output'):
-        parser.add_argument('--'+name, required=True)
-    parser.add_argument('--replicate', type=int, required=True)
-    parser.add_argument('--repeat', type=int, choices=(0, 1, 2), required=True)
-    parser.add_argument('--cap-seconds', type=float, required=True)
-    parser.add_argument('--policies', default=','.join(POLICIES), help='synthetic smoke tests only')
-    args = parser.parse_args()
+def run_unit(binary, manifest, scene, digest, admitted, ids, repeat, cap, reference, reference_entry, perceptual,
+             out, policies=POLICIES, increments=INCREMENTS, snapshot_rays=SNAPSHOT_RAYS):
+    """Run the given policies for one unit and repeat. Execution passes the registered increments and cadence;
+    other values exist only for the non-primary integrated dry run."""
     import metrics
-    out = Path(args.output)
+    scene_id, frame_id, replicate = ids
+    checkpoint_snapshots = tuple(i//snapshot_rays for i in increments)
+    out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
-    plans = corpus_plans(ROOT, ROOT/'research/tc-r1/corpus/manifest.json')
-    admitted = {p['asset_sha256'] for p in plans['pairs']}
-    scene, digest = frame_entry(args.scene_id, args.frame_id)
-    reference, reference_entry = load_reference(args.references, args.scene_id, args.frame_id)
-    perceptual = metrics.Perceptual(args.weights)
     display_reference = metrics.display(reference)
-    unit = f'{args.scene_id}|{args.frame_id}|{args.replicate}'
-    selected = args.policies.split(',')
-    order = [p for p in timing_orders(args.scene_id, args.frame_id, args.replicate, list(POLICIES))[args.repeat]
-             if p in selected]
+    unit = f'{scene_id}|{frame_id}|{replicate}'
+    order = [p for p in timing_orders(scene_id, frame_id, replicate, list(POLICIES))[repeat] if p in policies]
     (out/'audit').mkdir()
     results = {}
     for policy in order:
@@ -136,9 +126,8 @@ def main():
             records = gzip.open(out/f'{policy}-dispatches.jsonl.gz', 'wt', encoding='utf-8')
 
             def backends(stream):
-                return RetainingBackend(args.binary, args.manifest, scene, digest,
-                                        (args.scene_id, args.frame_id, args.replicate, stream), tmp/stream,
-                                        threads=1, admitted_scenes=admitted, unit=unit, policy=policy,
+                return RetainingBackend(binary, manifest, scene, digest, (scene_id, frame_id, replicate, stream),
+                                        tmp/stream, threads=1, admitted_scenes=admitted, unit=unit, policy=policy,
                                         stream=stream, records=records, audit_directory=out/'audit')
 
             def sink(name, index, image):
@@ -148,7 +137,8 @@ def main():
                 snapshots[index] = path
                 return hashlib.sha256(path.read_bytes()).hexdigest()
             try:
-                record = PolicyRun(256, 256, backends, args.cap_seconds, sink, out/f'{policy}-trace.jsonl').run(policy)
+                record = PolicyRun(256, 256, backends, cap, sink, out/f'{policy}-trace.jsonl', increments=increments,
+                                   snapshot_rays=snapshot_rays).run(policy)
             finally:
                 records.close()
             scores = []
@@ -157,14 +147,16 @@ def main():
                 display_image = metrics.display(image)
                 regions = metrics.regional_mse(image, reference)
                 value = dict(index=snap['index'], seconds=snap['seconds'], actual=snap['actual'], sha256=snap['sink'],
-                             mse=metrics.relative_mse(image, reference), ssim=metrics.ssim(display_image, display_reference),
+                             mse=metrics.relative_mse(image, reference),
+                             ssim=metrics.ssim(display_image, display_reference),
                              lpips=perceptual.score(display_image, display_reference),
                              worst_region=regions['maximum']['relative_mse'])
-                value['joint'] = value['mse'] <= JOINT['mse'] and value['ssim'] >= JOINT['ssim'] and value['lpips'] <= JOINT['lpips']
+                value['joint'] = (value['mse'] <= JOINT['mse'] and value['ssim'] >= JOINT['ssim'] and
+                                  value['lpips'] <= JOINT['lpips'])
                 scores.append(value)
-                if snap['index'] in CHECKPOINT_SNAPSHOTS:
+                if snap['index'] in checkpoint_snapshots:
                     shutil.copy(snapshots[snap['index']], out/f"{policy}-checkpoint-{snap['index']:02d}.npy")
-            results[policy] = dict(record=record, scores=scores, attainment=attainment(scores, args.cap_seconds))
+            results[policy] = dict(record=record, scores=scores, attainment=attainment(scores, cap))
             (out/f'{policy}-result.json').write_text(json.dumps(results[policy], indent=1)+'\n', encoding='utf-8')
     parity = None
     if set(order) == set(POLICIES):
@@ -174,17 +166,36 @@ def main():
         except InitializationMismatch as error:
             parity = dict(status='mismatch', error=str(error),
                           charges={p: results[p]['record']['initialization'] for p in POLICIES})
-    summary = dict(schema='tc-r1-unit-job-v1', unit=dict(scene_id=args.scene_id, frame_id=args.frame_id,
-                   replicate=args.replicate), repeat=args.repeat, order=order, cap_seconds=args.cap_seconds,
-                   binary_sha256=hashlib.sha256(Path(args.binary).read_bytes()).hexdigest(),
-                   scene_sha256=digest, reference=reference_entry, initialization_parity=parity,
+    summary = dict(schema='tc-r1-unit-job-v1', unit=dict(scene_id=scene_id, frame_id=frame_id, replicate=replicate),
+                   repeat=repeat, order=order, cap_seconds=cap, increments=list(increments),
+                   binary_sha256=hashlib.sha256(Path(binary).read_bytes()).hexdigest(), scene_sha256=digest,
+                   reference=reference_entry, initialization_parity=parity,
                    cpu=subprocess.run(['lscpu'], capture_output=True, text=True).stdout,
                    policies={p: dict(status=r['record']['status'], requests=r['record']['requests'],
                                      seconds=r['record']['seconds'], initialization=r['record']['initialization'],
                                      attainment=r['attainment'],
-                                     checkpoint_mse=[s['mse'] for s in r['scores'] if s['index'] in CHECKPOINT_SNAPSHOTS])
+                                     checkpoint_mse=[s['mse'] for s in r['scores'] if s['index'] in checkpoint_snapshots])
                              for p, r in results.items()})
     (out/'summary.json').write_text(json.dumps(summary, indent=1)+'\n', encoding='utf-8')
+    return summary
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    for name in ('binary', 'manifest', 'scene-id', 'frame-id', 'references', 'weights', 'output'):
+        parser.add_argument('--'+name, required=True)
+    parser.add_argument('--replicate', type=int, required=True)
+    parser.add_argument('--repeat', type=int, choices=(0, 1, 2), required=True)
+    parser.add_argument('--cap-seconds', type=float, required=True)
+    args = parser.parse_args()
+    import metrics
+    plans = corpus_plans(ROOT, ROOT/'research/tc-r1/corpus/manifest.json')
+    admitted = {p['asset_sha256'] for p in plans['pairs']}
+    scene, digest = frame_entry(args.scene_id, args.frame_id)
+    reference, reference_entry = load_reference(args.references, args.scene_id, args.frame_id)
+    summary = run_unit(args.binary, args.manifest, scene, digest, admitted,
+                       (args.scene_id, args.frame_id, args.replicate), args.repeat, args.cap_seconds, reference,
+                       reference_entry, metrics.Perceptual(args.weights), args.output)
     print(json.dumps({p: v['seconds'] for p, v in summary['policies'].items()}))
 
 
