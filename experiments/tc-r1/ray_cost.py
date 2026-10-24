@@ -23,5 +23,12 @@ def ray_cost(state):
 class RayCostTcPolicy(AmendedTcPolicy):
     """Amended controller or ablation whose cost input is ray_cost, never wall time."""
     def choose(self, states):
-        require(isinstance(states, tuple), 'allocation state interface')
-        return super().choose(tuple(replace(s, estimated_sample_cost=ray_cost(s)) for s in states))
+        require(not self._failed, 'failed policy cannot be reused')
+        try:
+            require(isinstance(states, tuple), 'allocation state interface')
+            substituted = tuple(replace(s, estimated_sample_cost=ray_cost(s)) for s in states)
+        except BaseException:
+            # Preprocessing failures are contained like the parent's: no reuse.
+            self._failed = True
+            raise
+        return super().choose(substituted)

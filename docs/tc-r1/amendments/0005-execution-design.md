@@ -67,8 +67,12 @@ policy-specific time, so the registered design is INCONCLUSIVE by construction.
   stopping, so the protocol's "required live metric evaluation" is empty. A unit
   attains the joint target at the timestamp of the first snapshot meeting it;
   sustained attainment uses later snapshots up to `C`. Nonattainment is censored
-  exactly at `C`, which the existing analysis accepts. Medians of three repeats
-  are then always identifiable.
+  exactly at `C`, which the existing analysis accepts. With censoring only at
+  `C`, the three-repeat median is never interval-censored, so it is always one
+  of two kinds. If at least two repeats attain, it is an observed attainment
+  time. If at most one repeat attains, it stays **right-censored at `C`**: it is
+  never reported as an attainment time and `C` is never substituted for one.
+  `test_execution_design.py` checks every case.
 - **`C` is fixed before outcomes** from a non-primary throughput calibration on
   the selected host, rule: `C = 2 ×` the projected wall time for uniform to
   reach `A_u + 2^26` on the slowest-calibrated fixture class. Calibration uses

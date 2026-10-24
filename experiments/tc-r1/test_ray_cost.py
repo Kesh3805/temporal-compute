@@ -52,5 +52,18 @@ class RayCostTests(unittest.TestCase):
         self.assertEqual(RayCostTcPolicy('equal-cost').choose(states(4, 1)).region, left)
 
 
+class RayCostContainmentTests(unittest.TestCase):
+    def test_preprocessing_failure_marks_policy_failed(self):
+        region = Region(0, 1, 0, 1)
+        broken = RegionState(region, 1, 16, 16, (0.,)*3, (1.,)*3, (.25, 0., 0.), None, 1.0, 3)
+        for bad in ((broken,), [broken]):
+            policy = RayCostTcPolicy('full')
+            with self.assertRaises(ValueError):
+                policy.choose(bad)
+            good = (replace(broken, charged_rays=32),)
+            with self.assertRaisesRegex(ValueError, 'failed policy'):
+                policy.choose(good)
+
+
 if __name__ == '__main__':
     unittest.main()
