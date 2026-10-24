@@ -16,7 +16,15 @@ AMENDMENT_STATUS = 'adopted-pre-outcome-amendment; not active execution configur
 IMIN = 2 * 256 * 256 * 16
 IMAX = IMIN * 17
 JMAX = 2 * 256 * 4 * 17
-POLICY_COUNT = 6
+# Registered policy identities (native-validation paired runner names). No
+# compatible PBRT-native adaptive baseline exists in the admitted path
+# (research/tc-r1/native-baseline-inspection.json), so none is included; an
+# execution manifest that admits one must pass the extended set explicitly.
+REGISTERED_POLICIES = frozenset({'uniform', 'adaptive-mc-ucb-region', 'variance-guided',
+                                 'tc-full', 'tc-equal-cost', 'tc-no-feedback'})
+# SHA-256 of canonical JSON {derivation, rules} (sorted keys, compact separators,
+# UTF-8): any wording change to a rule needs a new versioned amendment.
+RULES_SHA256 = '09a0fd10b4a2fc956bc9bda81331e92fbf6628724f2dd17259ebffafa04661af'
 RULES = {'identical_initialization', 'initialization_bound', 'completion', 'accounting', 'disclosure',
          'analysis_keys', 'unchanged'}
 
@@ -41,6 +49,9 @@ def _check_amendment(contract):
             'superseded proposal binding drift')
     require(type(contract['rules']) is dict and set(contract['rules']) == RULES and
             all(type(v) is str and v for v in contract['rules'].values()), 'amendment rule set drift')
+    canonical = json.dumps(dict(derivation=contract['derivation'], rules=contract['rules']), sort_keys=True,
+                           separators=(',', ':'), ensure_ascii=False).encode('utf-8')
+    require(hashlib.sha256(canonical).hexdigest() == RULES_SHA256, 'amendment rule meaning drift')
     require(contract['checkpoint_kind'] == 'post-initialization increments', 'checkpoint labelling drift')
     increments = contract['post_initialization_increments']
     require(type(increments) is list and tuple(increments) == ORIGINAL and all(type(v) is int for v in increments),
@@ -68,10 +79,11 @@ def validate_amendment(contract, proposal_bytes):
                 host_selected=False, native_validation_performed=False, comparative_execution_authorized=False)
 
 
-def require_identical_initialization(charges_by_policy):
+def require_identical_initialization(charges_by_policy, policies=REGISTERED_POLICIES):
     """Return the unit's policy-independent initialization charge or fail the unit."""
-    require(type(charges_by_policy) is dict and len(charges_by_policy) == POLICY_COUNT and
-            all(type(p) is str and p for p in charges_by_policy), 'exactly six named policies required')
+    require(type(policies) is frozenset and policies >= REGISTERED_POLICIES, 'registered policy set required')
+    require(type(charges_by_policy) is dict and set(charges_by_policy) == policies,
+            'initialization charges must cover exactly the registered policies')
     require(all(type(v) is int for v in charges_by_policy.values()), 'initialization charge must be int')
     if len(set(charges_by_policy.values())) != 1:
         raise InitializationMismatch('policy initialization charges differ; unit is a retained correctness failure')
