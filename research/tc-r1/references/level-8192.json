@@ -1,0 +1,1 @@
+{"level": "tc-r1-references", "spp": 8192, "frames": "all", "binary_run": 40165734171, "previous_runs": [40165734171], "date": "2026-10-25", "note": "fills streams that timed out at the 600 s request default in run 40165734171; same validated binary"}
