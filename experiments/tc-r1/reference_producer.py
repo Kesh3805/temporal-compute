@@ -26,6 +26,10 @@ from progressive_kernel import Region  # noqa: E402
 from reference_pipeline import STREAMS, reference_plan  # noqa: E402
 
 
+# A full-frame 8192-32768 spp DUMP can take well over the 600 s request default.
+RENDER_TIMEOUT_SECONDS = 5*3600
+
+
 def resolution(scene):
     text = Path(scene).read_text(encoding='utf-8')
     x = re.search(r'"integer xresolution"\s*\[\s*(\d+)\s*\]', text)
@@ -45,7 +49,8 @@ def render(binary, manifest, scene, scene_sha256, identity, spp, threads, workdi
     """Full-frame Film estimate over [0, spp) for one registered stream identity."""
     width, height = resolution(scene)
     backend = PersistentPbrtBackend(binary, manifest, scene, scene_sha256, identity, Path(workdir)/'dump',
-                                    threads=threads, admitted_scenes={scene_sha256})
+                                    threads=threads, admitted_scenes={scene_sha256},
+                                    timeout=RENDER_TIMEOUT_SECONDS)
     start = time.perf_counter_ns()
     image, dump_sha256 = backend.dump(Region(0, width, 0, height), 0, spp)
     elapsed = time.perf_counter_ns() - start
