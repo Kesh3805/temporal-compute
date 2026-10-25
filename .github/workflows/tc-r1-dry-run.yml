@@ -39,6 +39,10 @@ jobs:
           python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -r experiments/tc-r1/requirements-metrics.txt
           python experiments/tc-r1/prepare_metric_models.py target/metric-models
+      - name: Install the binary's runtime libraries (same packages as the build job)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
       - name: Integrated dry run
         run: |
           chmod +x target/binary/bin/pbrt-worker

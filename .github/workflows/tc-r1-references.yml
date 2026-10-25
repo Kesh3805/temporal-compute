@@ -103,6 +103,10 @@ jobs:
         with:
           name: tc-r1-validated-binary
           path: out
+      - name: Install the binary's runtime libraries (same packages as the build job)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
       - name: Calibrate common cap C (uniform, non-primary fixture)
         run: |
           python -m pip install numpy==2.4.6
@@ -139,6 +143,10 @@ jobs:
         with:
           name: tc-r1-validated-binary
           path: out
+      - name: Install the binary's runtime libraries (same packages as the build job)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
       - name: Render one reference stream
         shell: bash
         run: |
