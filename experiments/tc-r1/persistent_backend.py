@@ -37,7 +37,8 @@ class PersistentPbrtBackend(PbrtBatchBackend):
         self._lines = queue.Queue()
         self._stderr = []
         threading.Thread(target=self._pump, daemon=True).start()
-        threading.Thread(target=self._drain, daemon=True).start()
+        self._drainer = threading.Thread(target=self._drain, daemon=True)
+        self._drainer.start()
         try:
             self._expect('TCR1W READY')
         except BaseException:
@@ -67,7 +68,10 @@ class PersistentPbrtBackend(PbrtBatchBackend):
             except queue.Empty:
                 raise RuntimeError('native worker timed out') from None
             if line is None:
-                raise RuntimeError('native worker exited: '+''.join(self._stderr)[-2000:])
+                # stdout EOF can precede stderr collection; wait for both before reporting.
+                code = self._proc.wait()
+                self._drainer.join(timeout=10)
+                raise RuntimeError(f'native worker exited with status {code}: '+''.join(self._stderr)[-2000:])
             if line == wanted:
                 return
             require(not line.startswith('TCR1W'), 'unexpected native worker reply')
