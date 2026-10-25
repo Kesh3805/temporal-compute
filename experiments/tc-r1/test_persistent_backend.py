@@ -15,6 +15,13 @@ ROOT = Path(__file__).resolve().parents[2]
 FAKE = textwrap.dedent('''
     import os, sys
     mode = os.environ.get('FAKE_MODE', 'normal')
+    if mode.startswith('startfail'):
+        marker = os.environ['FAKE_MARKER']
+        launches = int(open(marker).read()) if os.path.exists(marker) else 0
+        open(marker, 'w').write(str(launches + 1))
+        if launches < int(mode[-1]):
+            sys.stderr.write('simulated startup crash\\n')
+            sys.exit(7)
     print('TCR1W READY', flush=True)
     count = 0
     for line in sys.stdin:
@@ -142,6 +149,24 @@ class PersistentBackendTests(unittest.TestCase):
         self.manifest.write_text(json.dumps(value))
         with self.assertRaisesRegex(ValueError, 'unqualified worker'):
             self.backend()
+
+    def test_startup_failures_are_recorded_and_bounded(self):
+        import os
+        os.environ['FAKE_MARKER'] = str(self.root/'launches')
+        try:
+            os.environ['FAKE_MODE'] = 'startfail2'
+            backend = self.backend()
+            self.assertEqual(len(backend.startup_failures), 2)
+            self.assertIn('status 7', backend.startup_failures[0]['error'])
+            self.assertIn('simulated startup crash', backend.startup_failures[0]['error'])
+            backend.render(Region(0, 2, 0, 2), 0, 4)
+            backend.close()
+            (self.root/'launches').unlink()
+            os.environ['FAKE_MODE'] = 'startfail3'
+            with self.assertRaisesRegex(RuntimeError, 'status 7'):
+                self.backend('out2')
+        finally:
+            del os.environ['FAKE_MODE'], os.environ['FAKE_MARKER']
 
     def test_dump_returns_exact_float32_region_film(self):
         import numpy as np

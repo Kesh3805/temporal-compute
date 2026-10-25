@@ -51,7 +51,8 @@ def render(binary, manifest, scene, scene_sha256, identity, spp, threads, workdi
     elapsed = time.perf_counter_ns() - start
     backend.close()
     return np.ascontiguousarray(image, dtype='<f8'), dict(seed=backend.seed, elapsed_ns=elapsed,
-                                                          dump_sha256=dump_sha256, command=backend.command)
+                                                          dump_sha256=dump_sha256, command=backend.command,
+                                                          startup_failures=backend.startup_failures)
 
 
 def produce(binary, manifest, scene, scene_id, frame_id, asset_sha256, corpus_sha256, spp, stream, threads, output):

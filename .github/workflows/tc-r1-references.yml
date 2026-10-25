@@ -55,9 +55,11 @@ jobs:
         run: |
           set -euo pipefail
           for v in e3 w; do
-            cmake -S target/pbrt-$v -B target/build-$v -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_FLOAT_AS_DOUBLE=OFF -DPBRT_OPTIX_PATH:PATH= -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 > out/configure-$v.log 2>&1
+            cmake -S target/pbrt-$v -B target/build-$v -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_FLOAT_AS_DOUBLE=OFF -DPBRT_OPTIX_PATH:PATH= -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DPBRT_BUILD_NATIVE_EXECUTABLE=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 > out/configure-$v.log 2>&1
             cmake --build target/build-$v --target pbrt_exe --parallel 4 > out/build-$v.log 2>&1
             grep -q 'PBRT_FLOAT_AS_DOUBLE:BOOL=OFF' target/build-$v/CMakeCache.txt
+            grep -q 'PBRT_BUILD_NATIVE_EXECUTABLE:BOOL=OFF' target/build-$v/CMakeCache.txt
+            ! grep -rq 'march=native' target/build-$v/build.ninja
           done
           mkdir -p out/bin
           cp target/build-w/pbrt out/bin/pbrt-worker
@@ -70,7 +72,7 @@ jobs:
           for name,build in (('e3','out/bin/pbrt-e3'),('worker','out/bin/pbrt-worker')):
               value=json.loads((root/f'{name}-instrumentation.json').read_text())
               value['binary_sha256']=hashlib.sha256(pathlib.Path(build).read_bytes()).hexdigest()
-              value['build_flags']='Release; Ninja; CPU; PBRT_FLOAT_AS_DOUBLE=OFF; PBRT_OPTIX_PATH=; GLFW_BUILD_WAYLAND=OFF; parallel=4'
+              value['build_flags']='Release; Ninja; CPU; PBRT_FLOAT_AS_DOUBLE=OFF; PBRT_OPTIX_PATH=; GLFW_BUILD_WAYLAND=OFF; PBRT_BUILD_NATIVE_EXECUTABLE=OFF (portable x86-64, no -march=native); parallel=4'
               value['dependency_revisions']=(root/'dependencies.txt').read_text()
               value['toolchain']=(root/'toolchain.txt').read_text()
               (root/f'{name}-build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')

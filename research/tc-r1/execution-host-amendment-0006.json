@@ -18,7 +18,8 @@
     "roles": {
       "policy_runs": "worker mode (TC_R1W_WORKER)",
       "references": "worker DUMP request (Film GetPixelRGB, full float precision, no per-sample logs)"
-    }
+    },
+    "portable": "built with PBRT_BUILD_NATIVE_EXECUTABLE=OFF (no -march=native) after run 40164652532: a binary built on EPYC 9V74 died with an illegal instruction before rendering on EPYC 7763 runners; validations run on the portable bytes"
   },
   "host": "GitHub-hosted ubuntu-24.04 standard runners (public repository, free)",
   "job_layout": {

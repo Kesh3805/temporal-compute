@@ -33,6 +33,18 @@ The execution freeze binds this hash. The worker binary serves both roles:
 worker mode for policy runs, and batch mode for references (batch mode is proven
 log-identical to the qualified binary).
 
+**Portable build (revised 2026-10-25, before any reference existed).** PBRT's
+CMake compiles with `-march=native` by default. The binary validated in run
+40164652532 was built on an AMD EPYC 9V74 (Zen 4, AVX-512) and died with an
+illegal instruction, before rendering, on runners with an EPYC 7763 (Zen 3).
+About half the free fleet is the latter. Both binaries are now built with
+`PBRT_BUILD_NATIVE_EXECUTABLE=OFF` (baseline x86-64), and the build job checks
+that no `-march=native` remains. The same-job worker and producer validations
+run on these portable bytes. Baseline x86-64 code also gives identical
+floating-point results on every runner CPU, which the cross-repeat determinism
+check requires. Earlier qualification and validation evidence used native builds
+of the same source and is unchanged.
+
 ## 2. Execution host and job layout
 
 - **One job = one unit × one timing repeat.** A unit is a scene, frame and

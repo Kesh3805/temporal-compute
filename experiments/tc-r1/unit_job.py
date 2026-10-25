@@ -46,6 +46,9 @@ class RetainingBackend(PersistentPbrtBackend):
         super().__init__(*args, **kwargs)
         self.unit, self.policy, self.stream = unit, policy, stream
         self.records, self.audit_directory = records, audit_directory
+        if self.startup_failures:
+            with RECORD_LOCK:
+                self.records.write(json.dumps(dict(stream=stream, startup_failures=self.startup_failures))+'\n')
 
     def render(self, region, begin, end):
         index = self._calls

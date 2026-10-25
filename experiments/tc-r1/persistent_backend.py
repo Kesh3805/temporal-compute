@@ -19,6 +19,7 @@ from pbrt_batch_backend import PbrtBatchBackend, load_batch
 from progressive_kernel import require
 
 WORKER_SOURCE_SHA256 = '2e0902b75de0a87a498e8a7bcd8a08a1edc4b6be6d98521d2a3660f113262c70'   # v2: adds DUMP
+STARTUP_ATTEMPTS = 3
 WORKER_SPP = 1 << 30   # sample-index capacity; the independent sampler allocates nothing per spp
 
 
@@ -32,18 +33,31 @@ class PersistentPbrtBackend(PbrtBatchBackend):
         env = {k: v for k, v in os.environ.items() if not k.startswith('TC_R1')}
         env['TC_R1W_WORKER'] = '1'
         self.command = self._command()
-        self._proc = subprocess.Popen(self.command, env=env, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                      stderr=subprocess.PIPE, text=True, bufsize=1)
-        self._lines = queue.Queue()
-        self._stderr = []
-        threading.Thread(target=self._pump, daemon=True).start()
-        self._drainer = threading.Thread(target=self._drain, daemon=True)
-        self._drainer.start()
-        try:
-            self._expect('TCR1W READY')
-        except BaseException:
-            self._fail()
-            raise
+        # A worker that dies before READY has rendered no sample, so a bounded,
+        # recorded restart leaves no uncertain work. After READY there is no retry.
+        self.startup_failures = []
+        for attempt in range(STARTUP_ATTEMPTS):
+            self._proc = subprocess.Popen(self.command, env=env, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                          stderr=subprocess.PIPE, text=True, bufsize=1)
+            self._lines = queue.Queue()
+            self._stderr = []
+            threading.Thread(target=self._pump, daemon=True).start()
+            self._drainer = threading.Thread(target=self._drain, daemon=True)
+            self._drainer.start()
+            try:
+                self._expect('TCR1W READY')
+                break
+            except RuntimeError as error:
+                if self._proc.poll() is None:
+                    self._proc.kill()
+                    self._proc.wait()
+                self.startup_failures.append(dict(attempt=attempt, error=str(error)[:2000]))
+                if attempt == STARTUP_ATTEMPTS - 1:
+                    self._failed = True
+                    raise
+            except BaseException:
+                self._fail()
+                raise
 
     def _command(self):
         return [str(self.binary), '--nthreads', str(self.threads), '--seed', str(self.seed),
