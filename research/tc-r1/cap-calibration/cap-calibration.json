@@ -1,0 +1,126 @@
+{
+ "schema": "tc-r1-cap-calibration-v1",
+ "fixture_sha256": "b14c3311789fcf9363d46c7173148cb3e14fd6022fe3adf773e92031702dd832",
+ "binary_sha256": "ca84d2ff624ee769f60c511be53fe88997325ed20c15186c8cb67c46c6d869b4",
+ "rows": [
+  {
+   "repeat": 0,
+   "seconds": 789.311395866,
+   "requests": 17041,
+   "initialization": 4301335,
+   "charged_rays": 71411281,
+   "checkpoints": [
+    {
+     "increment": 1048576,
+     "nominal": 5349911,
+     "actual": 5350753,
+     "overshoot": 842,
+     "seconds": 57.331330046
+    },
+    {
+     "increment": 4194304,
+     "nominal": 8495639,
+     "actual": 8497707,
+     "overshoot": 2068,
+     "seconds": 91.73839736600002
+    },
+    {
+     "increment": 16777216,
+     "nominal": 21078551,
+     "actual": 21081490,
+     "overshoot": 2939,
+     "seconds": 231.410172084
+    },
+    {
+     "increment": 67108864,
+     "nominal": 71410199,
+     "actual": 71411281,
+     "overshoot": 1082,
+     "seconds": 789.2323315499999
+    }
+   ],
+   "snapshots": 64
+  },
+  {
+   "repeat": 1,
+   "seconds": 778.857766236,
+   "requests": 17041,
+   "initialization": 4302551,
+   "charged_rays": 71413395,
+   "checkpoints": [
+    {
+     "increment": 1048576,
+     "nominal": 5351127,
+     "actual": 5351610,
+     "overshoot": 483,
+     "seconds": 55.077592889000016
+    },
+    {
+     "increment": 4194304,
+     "nominal": 8496855,
+     "actual": 8499690,
+     "overshoot": 2835,
+     "seconds": 88.42739980600004
+    },
+    {
+     "increment": 16777216,
+     "nominal": 21079767,
+     "actual": 21081287,
+     "overshoot": 1520,
+     "seconds": 224.019281686
+    },
+    {
+     "increment": 67108864,
+     "nominal": 71411415,
+     "actual": 71413395,
+     "overshoot": 1980,
+     "seconds": 778.775173914
+    }
+   ],
+   "snapshots": 64
+  },
+  {
+   "repeat": 2,
+   "seconds": 801.6550272339998,
+   "requests": 17041,
+   "initialization": 4301700,
+   "charged_rays": 71410705,
+   "checkpoints": [
+    {
+     "increment": 1048576,
+     "nominal": 5350276,
+     "actual": 5350650,
+     "overshoot": 374,
+     "seconds": 56.948465926999916
+    },
+    {
+     "increment": 4194304,
+     "nominal": 8496004,
+     "actual": 8498833,
+     "overshoot": 2829,
+     "seconds": 91.69990463099998
+    },
+    {
+     "increment": 16777216,
+     "nominal": 21078916,
+     "actual": 21079019,
+     "overshoot": 103,
+     "seconds": 228.78842789400005
+    },
+    {
+     "increment": 67108864,
+     "nominal": 71410564,
+     "actual": 71410705,
+     "overshoot": 141,
+     "seconds": 801.5570141830001
+    }
+   ],
+   "snapshots": 64
+  }
+ ],
+ "median_seconds": 789.311395866,
+ "cap_seconds": 1620,
+ "rule": "C = 2 x median, rounded up to a minute",
+ "primary_scenes_used": false,
+ "policy_comparison": false
+}
