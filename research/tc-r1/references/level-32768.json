@@ -1,0 +1,1 @@
+{"level": "tc-r1-references", "spp": 32768, "frames": "escalated", "escalate_from": {"run": 40290470226, "spp": 16384}, "binary_run": 40165734171, "previous_runs": [], "date": "2026-10-26", "note": "16384 convergence (run 40290470226): 1 converged, 24 escalate; registered final level"}
