@@ -17,6 +17,9 @@ reviews:
     enabled: true
     auto_incremental_review: true
     drafts: false
+    # Review stacked research PRs too, not only PRs targeting the default branch.
+    base_branches:
+      - '.*'
   finishing_touches:
     autofix:
       enabled: false
