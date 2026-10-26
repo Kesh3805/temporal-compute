@@ -1,0 +1,1 @@
+{"spp": 131072, "escalate_from": {"run": 40318514190, "spp": 65536}, "registered_32768_run": 40300459349, "binary_run": 40165734171, "shard_runs": [40318514190], "date": "2026-10-26", "note": "65536 (run 40318514190): prefix check 24/24 identical; 3 converged, 9 escalate"}
