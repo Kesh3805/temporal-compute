@@ -8,7 +8,13 @@ Never tune scenarios after observing results solely to favor a scheduler. Docume
 # Active research gate
 
 Generation I's incremental-policy thesis is retired pending contrary evidence. Preserve TC-0/TC-S1 code, frozen inputs and complete results; do not start TC-S2, add contacts or tune the old schedulers to rescue TC-S1.
-Generation II studies adaptive progressive computation. TC-R1 is a protocol registration, not an implemented renderer or an executable-corpus freeze. Read `docs/tc-r1/preregistration.md` before related work. No comparative TC-R1 outcomes until assets, algorithms, baselines, references, metrics, analysis and hardware are bound by the separate execution preregistration. No post-outcome tuning.
+Generation II studies adaptive progressive computation. TC-R1 (path tracing) is preregistered in `docs/tc-r1/preregistration.md` and amended before outcomes by `docs/tc-r1/amendments/0001`–`0007`; read them, and `docs/tc-r1/research-plan.md` for the current phase, before related work. The experiment pipeline is implemented (PBRT-v4 CPU, persistent worker, free GitHub-hosted runners) and is being executed from the `research/tc-r1-execution-runner` line of branches.
+
+- No comparative TC-R1 outcome before the execution freeze: `research/tc-r1/execution-freeze.json` built by `experiments/tc-r1/execution_freeze.py` and tagged `tc-r1-execution-preregistered`. Execution jobs must run `execution_freeze.py verify`; never edit a bound file after the tag. A defect in a bound file after the tag needs a new, disclosed freeze, not a silent fix.
+- Execute-once workflows trigger only on the first introduction of a marker JSON; a re-run needs a new, disclosed marker and is allowed only for infrastructure defects before any scientific output, never to select a result.
+- Files whose bytes are bound by retained evidence (native-validation contract inputs, offline-gate results, the freeze) must not be edited; add a new module instead and disclose post-result changes in the result document.
+- Reference effort follows the registered escalation plus amendment 0007 (up to 2^21 spp); convergence thresholds never change. Report PASS, FAIL or INCONCLUSIVE exactly; no post-outcome tuning.
+- Research ownership: on 2026-10-25 the maintainer handed TC-R1 decisions to the coding agent under these rules. Merging still requires the maintainer's explicit authorization.
 
 # Pull Request Review Protocol
 
@@ -25,6 +31,8 @@ Classify substantive findings as valid must-fix, worthwhile improvement, out of 
 Fix all justified in-scope findings as one coherent batch, validate, commit with a behavior-focused message, push once, then wait for CI and incremental review again. Prior approval does not cover new commits. Maximum **three substantive automated remediation rounds**; waiting/status refreshes/replies are not rounds. If findings persist, stop automated patching and report remaining issues, suspected root cause and required human decision. Avoid review-driven scope creep.
 
 After the limit, further code changes require explicit maintainer authorization naming the permitted scope. A scoped continuation does not reset the automatic round counter or authorize unrelated cleanup.
+
+Stacked PRs: `.coderabbit.yaml` reviews every base branch, so a stacked PR is reviewed like one targeting main. If a current-head review is still skipped, rate limited or summary-only, report it as a blocker; with the maintainer's explicit merge authorization, a documented manual inspection may stand in for it. Merge stacks bottom-up with merge commits and retarget the next PR to main; never delete a branch that later work is based on.
 
 Poll at 30–60 seconds with bounded retries. Investigate unavailable review before one appropriate manual `@coderabbitai review`; do not spam. Request `@coderabbitai full review` only when incremental coverage is fragmented or no longer represents the final diff. Pause/resume only for a justified large fix batch, never to evade review. Never report readiness while paused.
 
