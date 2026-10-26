@@ -23,13 +23,17 @@ SOURCES = (
     'baselines.py', 'amended_policies.py', 'tc_controller.py', 'ray_cost.py', 'execution_runner.py', 'unit_job.py',
     'metrics.py', 'prepare_metric_models.py', 'requirements-metrics.txt', 'reference_pipeline.py',
     'reference_producer.py', 'reference_metrics.py', 'reference_convergence.py', 'reference_set.py',
-    'analysis.py', 'analysis_adapter.py', 'checkpoint_amendment.py', 'integration_budget.py', 'execution_freeze.py')
+    'analysis.py', 'analysis_adapter.py', 'checkpoint_amendment.py', 'integration_budget.py', 'execution_freeze.py',
+    'reference_job.py', 'reference_validation.py', 'reference_shards.py', 'reference_convergence_extended.py',
+    'check_shard_prefix.py', 'cap_calibration.py', 'worker_validation.py')
 DOCUMENTS = (
     'docs/tc-r1/preregistration.md', 'docs/tc-r1/amendments/0001-comparator-selection.md',
     'docs/tc-r1/amendments/0002-initialization-aware-checkpoints.md',
     'docs/tc-r1/amendments/0003-actual-initialization-checkpoints.md',
     'docs/tc-r1/amendments/0004-comparator-competence.md', 'docs/tc-r1/amendments/0005-execution-design.md',
-    'docs/tc-r1/amendments/0006-free-host-execution.md', 'research/tc-r1/protocol.json',
+    'docs/tc-r1/amendments/0006-free-host-execution.md', 'docs/tc-r1/amendments/0007-extended-references.md',
+    'research/tc-r1/reference-amendment-0007.json', 'research/tc-r1/cap-calibration/cap-calibration.json',
+    'research/tc-r1/worker-validation/contract-v2.json', 'research/tc-r1/protocol.json',
     'research/tc-r1/integration/checkpoint-amendment-0003.json', 'research/tc-r1/comparator-amendment-0004.json',
     'research/tc-r1/execution-design-amendment-0005.json', 'research/tc-r1/execution-host-amendment-0006.json',
     'research/tc-r1/worker-validation/contract.json', 'research/tc-r1/corpus/manifest.json',
