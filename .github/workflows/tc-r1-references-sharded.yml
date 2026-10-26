@@ -34,6 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$GITHUB_RUN_ATTEMPT" = 1
+          python -m pip install numpy==2.4.6
           marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/references/sharded-*.json' | head -1)
           test -n "$marker"
           test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
