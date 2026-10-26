@@ -34,6 +34,20 @@ class ReferenceSetTests(unittest.TestCase):
             self.assertEqual(done['converged']['specular-01/f0']['spp'], 16384)
             self.assertEqual(done['converged']['uniform-01/f0']['a'], 'uniform-01-f0-reference-a-8192.npy')
 
+    def test_extended_levels_continue_a_registered_halt(self):
+        with tempfile.TemporaryDirectory() as root:
+            self.write(root, 8192, [record(s, f, 8192, 'converged' if s != 'specular-01' else 'escalate')
+                                    for s, f in FRAMES])
+            self.write(root, 16384, [record('specular-01', f, 16384, 'escalate') for f in ('f0', 'f1', 'f2')])
+            self.write(root, 32768, [record('specular-01', f, 32768, 'halt') for f in ('f0', 'f1', 'f2')])
+            self.assertEqual(reference_set.build(root)['halted'], ['specular-01/f0', 'specular-01/f1', 'specular-01/f2'])
+            ext = [record('specular-01', f, 65536, 'converged' if f == 'f0' else 'escalate') for f in ('f0', 'f1', 'f2')]
+            (Path(root)/'convergence-65536.json').write_text(json.dumps(dict(spp=65536, extended=True, records=ext)))
+            value = reference_set.build(root)
+            self.assertEqual((value['halted'], value['pending'], value['complete']),
+                             ([], ['specular-01/f1', 'specular-01/f2'], False))
+            self.assertEqual(value['converged']['specular-01/f0']['spp'], 65536)
+
     def test_work_after_terminal_rejected(self):
         with tempfile.TemporaryDirectory() as root:
             self.write(root, 8192, [record('uniform-01', 'f0', 8192, 'converged')])

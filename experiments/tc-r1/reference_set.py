@@ -14,12 +14,15 @@ def build(directory):
     reports = sorted(directory.glob('convergence-*.json'), key=lambda p: int(p.stem.split('-')[1]))
     if not reports:
         raise ValueError('no convergence reports')
-    converged, halted, pending = {}, [], set()
+    converged, halted, pending, halted_at = {}, [], set(), {}
     for path in reports:
         report = json.loads(path.read_text(encoding='utf-8'))
         for record in report['records']:
             plan = record['plan']
             key = f"{plan['scene_id']}/{plan['frame_id']}"
+            if key in halted and halted_at[key] == 32768 and report.get('extended') and plan['spp'] > 32768:
+                # Amendment 0007: a halt at the registered 32768 level continues at extended levels.
+                halted.remove(key)
             if key in converged or key in halted:
                 raise ValueError(f'work after a terminal decision: {key}')
             stem = f"{plan['scene_id']}-{plan['frame_id']}"
@@ -30,6 +33,7 @@ def build(directory):
                 pending.discard(key)
             elif record['decision'] == 'halt':
                 halted.append(key)
+                halted_at[key] = plan['spp']
                 pending.discard(key)
             else:
                 pending.add(key)
