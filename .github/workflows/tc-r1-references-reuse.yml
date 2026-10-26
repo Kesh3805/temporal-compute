@@ -36,6 +36,10 @@ jobs:
           marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/references/level-*.json' | head -1)
           test -n "$marker"
           test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
+          if python -c "import json,sys; sys.exit(0 if 'escalate_from' in json.load(open('$marker')) else 1)"; then
+            src=$(python -c "import json; m=json.load(open('$marker')); print(m['escalate_from']['run'])")
+            gh run download "$src" -R "$GITHUB_REPOSITORY" -n tc-r1-references-converged -D prior
+          fi
           python - "$marker" <<'PY' >> "$GITHUB_OUTPUT"
           import json, subprocess, sys
           sys.path.insert(0, 'experiments/tc-r1')
@@ -43,6 +47,11 @@ jobs:
           from reference_pipeline import corpus_plans
           marker = json.load(open(sys.argv[1]))
           plans = corpus_plans(Path('.'), Path('research/tc-r1/corpus/manifest.json'))['pairs']
+          if 'escalate_from' in marker:
+              prior = json.load(open(f"prior/convergence-{marker['escalate_from']['spp']}.json"))
+              escalate = sorted(prior['decisions']['escalate'])
+              assert escalate, 'nothing to escalate'
+              marker['frames'] = ','.join(escalate)
           wanted = None if marker['frames'] == 'all' else set(marker['frames'].split(','))
           have = set()
           for run in marker.get('previous_runs', []):
