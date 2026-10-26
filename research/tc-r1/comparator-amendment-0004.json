@@ -1,0 +1,72 @@
+{
+  "schema": "tc-r1-comparator-amendment-v1",
+  "status": "adopted pre-outcome amendment with symmetry option A; EFFECTIVE after tc-r1-offline-gate-v2 PASS (GO) on 2026-10-12",
+  "date": "2026-10-12",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "amends": "research/tc-r1/baseline-contract.json (preserved unchanged)",
+  "motivating_evidence": "docs/tc-r1/offline-gate-result.md; identifies properties to examine, not parameter values",
+  "independence": "each change is justified by a stated property or published bound; constants are the registered value or bound-derived; validation uses fresh seeds and unchanged criteria",
+  "changes": {
+    "mc_ucb_scale_equivariance": {
+      "index": "(sqrt(V) + 2*beta*S/sqrt(n))/n",
+      "beta": 1.0,
+      "beta_units": "dimensionless",
+      "S": "sqrt(median over regions of the registered RGB-mean within-pixel variance scalar V), from allocation observations at completion of common 16-spp initialization; frozen for the unit",
+      "S_zero": "fall back to least samples_per_pixel with geometry ties",
+      "property": "scaling all observations by c>0 scales every index by c and leaves decisions unchanged"
+    },
+    "defensive_floor": {
+      "applies_to": [
+        "adaptive-mc-ucb-region",
+        "variance-guided",
+        "tc-full",
+        "tc-equal-cost",
+        "tc-no-feedback"
+      ],
+      "alpha": 0.5,
+      "rule": "after initialization, if any region has samples_per_pixel < alpha * mean over regions of samples_per_pixel, request 4 spp for the least-covered such region (geometry ties); otherwise use the method's index",
+      "bound": "each region's variance <= (1/alpha) x its uniform-allocation variance at equal total, up to one 4-spp batch; alpha from the bound, not fitted",
+      "controller_rule": "floor decisions bypass controller ranking, are recorded with reason defensive-floor, do not advance the controller exploration counter, and update no-feedback expected counts; amends controller-contract.json (preserved unchanged)"
+    }
+  },
+  "decision_item": {
+    "symmetry": {
+      "A_recommended": "apply the identical defensive floor to the controller and both ablations as shared coverage; amends controller-contract.json before outcomes",
+      "B": "conventional methods only; controller contract unchanged",
+      "adopted": "A"
+    }
+  },
+  "validation": {
+    "contract": "tc-r1-offline-gate-v2, committed before running",
+    "unchanged": [
+      "simulator",
+      "fields",
+      "radiance_scales",
+      "horizons_mean_spp",
+      "efficiency metric",
+      "criteria C1-C4"
+    ],
+    "seeds": [
+      3,
+      4,
+      5
+    ],
+    "seed_derivation": "first 8 big-endian bytes of SHA-256('tc-r1-offline-gate-v2|field|seed')",
+    "executions": 1,
+    "on_pass": "amendment effective for the execution freeze",
+    "on_fail": "stop; record no competent strong conventional baseline under this design; maintainer decision; no further parameter round against the same criteria",
+    "result": "research/tc-r1/offline-gate/result-v2.json"
+  },
+  "out_of_scope": [
+    "controller cost predictor",
+    "controller recent-improvement term",
+    "host",
+    "stopping/censoring/time cap",
+    "references",
+    "execution freeze"
+  ],
+  "synthetic_conventional_efficiency_observed": "yes: offline gate v1, seeds 0-2; the reason validation uses fresh seeds",
+  "controller_quality_observed": false,
+  "primary_outcomes_observed": false,
+  "implementation": "experiments/tc-r1/amended_policies.py; baselines.py and tc_controller.py stay byte-identical because native-validation/contract.json binds them"
+}

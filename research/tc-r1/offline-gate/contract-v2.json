@@ -1,0 +1,25 @@
+{
+  "schema": "tc-r1-offline-gate-v2",
+  "status": "frozen before implementation or results; validates adopted amendment 0004 (option A)",
+  "inherits": "research/tc-r1/offline-gate/contract.json (tc-r1-offline-gate-v1); every field not overridden here is unchanged",
+  "amendment": "research/tc-r1/comparator-amendment-0004.json",
+  "overrides": {
+    "seeds": [3, 4, 5],
+    "seed_derivation": "first 8 big-endian bytes of SHA-256('tc-r1-offline-gate-v2|field|seed'); scale does not enter the seed",
+    "policies_under_test": {
+      "amended_conventional": ["amended-adaptive-mc-ucb-region", "amended-variance-guided"],
+      "unchanged_conventional": ["uniform"],
+      "reported_only": ["adaptive-mc-ucb-region", "variance-guided"],
+      "amended_controller": ["amended-full", "amended-equal-cost", "amended-no-feedback"],
+      "source": "experiments/tc-r1/amended_policies.py wrapping unchanged baselines.py/tc_controller.py; hashes recorded in the result"
+    },
+    "identifiability": "as v1, with the amended controller and ablations shadowing the amended variance-guided trajectory; decisions where the shadow takes the defensive floor count as agreement only if the region matches"
+  },
+  "competence": "criteria C1-C4 exactly as v1, applied to the amended methods; original methods reported alongside, not gating",
+  "verdict": {
+    "amendment_effective": "true only if amended MC-UCB is COMPETENT",
+    "gate_verdict": "v1 rule with amended policies: GO if amended MC-UCB COMPETENT and amended controller DISTINCT; AMEND-BASELINE-FAILED if controller DISTINCT and amended MC-UCB not COMPETENT; STOP-RETHINK if amended controller COLLAPSED",
+    "on_fail": "per amendment 0004: stop, record no competent strong conventional baseline under this design, return to maintainer; no further parameter round against these criteria"
+  },
+  "limits": "one execution after this contract is committed; pure Python/NumPy; no PBRT, rendering, primary scene, reference or controller image-quality score; no parameter change in response to results"
+}
