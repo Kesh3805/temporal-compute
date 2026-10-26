@@ -47,3 +47,14 @@ jobs:
           name: tc-r1-references-converged
           path: bundle
           retention-days: 90
+      - name: Publish the reference set alone
+        run: |
+          mkdir -p set
+          cp bundle/reference-set.json set/
+          sha256sum set/reference-set.json
+          cat set/reference-set.json | python -c "import json,sys; v=json.load(sys.stdin); print(json.dumps(dict(converged=len(v['converged']), halted=v['halted'], complete=v['complete'])))"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tc-r1-reference-set
+          path: set
+          retention-days: 90
