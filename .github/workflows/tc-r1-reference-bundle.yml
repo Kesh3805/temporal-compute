@@ -1,0 +1,60 @@
+name: TC-R1 reference bundle
+on:
+  push:
+    branches: [research/tc-r1-execution-runner]
+    paths: ['research/tc-r1/references/bundle-*.json']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bundle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Read the bundle marker
+        id: marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/references/bundle-*.json' | head -1)
+          test -n "$marker"
+          echo "runs=$(python -c "import json; print(' '.join(map(str, json.load(open('$marker'))['runs'])))")" >> "$GITHUB_OUTPUT"
+      - name: Download converged references from every level run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bundle
+          for run in ${{ steps.marker.outputs.runs }}; do
+            gh run download "$run" -R "$GITHUB_REPOSITORY" -n tc-r1-references-converged -D "level-$run"
+            cp -n level-$run/* bundle/
+          done
+          ls bundle | wc -l
+      - name: Bind the reference set (must be complete)
+        run: |
+          python experiments/tc-r1/reference_set.py bundle
+          python -c "import json,sys; v=json.load(open('bundle/reference-set.json')); sys.exit(0 if v['complete'] else 1)"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tc-r1-references-converged
+          path: bundle
+          retention-days: 90
+      - name: Publish the reference set alone
+        run: |
+          mkdir -p set
+          cp bundle/reference-set.json set/
+          sha256sum set/reference-set.json
+          cat set/reference-set.json | python -c "import json,sys; v=json.load(sys.stdin); print(json.dumps(dict(converged=len(v['converged']), halted=v['halted'], complete=v['complete'])))"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tc-r1-reference-set
+          path: set
+          retention-days: 90

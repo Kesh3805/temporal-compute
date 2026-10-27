@@ -1,0 +1,251 @@
+{
+  "schema": "tc-r1-worker-validation-v2",
+  "status": "frozen before the v2 worker build or run; validates the worker layer with the DUMP request (amendment 0006 references)",
+  "authority": "research/tc-r1/execution-design-amendment-0005.json (dispatch, adopted)",
+  "pbrt_commit": "b4ce9687e6c695f5582997c61b0c66cf064bdb4a",
+  "qualified_e3_source_sha256": "ace0c1f22909415c049f4e3632befa3c3d73a78117f5bc0c2e4042b7e9aba10d",
+  "worker_source_sha256": "2e0902b75de0a87a498e8a7bcd8a08a1edc4b6be6d98521d2a3660f113262c70",
+  "fixtures": {
+    "diffuse.pbrt": "901b529e415bd7dbda57985218ac11147f097cf3c5f25687541107b47997f431",
+    "environment.pbrt": "9aea49d180766d2b864699d5b7d932415d50cb7199eff26d3e160d97e50ce124",
+    "surface-paths.pbrt": "1b60e415e5296b236d5463c9037b26a09336fca7344e79f7fee1bf815b42c303",
+    "throughput-256.pbrt": "b14c3311789fcf9363d46c7173148cb3e14fd6022fe3adf773e92031702dd832"
+  },
+  "fixture_paths": {
+    "diffuse.pbrt": "research/tc-r1/native-validation/fixtures/diffuse.pbrt",
+    "environment.pbrt": "research/tc-r1/native-validation/fixtures/environment.pbrt",
+    "surface-paths.pbrt": "research/tc-r1/native-validation/fixtures/surface-paths.pbrt",
+    "throughput-256.pbrt": "research/tc-r1/local-measurement/fixtures/throughput-256.pbrt"
+  },
+  "requests": {
+    "small": [
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        0,
+        4
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        4,
+        8
+      ],
+      [
+        [
+          0,
+          8,
+          0,
+          8
+        ],
+        8,
+        12
+      ],
+      [
+        [
+          0,
+          8,
+          0,
+          8
+        ],
+        12,
+        16
+      ],
+      [
+        [
+          8,
+          16,
+          8,
+          16
+        ],
+        12,
+        16
+      ],
+      [
+        [
+          8,
+          16,
+          8,
+          16
+        ],
+        0,
+        4
+      ],
+      [
+        [
+          3,
+          8,
+          2,
+          9
+        ],
+        0,
+        1
+      ],
+      [
+        [
+          3,
+          8,
+          2,
+          9
+        ],
+        1,
+        5
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        16,
+        80
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        3,
+        4
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        8,
+        12
+      ]
+    ],
+    "big": [
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        0,
+        4
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        4,
+        8
+      ],
+      [
+        [
+          240,
+          256,
+          240,
+          256
+        ],
+        0,
+        16
+      ],
+      [
+        [
+          128,
+          144,
+          96,
+          112
+        ],
+        8,
+        12
+      ],
+      [
+        [
+          128,
+          144,
+          96,
+          112
+        ],
+        0,
+        8
+      ],
+      [
+        [
+          0,
+          256,
+          120,
+          121
+        ],
+        0,
+        4
+      ],
+      [
+        [
+          17,
+          40,
+          200,
+          230
+        ],
+        4,
+        20
+      ],
+      [
+        [
+          0,
+          16,
+          0,
+          16
+        ],
+        8,
+        12
+      ]
+    ]
+  },
+  "equivalence": "For every request in order, the worker (TC_R1W_WORKER, one persistent process per fixture and thread count) and the qualified e3 binary (one process per request) must write byte-identical sample, event and Film log lines, compared as sorted line multisets, and both must pass the unchanged load_batch validation. Worker threads 1 and 2; qualified per-process threads 1.",
+  "batch_mode_identity": "the worker binary without TC_R1W_WORKER must write byte-identical logs to the qualified binary on every small-fixture request",
+  "kernel_run": {
+    "fixture": "surface-paths.pbrt",
+    "partition": "four 8x8 quadrants",
+    "policy": "amended variance-guided",
+    "decisions": 24,
+    "check": "every chosen request, every observed RegionState field except estimated_sample_cost (measured wall time, which differs between any two runs and is ignored by variance-guided ranking), every trace charge and sample range, and the final image identical between ProgressiveKernel+qualified bridge and CachedProgressiveKernel+worker"
+  },
+  "failure": {
+    "check": "killing the worker process between requests makes the next request fail as unknown work and the backend refuse reuse"
+  },
+  "timing": {
+    "fixture": "throughput-256.pbrt",
+    "requests": 64,
+    "report": "seconds per 4-spp 16x16 request for qualified bridge+ProgressiveKernel vs worker+CachedProgressiveKernel; informational, not a gate"
+  },
+  "verdict": "PASS only if every equivalence, batch-mode identity, dump equivalence, kernel-run and failure check passes; any mismatch is FAIL",
+  "limits": {
+    "job_timeout_minutes": 60,
+    "executions": 1,
+    "harness_defect_rule": "at most one re-run under execute-2.json with identical contract if the harness crashes before writing a report; disclosed"
+  },
+  "excluded": [
+    "primary corpus scenes",
+    "references",
+    "policy comparison",
+    "image-quality metrics"
+  ],
+  "supersedes": {
+    "contract": "research/tc-r1/worker-validation/contract.json",
+    "result": "research/tc-r1/worker-validation/result/report.json",
+    "reason": "reference producer validation (run 40125241618) showed PBRT RGB film image output is half-precision; the worker gains a DUMP request that writes the Film GetPixelRGB at full float precision without per-sample logs; logged-request code is unchanged"
+  },
+  "dump_equivalence": "for every request of every fixture, a fresh worker DUMP of the same region and range must equal, exactly as float32, the final Film row of each pixel written by the logged worker request (worker threads 1 and 2)"
+}

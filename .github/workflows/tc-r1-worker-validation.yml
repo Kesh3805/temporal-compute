@@ -1,0 +1,85 @@
+name: TC-R1 persistent worker validation
+on:
+  push:
+    branches: [research/tc-r1-persistent-worker]
+    paths: ['research/tc-r1/worker-validation/execute*.json']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Refuse any attempt but the first introduction of this marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/worker-validation/execute*.json' | head -1)
+          test -n "$marker"
+          test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
+          echo "marker=$marker"
+      - name: Offline tests
+        run: |
+          python -m unittest discover -s experiments/tc-r1 -p 'test_persistent_backend.py'
+          python -m unittest discover -s experiments/tc-r1 -p 'test_cached_kernel.py'
+      - name: Retain runner identity
+        run: |
+          mkdir -p results/local/tc-r1-worker-validation
+          lscpu > results/local/tc-r1-worker-validation/cpu.txt
+          free -b > results/local/tc-r1-worker-validation/memory.txt
+          cmake --version > results/local/tc-r1-worker-validation/toolchain.txt
+          c++ --version >> results/local/tc-r1-worker-validation/toolchain.txt
+      - name: Install upstream CPU build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Fetch pinned substrate twice
+        run: |
+          git clone https://github.com/mmp/pbrt-v4.git target/pbrt-e3
+          git -C target/pbrt-e3 checkout b4ce9687e6c695f5582997c61b0c66cf064bdb4a
+          git -C target/pbrt-e3 submodule update --init --recursive
+          git -C target/pbrt-e3 submodule status --recursive > results/local/tc-r1-worker-validation/dependencies.txt
+          cp -a target/pbrt-e3 target/pbrt-w
+      - name: Instrument qualified and worker sources
+        run: |
+          python experiments/tc-r1/e3_instrument.py --source target/pbrt-e3 --manifest results/local/tc-r1-worker-validation/e3-instrumentation.json
+          python experiments/tc-r1/worker_instrument.py --source target/pbrt-w --manifest results/local/tc-r1-worker-validation/worker-instrumentation.json
+      - name: Build both CPU kernels
+        shell: bash
+        run: |
+          set -euo pipefail
+          for v in e3 w; do
+            cmake -S target/pbrt-$v -B target/build-$v -G Ninja -DCMAKE_BUILD_TYPE=Release -DPBRT_FLOAT_AS_DOUBLE=OFF -DPBRT_OPTIX_PATH:PATH= -DPBRT_BUILD_GPU_RENDERER=OFF -DGLFW_BUILD_WAYLAND=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 > results/local/tc-r1-worker-validation/configure-$v.log 2>&1
+            cmake --build target/build-$v --target pbrt_exe --parallel 4 > results/local/tc-r1-worker-validation/build-$v.log 2>&1
+            grep -q 'PBRT_FLOAT_AS_DOUBLE:BOOL=OFF' target/build-$v/CMakeCache.txt
+          done
+      - name: Bind build provenance
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('results/local/tc-r1-worker-validation')
+          for name,build in (('e3','target/build-e3/pbrt'),('worker','target/build-w/pbrt')):
+              value=json.loads((root/f'{name}-instrumentation.json').read_text())
+              value['binary_sha256']=hashlib.sha256(pathlib.Path(build).read_bytes()).hexdigest()
+              value['build_flags']='Release; Ninja; CPU; PBRT_FLOAT_AS_DOUBLE=OFF; PBRT_OPTIX_PATH=; GLFW_BUILD_WAYLAND=OFF; parallel=4'
+              value['dependency_revisions']=(root/'dependencies.txt').read_text()
+              value['toolchain']=(root/'toolchain.txt').read_text()
+              (root/f'{name}-build-manifest.json').write_text(json.dumps(value,indent=2)+'\n')
+          PY
+      - name: Equivalence, kernel, failure and timing checks
+        timeout-minutes: 30
+        run: python experiments/tc-r1/worker_validation.py --e3 target/build-e3/pbrt --e3-manifest results/local/tc-r1-worker-validation/e3-build-manifest.json --worker target/build-w/pbrt --worker-manifest results/local/tc-r1-worker-validation/worker-build-manifest.json --output results/local/tc-r1-worker-validation/report.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tc-r1-worker-validation
+          path: results/local/tc-r1-worker-validation
+          retention-days: 30

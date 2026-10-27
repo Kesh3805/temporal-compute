@@ -1,0 +1,101 @@
+name: TC-R1 comparative execution (one timing repeat per run)
+on:
+  push:
+    branches: [research/tc-r1-execution]
+    paths: ['research/tc-r1/execution/execute-repeat-*.json']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  guard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      repeat: ${{ steps.plan.outputs.repeat }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+      binary_run: ${{ steps.plan.outputs.binary_run }}
+      reference_run: ${{ steps.plan.outputs.reference_run }}
+      cap: ${{ steps.plan.outputs.cap }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Refuse any attempt but the first introduction of this marker, at the execution tag
+        id: plan
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          git merge-base --is-ancestor "$(git rev-parse 'tc-r1-execution-preregistered^{commit}')" HEAD
+          marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/execution/execute-repeat-*.json' | head -1)
+          test -n "$marker"
+          test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
+          python - "$marker" <<'PY' >> "$GITHUB_OUTPUT"
+          import json, sys
+          marker = json.load(open(sys.argv[1]))
+          freeze = json.load(open('research/tc-r1/execution-freeze.json'))
+          manifest = json.load(open('research/tc-r1/corpus/manifest.json'))
+          units = [dict(scene=s['scene_id'], frame=f['frame_id'], replicate=r)
+                   for s in manifest['scenes'] for f in s['frames'] for r in range(8)]
+          assert marker['repeat'] in (0, 1, 2) and len(units) == 240
+          print(f"repeat={marker['repeat']}")
+          print('matrix=' + json.dumps(dict(include=units)))
+          print(f"binary_run={freeze['binary']['artifact_run']}")
+          print(f"reference_run={freeze['reference_set']['artifact_run']}")
+          print(f"cap={freeze['cap_seconds']}")
+          PY
+
+  unit:
+    needs: guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.guard.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tc-r1-validated-binary
+          path: target/binary
+          run-id: ${{ needs.guard.outputs.binary_run }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tc-r1-references-converged
+          path: research/tc-r1/references
+          run-id: ${{ needs.guard.outputs.reference_run }}
+          github-token: ${{ github.token }}
+      - name: Install pinned metric stack and models
+        run: |
+          python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r experiments/tc-r1/requirements-metrics.txt
+          python experiments/tc-r1/prepare_metric_models.py target/metric-models
+      - name: Install the binary's runtime libraries (same packages as the build job)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Verify the execution freeze and frozen binary before any work
+        run: |
+          chmod +x target/binary/bin/pbrt-worker
+          python experiments/tc-r1/execution_freeze.py verify --binary target/binary/bin/pbrt-worker
+      - name: Run six policies for this unit and repeat
+        run: |
+          python experiments/tc-r1/unit_job.py --binary target/binary/bin/pbrt-worker --manifest target/binary/worker-build-manifest.json --scene-id ${{ matrix.scene }} --frame-id ${{ matrix.frame }} --replicate ${{ matrix.replicate }} --repeat ${{ needs.guard.outputs.repeat }} --cap-seconds ${{ needs.guard.outputs.cap }} --references research/tc-r1/references/reference-set.json --weights target/metric-models --output target/unit
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tc-r1-unit-${{ matrix.scene }}-${{ matrix.frame }}-${{ matrix.replicate }}-r${{ needs.guard.outputs.repeat }}
+          path: target/unit
+          retention-days: 90
