@@ -17,6 +17,7 @@ import numpy as np
 
 R = 16  # region side
 BATCH, INIT, ALPHA = 4, 16, 0.5
+DTYPE = np.float64  # sample storage; E2 switches to float32 to fit 16384 spp in memory
 
 
 def make_image(rng, H=128, W=128, family="caustic", k=1, cost_sd=0.52, fixed_p=None):
@@ -94,7 +95,7 @@ class Frame:
         if self.p[r].max() > 0:
             u = self.rng.random((n, self.nblocks))[:, self.block]  # one draw per footprint block
             y = y + self.M[r] * (u < self.p[r])
-        self.chunks[r].append(y)
+        self.chunks[r].append(y.astype(DTYPE, copy=False))
         self.s1[r] += y.sum(0)
         self.s2[r] += (y * y).sum(0)
         self.n[r] += n

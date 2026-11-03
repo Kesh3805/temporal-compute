@@ -50,6 +50,29 @@ filter was 10–80× worse, which confirms the testbed makes spatial smoothing p
    larger (e.g. p = 1e-3: 19.0% vs 15.2%). D1 (testbed must punish smoothing) and D3 (unbiased route gives
    nothing without a sampler change) held.
 
+## E2 — high-budget stability ([prereg-e2.md](prereg-e2.md); raw: results/e2_*.npz, e2_score.txt)
+
+64×64 frames, checkpoints 1024 / 4096 / 16384, 24 new paired units per family; B1, fixed 10× clamp and mean only.
+
+| Family | B1 vs mean (1024 / 4096 / 16384) | one-sided 95% worst case | D1 | B1 vs fixed clamp |
+|---|---|---|---|---|
+| diffuse | +0.2% / 0.0% / 0.0% | +0.03% | pass | +0.3% (CI −0.5..+1.2) |
+| p = 1e-2 | −0.3% / 0.0% / 0.0% | −0.2% | pass | **+59%** (45..69) |
+| p = 1e-3 | +4.1% / **−5.5% / −12.0%** | −6.5% | **FAIL** | **+35%** (28..41) |
+| mixed | +9.0% / +2.7% / −5.4% | +0.6% | pass | **+49%** (32..62) |
+
+- **D1 stability: REJECTED.** B1 is not non-inferior to the sample mean at high budgets: in the p = 1e-3 regime it
+  loses 12% at 16384 spp, where ~16 spikes per pixel are expected and the n^¼ threshold still clips real energy.
+  Gemini's "strictly non-inferior / zero-regret" reading is refuted; ChatGPT's caution was right.
+- **D2 adaptive-threshold advantage: SURVIVES.** Pooled over 96 units B1 beats the fixed clamp by 39%
+  (95% CI 31–46%); the fixed clamp's bias accumulates and it is 62–79% worse than B1 at 16384 in every spike family.
+
+**Closing statement for TC-IA2.** Robust per-pixel estimation gives a real finite-budget gain (13–18%, worst
+region ~50%) when spikes are rare and localized; a growing, cross-fitted threshold is far safer than a fixed
+clamp; but no tested estimator is free at high budgets — each eventually trades bias for variance badly once
+n·p reaches a few. A handoff rule (switch to the mean when the estimated n·p passes ~1) is the obvious next idea;
+it was **not tested** here and is not claimed. The study is closed as preregistered.
+
 ## Relevance to Temporal Compute (no TC-R1 outcome used)
 
 The estimator, not the allocator, is where a ≥ 10% gain is available in heavy-tailed rendering, but only as a

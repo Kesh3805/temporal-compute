@@ -15,7 +15,7 @@ def _hw(fr):
 
 
 def est_mean(fr):
-    return from_regions(np.stack([s.mean(0) for s in fr.samples]), *_hw(fr))
+    return from_regions(np.stack([s.mean(0, dtype=np.float64) for s in fr.samples]), *_hw(fr))
 
 
 def est_mon(fr, K=8):
@@ -32,7 +32,7 @@ def est_clamp(fr, tau=10.0):
     out = []
     for s in fr.samples:
         t = tau * np.median(s, 0)
-        out.append(np.minimum(s, t).mean(0))
+        out.append(np.minimum(s, t).mean(0, dtype=np.float64))
     return from_regions(np.stack(out), *_hw(fr))
 
 
@@ -54,7 +54,7 @@ def est_b1(fr):
     for s in fr.samples:
         n = len(s)
         if n < 32:
-            out.append(s.mean(0))
+            out.append(s.mean(0, dtype=np.float64))
             continue
         halves = (s[0::2], s[1::2])
         thr = []
@@ -62,7 +62,8 @@ def est_b1(fr):
             med = np.median(h, 0)
             mad = np.median(np.abs(h - med), 0)
             thr.append(8.0 * np.maximum(np.maximum(med, 1.4826 * mad), 1e-12) * (n / 32.0) ** 0.25)
-        clipped = np.minimum(halves[0], thr[1]).sum(0) + np.minimum(halves[1], thr[0]).sum(0)
+        clipped = (np.minimum(halves[0], thr[1]).sum(0, dtype=np.float64)
+                   + np.minimum(halves[1], thr[0]).sum(0, dtype=np.float64))
         out.append(clipped / n)
     return from_regions(np.stack(out), *_hw(fr))
 
