@@ -1,0 +1,19 @@
+k=8 (footprint 8x8, 4 spike draws/sample/region) P=256 cost_sd=0.52
+[caustic] reference = plug-in cost-aware
+  uniform        effect -0.797 (95% CI log ±0.112)  by checkpoint -0.757 -0.809 -0.795 -0.826
+  variance       effect -0.035 (95% CI log ±0.021)  by checkpoint -0.056 -0.035 -0.045 -0.003
+  mcucb          effect -0.067 (95% CI log ±0.032)  by checkpoint -0.081 -0.084 -0.076 -0.028
+  costaware      effect +0.000 (95% CI log ±0.000)  by checkpoint +0.000 +0.000 +0.000 +0.000
+  robust_myopic  effect -0.187 (95% CI log ±0.079)  by checkpoint -0.114 -0.162 -0.264 -0.215
+  skeptical      effect +0.006 (95% CI log ±0.022)  by checkpoint +0.009 +0.019 -0.019 +0.014
+  oracle_greedy  effect -0.052 (95% CI log ±0.042)  by checkpoint -0.138 -0.056 -0.026 +0.006
+  oracle_static  effect -0.117 (95% CI log ±0.029)  by checkpoint -0.228 -0.125 -0.096 -0.029
+[mixed] reference = plug-in cost-aware
+  uniform        effect -1.105 (95% CI log ±0.125)  by checkpoint -1.085 -1.113 -1.121 -1.102
+  variance       effect -0.022 (95% CI log ±0.042)  by checkpoint +0.028 -0.023 -0.045 -0.050
+  mcucb          effect -0.037 (95% CI log ±0.043)  by checkpoint -0.033 -0.047 -0.034 -0.035
+  costaware      effect +0.000 (95% CI log ±0.000)  by checkpoint +0.000 +0.000 +0.000 +0.000
+  robust_myopic  effect -0.416 (95% CI log ±0.120)  by checkpoint -0.480 -0.477 -0.400 -0.315
+  skeptical      effect -0.015 (95% CI log ±0.048)  by checkpoint +0.058 -0.061 -0.012 -0.051
+  oracle_greedy  effect -0.263 (95% CI log ±0.067)  by checkpoint -0.360 -0.305 -0.209 -0.188
+  oracle_static  effect -0.237 (95% CI log ±0.051)  by checkpoint -0.345 -0.289 -0.190 -0.134
