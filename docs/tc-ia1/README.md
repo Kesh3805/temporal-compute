@@ -62,8 +62,9 @@ controller-specific estimator changes, so this is a separate study by constructi
 ## Limitations
 
 Synthetic lognormal + Bernoulli-spike model, iid across samples; 64 regions; 12 scenes × 2 seeds per cell;
-ray-matched only (controller time not charged); no rendering. The 4-px/region sweep was still running when this
-was written.
+ray-matched only (controller time not charged); no rendering. The 4-px/region sweep (results/sweep_P4_*.txt)
+finished after the first commit and agrees: no policy beats plug-in cost-aware; true-variance oracles lose
+8–35% in the caustic and mixed families.
 
 ## Reproduce
 
