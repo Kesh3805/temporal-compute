@@ -65,8 +65,8 @@ independent reference, and would have to report bias explicitly.
 ## Limitations
 
 Synthetic, single channel, 128×128, 24 paired units per family, ray-matched only (estimators are O(n) per pixel;
-overhead not charged), allocation fixed and driven by sample-mean statistics. Round C interpretations were
-requested but the browser stopped responding; see round-c.md if added later.
+overhead not charged), allocation fixed and driven by sample-mean statistics. Round C interpretations: [round-c.md](round-c.md).
+Both models accept the scoped result; ChatGPT proposes one high-budget non-inferiority test (E2) before closing.
 
 ## Reproduce
 
