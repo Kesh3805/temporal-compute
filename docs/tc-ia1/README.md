@@ -50,6 +50,18 @@ and does not predict one.
 6. **Gemini's Skeptical Neyman** (leverage-damped variance): +0.1% to +1.7% (caustic), −2.3% to +0.2% (mixed),
    CIs include zero everywhere. **Median-of-means robust variance**: up to −42% (discards rare spikes entirely).
 
+## Correction (2026-11-03, found during TC-IA2)
+
+TC-R1's scenes use `Sampler "independent"` and `PixelFilter "box"` radius 0.5, so every sample lands in one
+pixel and pixel errors are **independent across pixels**. E1's k×k footprints (one random draw shared by many
+pixels) model a cross-pixel error correlation this renderer does not produce. Therefore:
+- Findings 1–3, 5 and 6 stand: they rest on the independent-pixel runs (k = 1 and the P sweeps).
+- Finding 4's footprint numbers (oracle −5% to −37%) do **not** transfer to TC-R1's configuration; they apply
+  only to correlated samplers, wider reconstruction filters or path reuse. The independent-pixel part of
+  finding 4 still holds where λ = n·P·p ≪ 1 (P = 16: −3% caustic, −15% mixed; P = 4: −8% to −29%); at TC-R1's
+  P = 256 the oracle wins by +1–3%, so the effect is confined to spikes rarer than ~1/(n·256).
+The kill decision does not change: K1 and K2 also hold at k = 1.
+
 ## Next scientific question (both models converged independently)
 
 Move from *where to sample* to *what the estimator does with the samples*:
