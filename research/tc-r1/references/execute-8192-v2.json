@@ -1,0 +1,1 @@
+{"execute": "tc-r1-references", "spp": 8192, "frames": "all", "date": "2026-10-25", "attempt_note": "first marker execute-8192.json stopped at producer validation (half-precision film image); this run uses worker DUMP under worker-validation contract v2"}

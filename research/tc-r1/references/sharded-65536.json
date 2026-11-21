@@ -1,0 +1,1 @@
+{"spp": 65536, "escalate_from": {"run": 40300459349, "spp": 32768}, "registered_32768_run": 40300459349, "binary_run": 40165734171, "shard_runs": [], "date": "2026-10-26", "note": "32768 convergence (run 40300459349): 12 converged, 12 halt; amendment 0007 extension"}

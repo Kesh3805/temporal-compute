@@ -1,0 +1,58 @@
+name: TC-R1 integrated dry run (non-primary fixture)
+on:
+  push:
+    branches: [research/tc-r1-execution-runner]
+    paths: ['research/tc-r1/dry-run/execute-*.json']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  dry-run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Refuse any attempt but the first introduction of this marker
+        id: guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/dry-run/execute-*.json' | head -1)
+          test -n "$marker"
+          test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
+          echo "binary_run=$(python -c "import json; print(json.load(open('$marker'))['binary_run'])")" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tc-r1-validated-binary
+          path: target/binary
+          run-id: ${{ steps.guard.outputs.binary_run }}
+          github-token: ${{ github.token }}
+      - name: Install pinned metric stack and models
+        run: |
+          python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r experiments/tc-r1/requirements-metrics.txt
+          python experiments/tc-r1/prepare_metric_models.py target/metric-models
+      - name: Install the binary's runtime libraries (same packages as the build job)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Integrated dry run
+        run: |
+          chmod +x target/binary/bin/pbrt-worker
+          lscpu > lscpu.txt
+          python experiments/tc-r1/dry_run.py --binary target/binary/bin/pbrt-worker --manifest target/binary/worker-build-manifest.json --weights target/metric-models --output target/dry-run
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tc-r1-dry-run
+          path: |
+            target/dry-run
+            lscpu.txt
+          retention-days: 90

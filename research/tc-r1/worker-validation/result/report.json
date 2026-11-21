@@ -1,0 +1,112 @@
+{
+ "schema": "tc-r1-worker-validation-report-v1",
+ "verdict": "PASS",
+ "contract_sha256": "3e997160bcccf84360cf05f9bc6af2a1ca9a1815fc5136716daaee3a21da2509",
+ "e3_binary_sha256": "713ec162aa308e1c27c3480e616c3da62a1e4660704cd2523ab2fc704766205a",
+ "worker_binary_sha256": "e7fa3fedd5440bf8b63f716d933a6d9c5ad1ce27da254ce51b3cfaa09190eb69",
+ "source_sha256": {
+  "worker_validation.py": "242c5e9e42d06c3cf7970a56eac2dd5cf881fb445a28ab7ffcb6dc4b89980380",
+  "worker_instrument.py": "487cf9e62a72918fd14c1958dedcb31aa3b87dd559a5a78751e8a84ac45925cb",
+  "persistent_backend.py": "e48ec165c1ee1741be5268710d57ee6673be039d8c224bbd120e77f8f77ff739",
+  "cached_kernel.py": "30d7ae2eaa6859628f9cfeb9d79e8de5456c7031dc18452a77e9399dbbf81b81",
+  "pbrt_batch_backend.py": "d788e5cedae192588b9f7c8c38eb5b491d89f19f6a700baf28d0a9c99b4bd7a6",
+  "progressive_kernel.py": "6a228826ed30dcbd193d5c75af2606cea517899c8a5e95731d128be6de8a6a8d"
+ },
+ "checks": {
+  "equivalence": [
+   {
+    "fixture": "diffuse.pbrt",
+    "threads": 1,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "diffuse.pbrt",
+    "threads": 2,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "diffuse.pbrt",
+    "mode": "worker-binary-batch-mode",
+    "requests": 11,
+    "mismatches": []
+   },
+   {
+    "fixture": "environment.pbrt",
+    "threads": 1,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "environment.pbrt",
+    "threads": 2,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "environment.pbrt",
+    "mode": "worker-binary-batch-mode",
+    "requests": 11,
+    "mismatches": []
+   },
+   {
+    "fixture": "surface-paths.pbrt",
+    "threads": 1,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "surface-paths.pbrt",
+    "threads": 2,
+    "requests": 11,
+    "sample_lines": 20911,
+    "mismatches": []
+   },
+   {
+    "fixture": "surface-paths.pbrt",
+    "mode": "worker-binary-batch-mode",
+    "requests": 11,
+    "mismatches": []
+   },
+   {
+    "fixture": "throughput-256.pbrt",
+    "threads": 1,
+    "requests": 8,
+    "sample_lines": 22304,
+    "mismatches": []
+   },
+   {
+    "fixture": "throughput-256.pbrt",
+    "threads": 2,
+    "requests": 8,
+    "sample_lines": 22304,
+    "mismatches": []
+   }
+  ],
+  "kernel_run": {
+   "decisions": 24,
+   "problems": []
+  },
+  "failure": {
+   "outcomes": [
+    "BrokenPipeError: [Errno 32] Broken pipe",
+    "ValueError: backend failed; uncertain work cannot be retried"
+   ],
+   "passed": true
+  }
+ },
+ "timing": {
+  "qualified": 0.3994005143906243,
+  "worker": 0.03291438221875076,
+  "speedup": 12.134528660941802
+ },
+ "primary_scenes_used": false,
+ "references_produced": false,
+ "policy_comparison": false
+}

@@ -1,0 +1,1 @@
+{"spp": 524288, "escalate_from": {"run": 40373274868, "spp": 262144}, "registered_32768_run": 40300459349, "binary_run": 40165734171, "shard_runs": [40318514190, 40351342356, 40373274868], "date": "2026-10-27", "note": "driver: 262144 decisions {'converged': 0, 'escalate': 6, 'halt': 0}"}

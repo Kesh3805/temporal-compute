@@ -1,0 +1,176 @@
+name: TC-R1 sharded extended references
+on:
+  push:
+    branches: [research/tc-r1-execution-runner]
+    paths: ['research/tc-r1/references/sharded-*.json']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      any: ${{ steps.plan.outputs.any }}
+      complete_after: ${{ steps.plan.outputs.complete_after }}
+      spp: ${{ steps.plan.outputs.spp }}
+      frames: ${{ steps.plan.outputs.frames }}
+      binary_run: ${{ steps.plan.outputs.binary_run }}
+      shard_runs: ${{ steps.plan.outputs.shard_runs }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Shards still missing for this level
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          python -m pip install numpy==2.4.6
+          marker=$(git diff-tree --no-commit-id --name-only -r HEAD -- 'research/tc-r1/references/sharded-*.json' | head -1)
+          test -n "$marker"
+          test -z "$(git rev-list --full-history 'HEAD^@' -- "$marker")"
+          src=$(python -c "import json; m=json.load(open('$marker')); print(m['escalate_from']['run'])")
+          gh run download "$src" -R "$GITHUB_REPOSITORY" -n tc-r1-references-converged -D prior
+          python - "$marker" <<'PY' >> "$GITHUB_OUTPUT"
+          import json, subprocess, sys
+          sys.path.insert(0, 'experiments/tc-r1')
+          from pathlib import Path
+          from reference_pipeline import corpus_plans
+          from reference_shards import shard_ranges
+          marker = json.load(open(sys.argv[1]))
+          prior = json.load(open(f"prior/convergence-{marker['escalate_from']['spp']}.json"))
+          frames = sorted(set(prior['decisions']['escalate']) | set(prior['decisions']['halt']))
+          assert frames, 'nothing to extend'
+          plans = corpus_plans(Path('.'), Path('research/tc-r1/corpus/manifest.json'))['pairs']
+          index = {f"{p['scene_id']}/{p['frame_id']}": i for i, p in enumerate(plans)}
+          have = set()
+          for run in marker.get('shard_runs', []):
+              have |= set(subprocess.check_output(['gh', 'api', '--paginate',
+                  f'repos/Kesh3805/temporal-compute/actions/runs/{run}/artifacts', '--jq', '.artifacts[].name'],
+                  text=True).split())
+          need = [dict(index=index[f], stream=s, begin=b, end=e) for f in frames
+                  for s in ('reference-a', 'reference-b') for b, e in shard_ranges(marker['spp'])
+                  if f'tc-r1-shard-{index[f]}-{s}-{b}' not in have]
+          batch = need[:250]
+          print('matrix=' + json.dumps(dict(include=batch or [dict(index=-1, stream='none', begin=0, end=0)])))
+          print(f"any={'true' if batch else 'false'}")
+          print(f"complete_after={'true' if len(need) <= 250 else 'false'}")
+          print(f"spp={marker['spp']}")
+          print(f"frames={','.join(frames)}")
+          print(f"binary_run={marker['binary_run']}")
+          print(f"shard_runs={' '.join(map(str, marker.get('shard_runs', [])))}")
+          print(f'frames {len(frames)}, missing shards {len(need)}, this run {len(batch)}', file=sys.stderr)
+          PY
+
+  shards:
+    needs: plan
+    if: needs.plan.outputs.any == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: tc-r1-validated-binary
+          path: out
+          run-id: ${{ needs.plan.outputs.binary_run }}
+          github-token: ${{ github.token }}
+      - name: Runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      - name: Render one shard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install numpy==2.4.6
+          chmod +x out/bin/pbrt-worker
+          read scene frame path digest < <(python - <<'PY'
+          import json, sys
+          sys.path.insert(0, 'experiments/tc-r1')
+          from pathlib import Path
+          from reference_pipeline import corpus_plans
+          p = corpus_plans(Path('.'), Path('research/tc-r1/corpus/manifest.json'))['pairs'][${{ matrix.index }}]
+          m = json.load(open('research/tc-r1/corpus/manifest.json'))
+          path = next(f['path'] for s in m['scenes'] if s['scene_id'] == p['scene_id'] for f in s['frames'] if f['frame_id'] == p['frame_id'])
+          print(p['scene_id'], p['frame_id'], path, p['asset_sha256'])
+          PY
+          )
+          mkdir -p shard
+          lscpu > shard/cpu.txt
+          python experiments/tc-r1/reference_shards.py shard --binary out/bin/pbrt-worker --manifest out/worker-build-manifest.json --scene "$path" --scene-sha256 "$digest" --scene-id "$scene" --frame-id "$frame" --stream ${{ matrix.stream }} --begin ${{ matrix.begin }} --end ${{ matrix.end }} --output "shard/$scene-$frame-${{ matrix.stream }}-${{ matrix.begin }}.npy"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tc-r1-shard-${{ matrix.index }}-${{ matrix.stream }}-${{ matrix.begin }}
+          path: shard
+          retention-days: 90
+
+  converge:
+    needs: [plan, shards]
+    if: always() && needs.plan.result == 'success' && needs.shards.result != 'failure' && needs.plan.outputs.complete_after == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Gather all shards for these frames
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p shards
+          for run in ${{ needs.plan.outputs.shard_runs }} ${{ github.run_id }}; do
+            for name in $(gh api --paginate repos/$GITHUB_REPOSITORY/actions/runs/$run/artifacts --jq '.artifacts[].name' | grep '^tc-r1-shard-' || true); do
+              gh run download "$run" -R "$GITHUB_REPOSITORY" -n "$name" -D "dl/$name"
+              rm -f dl/$name/cpu.txt
+              cp -n dl/$name/* shards/
+            done
+          done
+          ls shards/*.npy | wc -l
+      - name: Install pinned CPU metric dependencies and models
+        run: |
+          python -m pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r experiments/tc-r1/requirements-metrics.txt
+          python experiments/tc-r1/prepare_metric_models.py target/metric-models
+      - name: Shard prefix equals the registered 32768-spp images
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          marker=$(git -C . log -1 --name-only --format= -- 'research/tc-r1/references/sharded-*.json' | head -1)
+          reg=$(python -c "import json; print(json.load(open('$marker'))['registered_32768_run'])")
+          gh run download "$reg" -R "$GITHUB_REPOSITORY" -n tc-r1-references-converged -D registered
+          mkdir -p refs
+          python experiments/tc-r1/check_shard_prefix.py --shards shards --registered registered --output refs/shard-prefix-check.json
+      - name: Extended convergence decisions
+        run: python experiments/tc-r1/reference_convergence_extended.py --shards shards --frames "${{ needs.plan.outputs.frames }}" --spp ${{ needs.plan.outputs.spp }} --weights target/metric-models --output refs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tc-r1-references-converged
+          path: refs
+          retention-days: 90

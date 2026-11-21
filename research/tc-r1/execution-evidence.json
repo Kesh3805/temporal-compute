@@ -1,0 +1,11 @@
+{
+ "reference_set": "research/tc-r1/references/reference-set.json",
+ "reference_run": 41768771953,
+ "binary_sha256": "ca84d2ff624ee769f60c511be53fe88997325ed20c15186c8cb67c46c6d869b4",
+ "binary_run": 40165734171,
+ "worker_validation_verdict": "PASS",
+ "reference_validation_verdict": "PASS",
+ "cap_seconds": 1620,
+ "cap_calibration_sha256": "8f5926cd22a72bebec153d2dd66fa1c994ae1f7297adf3f40d9b08f6c8a5534b",
+ "halted_frames": []
+}

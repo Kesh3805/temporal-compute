@@ -1,0 +1,1 @@
+{"execute": "tc-r1-references", "spp": 8192, "frames": "all", "date": "2026-10-25", "attempt_note": "run 40164652532 cancelled: -march=native binary crashed on EPYC 7763 runners; portable build; identical plan"}

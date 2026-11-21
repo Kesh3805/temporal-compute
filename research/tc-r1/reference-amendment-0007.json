@@ -1,0 +1,14 @@
+{
+  "schema": "tc-r1-reference-amendment-v1",
+  "status": "adopted 2026-10-26 by the research owner under maintainer handoff, before any comparative outcome and before any 16384 or 32768 convergence result",
+  "protocol_commit": "99ad341775ed3e60bd262134783eeb2244700e76",
+  "applies_to": "frames whose registered 32768-spp decision is halt",
+  "levels": [65536, 131072, 262144, 524288, 1048576, 2097152],
+  "ceiling_spp": 2097152,
+  "thresholds_unchanged": {"relative_mse_max_directional": 0.0001, "ssim_min": 0.995, "lpips_max": 0.01},
+  "rendering": "worker DUMP over [begin,end) shards of 32768 spp with the registered identity/seed and the validated portable binary (run 40165734171); count-weighted combination; lower-level shards reused",
+  "validation": "shard [0,32768) equals the registered 32768-spp image within the frozen E2 tolerance (check_shard_prefix.py); MSE re-verified independently",
+  "halt_rule": "failure at the ceiling halts the scene and the PASS gate as originally registered",
+  "implementation": ["experiments/tc-r1/reference_shards.py", "experiments/tc-r1/reference_convergence_extended.py", "experiments/tc-r1/check_shard_prefix.py", "experiments/tc-r1/reference_set.py", ".github/workflows/tc-r1-references-sharded.yml"],
+  "comparative_outcomes_observed": false
+}
