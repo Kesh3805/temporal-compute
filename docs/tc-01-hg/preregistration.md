@@ -86,3 +86,13 @@ G1 fails. That is an acceptable outcome.
 AIME-class problems only, with high hopeless rates. That favours the claim, so a PASS here must be replicated on an
 easier benchmark before any general statement. All models sample at temperature 0.6. This is a single dataset.
 Abandonment counts as wrong, but real deployments may value abstention differently.
+
+## Amendment A1 (2026-11-21, before any real data was inspected)
+A synthetic smoke test (`experiments/tc-01-hg/audit.py` on generated data) showed the O_abandon frontier can top
+out below A\*. Abandoning SC@80-wrong units also discards the units where a policy got the right answer by stopping
+early, so H would be undefined. Rule: H is evaluated at **A' = min(A\*, maximum accuracy on the O_abandon
+frontier)**, with the B frontier evaluated at the same A'. Both A\* and A' are reported. R_4 and S_0 are unchanged.
+They are still compared against B's tokens at A' and report their accuracy change against A'. The analysis
+environment is pinned in `experiments/tc-01-hg/requirements.txt`, an isolated venv, because the global numpy 2.5 is
+incompatible with scipy, pandas and sklearn. No real rollout data had been read when this was written: the
+column-only fetch was still running and its files were not opened.
