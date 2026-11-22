@@ -111,3 +111,12 @@ No script, threshold, grid or pair changes after step 1. Defects found later are
   (O_stat − O_dyn) does not measure that. The pair stays in as specified, because it tests the gate as adopted, not a
   version tailored to it.
 - Character-length cost, one model per file, and 128 questions per file. With six pairs, Spearman is coarse.
+
+## Amendment A1 (pre-data, 2026-11-22)
+
+Found on synthetic data before any held-out data was read. In the P5 stream the calibration prefix holds a single
+category, so all static estimates tie and no λ sends 30% of prefix queries to strong (B collapses to all-cheap).
+Both routers' estimates now get a seeded tie-breaking jitter of 1e-9 · U(0,1) (seed 20261123), applied identically
+to the static and online routers. Nothing else changes. Implementation clarification recorded in `common.py`:
+oracle λ search uses bisection over a fixed 401-point λ grid with linear interpolation, so bootstrap resamples use
+the same oracle as the point estimate.
