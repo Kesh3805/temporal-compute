@@ -1,0 +1,9 @@
+k=1 P=256 cost_sd=0.52
+[caustic]
+  costaware     effect +0.000 (95% CI log ±0.000)
+  oracle_floor  effect -0.001 (95% CI log ±0.012)
+  oracle_cond   effect +0.006 (95% CI log ±0.013)
+[mixed]
+  costaware     effect +0.000 (95% CI log ±0.000)
+  oracle_floor  effect -0.021 (95% CI log ±0.014)
+  oracle_cond   effect +0.003 (95% CI log ±0.014)

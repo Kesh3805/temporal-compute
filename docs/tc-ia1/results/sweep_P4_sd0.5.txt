@@ -1,0 +1,34 @@
+cost_sd=0.5 P=4 scenes=12 seeds=2
+[diffuse] strongest baseline=costaware
+  uniform        effect -0.589 (±0.072 log)  by checkpoint -0.676 -0.560 -0.597 -0.528
+  variance       effect -0.020 (±0.041 log)  by checkpoint -0.027 -0.021 -0.011 -0.022
+  mcucb          effect -0.021 (±0.052 log)  by checkpoint -0.046 -0.014 -0.006 -0.018
+  costaware      effect +0.000 (±0.000 log)  by checkpoint +0.000 +0.000 +0.000 +0.000
+  robust_myopic  effect -0.006 (±0.039 log)  by checkpoint -0.020 +0.002 +0.006 -0.015
+  skeptical      effect +0.019 (±0.042 log)  by checkpoint -0.024 +0.007 +0.061 +0.029
+  oracle_greedy  effect +0.030 (±0.041 log)  by checkpoint -0.047 +0.069 +0.055 +0.040
+  oracle_floor   effect -0.006 (±0.039 log)  by checkpoint -0.048 -0.002 +0.007 +0.017
+  oracle_cond    effect +0.135 (±0.052 log)  by checkpoint +0.180 +0.181 +0.077 +0.098
+  oracle_static  effect -0.012 (±0.030 log)  by checkpoint -0.100 -0.004 +0.016 +0.034
+[caustic] strongest baseline=costaware
+  uniform        effect -0.730 (±0.063 log)  by checkpoint -0.826 -0.723 -0.686 -0.687
+  variance       effect -0.007 (±0.043 log)  by checkpoint -0.006 -0.036 -0.022 +0.034
+  mcucb          effect -0.019 (±0.049 log)  by checkpoint -0.085 -0.029 +0.008 +0.027
+  costaware      effect +0.000 (±0.000 log)  by checkpoint +0.000 +0.000 +0.000 +0.000
+  robust_myopic  effect -0.070 (±0.059 log)  by checkpoint -0.153 -0.042 -0.076 -0.014
+  skeptical      effect +0.025 (±0.052 log)  by checkpoint -0.074 +0.019 +0.074 +0.074
+  oracle_greedy  effect -0.077 (±0.043 log)  by checkpoint -0.233 -0.101 -0.026 +0.032
+  oracle_floor   effect -0.129 (±0.067 log)  by checkpoint -0.235 -0.166 -0.100 -0.026
+  oracle_cond    effect +0.095 (±0.044 log)  by checkpoint +0.097 +0.111 +0.110 +0.062
+  oracle_static  effect -0.079 (±0.034 log)  by checkpoint -0.220 -0.099 -0.042 +0.029
+[mixed] strongest baseline=costaware
+  uniform        effect -1.247 (±0.133 log)  by checkpoint -1.452 -1.461 -0.997 -1.115
+  variance       effect -0.074 (±0.064 log)  by checkpoint -0.046 -0.059 -0.076 -0.119
+  mcucb          effect -0.088 (±0.073 log)  by checkpoint -0.087 -0.060 -0.094 -0.113
+  costaware      effect +0.000 (±0.000 log)  by checkpoint +0.000 +0.000 +0.000 +0.000
+  robust_myopic  effect -0.370 (±0.123 log)  by checkpoint -0.387 -0.409 -0.339 -0.347
+  skeptical      effect -0.043 (±0.066 log)  by checkpoint -0.085 -0.024 -0.010 -0.054
+  oracle_greedy  effect -0.275 (±0.098 log)  by checkpoint -0.465 -0.275 -0.225 -0.154
+  oracle_floor   effect -0.349 (±0.094 log)  by checkpoint -0.465 -0.422 -0.337 -0.188
+  oracle_cond    effect -0.039 (±0.097 log)  by checkpoint +0.009 -0.028 -0.116 -0.023
+  oracle_static  effect -0.293 (±0.053 log)  by checkpoint -0.492 -0.299 -0.228 -0.176

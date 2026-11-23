@@ -1,0 +1,27 @@
+
+[diffuse] cost_sd=1.0 scenes=12 strongest baseline=costaware
+policy                32       64      128      256   effect_vs_best(log) effect_vs_best(meanMSE)
+uniform         3.90e-02 1.97e-02 9.84e-03 4.93e-03     -0.742              -0.702
+variance        2.75e-02 1.25e-02 6.26e-03 3.10e-03     -0.133              -0.142
+mcucb           2.80e-02 1.28e-02 6.31e-03 3.19e-03     -0.156              -0.165
+costaware       2.38e-02 1.11e-02 5.55e-03 2.75e-03     +0.000              +0.000
+oracle_greedy   2.41e-02 1.02e-02 5.02e-03 2.47e-03     +0.068              +0.033
+oracle_static   2.43e-02 1.00e-02 4.91e-03 2.45e-03     +0.077              +0.035
+
+[caustic] cost_sd=1.0 scenes=12 strongest baseline=costaware
+policy                32       64      128      256   effect_vs_best(log) effect_vs_best(meanMSE)
+uniform         5.87e-02 2.95e-02 1.47e-02 7.25e-03     -0.994              -1.116
+variance        3.68e-02 1.60e-02 8.06e-03 4.08e-03     -0.135              -0.137
+mcucb           3.64e-02 1.63e-02 8.06e-03 4.07e-03     -0.136              -0.142
+costaware       3.15e-02 1.41e-02 7.32e-03 3.58e-03     +0.000              +0.000
+oracle_greedy   3.55e-02 1.31e-02 6.20e-03 3.07e-03     +0.068              -0.077
+oracle_static   3.38e-02 1.28e-02 6.18e-03 3.08e-03     +0.084              +0.050
+
+[mixed] cost_sd=1.0 scenes=12 strongest baseline=costaware
+policy                32       64      128      256   effect_vs_best(log) effect_vs_best(meanMSE)
+uniform         8.61e-02 4.35e-02 2.14e-02 1.01e-02     -1.100              -2.275
+variance        4.93e-02 2.23e-02 1.11e-02 5.75e-03     -0.139              -0.182
+mcucb           4.97e-02 2.28e-02 1.13e-02 5.67e-03     -0.148              -0.164
+costaware       4.19e-02 1.98e-02 9.92e-03 5.05e-03     +0.000              +0.000
+oracle_greedy   4.54e-02 1.81e-02 8.79e-03 4.42e-03     +0.064              +0.014
+oracle_static   4.54e-02 1.82e-02 8.85e-03 4.41e-03     +0.062              +0.023
