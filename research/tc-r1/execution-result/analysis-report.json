@@ -1,0 +1,15 @@
+{
+ "schema": "tc-r1-analysis-v1",
+ "classification": "INCONCLUSIVE",
+ "error": "missing quality units; failed units cannot be dropped",
+ "prerequisites": {
+  "references": true,
+  "estimator": false,
+  "baselines": true,
+  "provenance": true,
+  "accounting": true,
+  "execution_complete": false
+ },
+ "adapter_problems": [],
+ "jobs": 717
+}
