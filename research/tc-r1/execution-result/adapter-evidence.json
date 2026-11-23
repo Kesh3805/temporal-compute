@@ -1,0 +1,12 @@
+{
+ "references": true,
+ "estimator": false,
+ "baselines": true,
+ "provenance": true,
+ "basis": {
+  "references": "execution-evidence.json reference_validation_verdict PASS; reference set sha256 b763eaa1 bound by the execution freeze",
+  "estimator": "unit adaptive-02/f1/4 raised 'ValueError: native Film estimator mismatch' in all three repeats (jobs 136793603400, 136793717660, 136793751991)",
+  "baselines": "uniform, adaptive-mc-ucb-region and variance-guided ran as frozen at tag tc-r1-execution-preregistered",
+  "provenance": "717/717 job summaries report binary_sha256 ca84d2ff624e..., cap 1620 s, initialization parity identical; each job ran execution_freeze verify (83 files)"
+ }
+}
